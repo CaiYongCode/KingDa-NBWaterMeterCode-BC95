@@ -1,0 +1,5 @@
+
+<Project Header="Project 'project'" Path=".\project.rprj" Project="Yes" OutputFile="" sate="98" ActiveApp="stm8l1526-eval" AsyncBuild="" >
+	<ApplicationBuild Header="stm8l1526-eval" Extern=".\stm8l1526-eval.rapp" Path=".\stm8l1526-eval.rapp" AsyncBuild="" OutputFile=".\Debug\stm8l1526-eval.aof" sate="0" />
+	<ApplicationBuild Header="stm8l1528-eval" Extern=".\stm8l1528-eval.rapp" Path=".\stm8l1528-eval.rapp" AsyncBuild="" OutputFile=".\Debug\stm8l1528-eval.aof" sate="64" />
+</Project>

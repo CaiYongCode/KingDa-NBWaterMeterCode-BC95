@@ -1,0 +1,103 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[InterruptLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+SumSortOrder=0
+[DataLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+[Breakpoints2]
+Count=0
+[Interrupts]
+Enabled=1
+[MemoryMap]
+Enabled=0
+Base=0
+UseAuto=0
+TypeViolation=1
+UnspecRange=1
+ActionState=1
+[Trace1]
+Enabled=0
+ShowSource=1
+[Simulator]
+Freq=16000000
+[DebugChecksum]
+Checksum=1207309269
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[struct_types]
+Fmt0=RTC_DateTypeDef-RTC_Date	4	0
+Fmt1=RTC_DateTypeDef-RTC_Year	4	0
+Fmt2=RTC_TimeTypeDef-RTC_Hours	4	0
+Fmt3=RTC_TimeTypeDef-RTC_Minutes	4	0
+Fmt4=RTC_TimeTypeDef-RTC_Seconds	4	0
+Fmt5=union flow_union-flow32	4	0
+[array_types]
+Fmt0=unsigned char[28]	4	0
+Fmt1=unsigned char[4]	4	0
+Fmt2=unsigned long[7]	4	0
+[watch_formats]
+Fmt0={W}1:i	4	0
+Fmt1={W}42:RTC_Data	2	0
+Fmt2={W}42:Read_Card_Count	4	0
+Fmt3={W}42:recard_mun	4	0
+Fmt4={W}42:run_state	4	0
+[DataSample]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Breakpoints]
+Bp0=_ "STD_CODE" "{}.514.9" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{}.601.3" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{}.46.7" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{}.515.9" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{}.499.9" 0 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{}.61.3" 0 0 0 0 "" 0 ""
+Bp6=_ "STD_CODE" "{}.270.12" 0 0 0 0 "" 0 ""
+Bp7=_ "STD_CODE" "{}.251.3" 0 0 0 0 "" 0 ""
+Bp8=_ "STD_CODE" "{}.122.5" 0 0 0 0 "" 0 ""
+Bp9=_ "STD_CODE" "{}.231.7" 0 0 0 0 "" 0 ""
+Bp10=_ "STD_CODE" "{}.139.9" 0 0 0 0 "" 0 ""
+Bp11=_ "STD_CODE" "{}.256.7" 0 0 0 0 "" 0 ""
+Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.47.3" 1 0 0 0 "" 0 ""
+Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.615.5" 1 0 0 0 "" 0 ""
+Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.64.3" 1 0 0 0 "" 0 ""
+Count=15
+[Aliases]
+A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""
+A1=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\CJT-188-2004.c" ""
+A2=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\Save.c" ""
+A3=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\main.c" ""
+A4=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\rtc.c" ""
+A5=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\uart.c" ""
+A6=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\src\stm8l15x_rtc.c" ""
+A7=_ "I:\125K 卡表\软体\125K卡表程序V2.0\USER\main.c" ""
+Count=8
+SuppressDialog=0
+[DebuggerSettings]
+DisableInterruptsWhenStepping=0

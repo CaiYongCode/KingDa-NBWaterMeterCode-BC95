@@ -1,0 +1,99 @@
+/** @page WWDG_Example WWDG counter refresh and simulation of WWDG reset
+
+  @verbatim
+  ******************** (C)COPYRIGHT 2011 STMicroelectronics *******************
+  * @file    WWDG/WWDG_Example/readme.txt
+  * @author  MCD Application Team
+  * @version V1.5.0
+  * @date    13-May-2011
+  * @brief   Description of the WWDG Example.
+  ******************************************************************************
+  * THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+  * WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE
+  * TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR ANY
+  * DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY CLAIMS ARISING
+  * FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY CUSTOMERS OF THE
+  * CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH THEIR PRODUCTS.
+  ******************************************************************************
+   @endverbatim
+
+  @par Example description
+
+  This example shows how to refresh the WWDG counter. The WWDG timeout is set to
+  251.9 ms.
+  
+  As AllowedRefresh variable is set to ENABLE the WWDG counter is refreshed 
+  preventing a WWDG reset and LED2 is toggling.
+  When user press key button, an EXTI event is triggered and the corresponding
+  ISR is served setting AllowedRefresh variable to DISABLE. So no WWDG counter
+  refresh is performed and when WWDG counter reaches 63 an MCU reset will occur.
+
+  When user press joystick down button, an EXTI event is triggered and the 
+  corresponding ISR is served setting NonAlowedRefresh variable to ENABLE. 
+  So WWDG counter refresh is performed in the non allowed window and as a result
+  an MCU reset will occur.
+
+  If a WWDG reset is generated, after system startup LED1 toggles otherwise it
+  turns off.
+
+
+  @par Directory contents
+
+  - WWDG/WWDG_Example/main.c             Main file containing the "main" function
+  - WWDG/WWDG_Example/stm8l15x_conf.h    Library Configuration file
+  - WWDG/WWDG_Example/stm8l15x_it.c      Interrupt routines source 
+  - WWDG/WWDG_Example/stm8l15x_it.h      Interrupt routines declaration
+
+
+  @par Hardware and Software environment
+
+    - This example runs on STM8L15x High-Density, Medium-Density Plus, Medium-Density
+    and Low-Density Devices.
+
+  - This example has been tested with STMicroelectronics STM8L1528-EVAL 
+    (STM8L15x High-Density devices) and STM8L1526-EVAL (STM8L15x Medium-Density 
+     and Low-Density devices) evaluation boards and can be easily tailored to any other
+    development board.
+
+  - STM8L1528-EVAL Set-up
+     - Make sure that the LCD glass daughter board is mounted in IO position.
+       For more details please refer to the evaluation board user manual.
+     - leds LD1, LD2, Key and joystick down push buttons are used.
+
+  - STM8L1526-EVAL Set-up
+     - Make sure that the LCD glass daughter board is mounted in IO position.
+       For more details please refer to the evaluation board user manual.
+     - leds LD1, LD2, Key and joystick down push buttons are used.
+     - Make sure that JP7 is in key position.
+  
+  
+  @par How to use it ?
+
+  In order to make the program work, you must do the following :
+
+  - Copy all source files from this example folder to the template folder under
+    Project\STM8L15x_StdPeriph_Template
+  - Open your preferred toolchain 
+  - Rebuild all files and load your image into target memory
+  - Run the example
+  - Run the example
+  - LED 2 is toggling, WWDG counter is refreshed in allowed window so no reset.
+  - When you press key button, WWDG counter is never refreshed and when it
+    reaches 63, LED1 toggles indicating a WWDG reset.
+  - When you press joystick down button, WWDG counter is refreshed in the non
+    allowed window so LED1 toggles indicating a WWDG reset.
+
+ @note
+  - Low-Density devices are STM8L15x microcontrollers where the Flash memory 
+    density ranges between 4 and 8 Kbytes.
+  - Medium-Density devices are STM8L15x microcontrollers where the 
+    Flash memory density ranges between 16 and 32 Kbytes.
+  - Medium density Plus devices are STM8L151R6, STM8L152R6 microcontrollers 
+    where the Flash memory density is fixed and equal to 32 Kbytes and with 
+    wider range of peripheral and features than the medium density devices. 
+  - High-Density devices are STM8L15x microcontrollers where the 
+    Flash memory density is 64 Kbytes and with the same peripheral set than 
+    Medium Density Plus devices.
+
+ * <h3><center>&copy; COPYRIGHT 2011 STMicroelectronics</center></h3>
+ */

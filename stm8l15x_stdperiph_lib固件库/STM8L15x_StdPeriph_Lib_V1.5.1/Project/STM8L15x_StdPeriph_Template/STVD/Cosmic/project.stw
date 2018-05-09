@@ -1,0 +1,20 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=stm8l1526-eval.stp
+Dependencies=
+
+[Project1]
+Filename=stm8l1528-eval.stp
+Dependencies=
+
+[Project2]
+Filename=stm8l1526-eval-ld.stp
+Dependencies=
+[Options]
+ActiveProject=stm8l1526-eval-ld
+ActiveConfig=Debug
+AddSortedElements=0

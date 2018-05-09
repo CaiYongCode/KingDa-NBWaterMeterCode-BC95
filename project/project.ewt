@@ -1,0 +1,2119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <configuration>
+    <name>Debug</name>
+    <toolchain>
+      <name>STM8</name>
+    </toolchain>
+    <debug>1</debug>
+    <settings>
+      <name>C-STAT</name>
+      <archiveVersion>1</archiveVersion>
+      <data>
+        <version>1</version>
+        <cstatargs>
+          <useExtraArgs>0</useExtraArgs>
+          <extraArgs></extraArgs>
+          <analyzeTimeout>600</analyzeTimeout>
+          <enableParallel>0</enableParallel>
+          <parallelThreads>2</parallelThreads>
+        </cstatargs>
+        <cstatsettings>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+          </package>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+          </package>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+          </package>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+          </package>
+        </cstatsettings>
+      </data>
+    </settings>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <toolchain>
+      <name>STM8</name>
+    </toolchain>
+    <debug>0</debug>
+    <settings>
+      <name>C-STAT</name>
+      <archiveVersion>1</archiveVersion>
+      <data>
+        <version>1</version>
+        <cstatargs>
+          <useExtraArgs>0</useExtraArgs>
+          <extraArgs></extraArgs>
+          <analyzeTimeout>600</analyzeTimeout>
+          <enableParallel>0</enableParallel>
+          <parallelThreads>2</parallelThreads>
+        </cstatargs>
+        <cstatsettings>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+          </package>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+          </package>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+          </package>
+          <package checked="" name="">
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+            <group checked="" name="">
+              <check checked="" name=""/>
+            </group>
+          </package>
+        </cstatsettings>
+      </data>
+    </settings>
+  </configuration>
+  <group>
+    <name>BSP</name>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\BC95.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\BC95.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\mcu_init.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\mcu_init.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\Sys_Timer.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\Sys_timer.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\Temperature.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\Temperature.h</name>
+    </file>
+  </group>
+  <group>
+    <name>Lib</name>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_adc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_aes.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_beep.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_clk.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_comp.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_dac.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_dma.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_exti.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_flash.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_gpio.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_i2c.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_irtim.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_itc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_iwdg.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_lcd.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_pwr.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_rst.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_rtc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_spi.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_syscfg.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_tim1.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_tim2.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_tim3.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_tim4.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_tim5.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_usart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_wfe.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\src\stm8l15x_wwdg.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Protocol</name>
+    <file>
+      <name>$PROJ_DIR$\..\USER\CJT-188-2004.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\CJT-188-2004.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\protocol.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\protocol.h</name>
+    </file>
+  </group>
+  <group>
+    <name>USER</name>
+    <file>
+      <name>$PROJ_DIR$\..\USER\Globaldata.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\Globaldata.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\include.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\main.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\Pulse_Acquire.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\Pulse_Acquire.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\rtc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\rtc.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\Save.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\save.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\stm8l15x_it.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\uart.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\USER\uart.h</name>
+    </file>
+  </group>
+</project>
+
+

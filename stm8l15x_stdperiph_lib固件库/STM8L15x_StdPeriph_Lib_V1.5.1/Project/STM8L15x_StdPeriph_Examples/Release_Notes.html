@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head>
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="File-List" href="Library_files/filelist.xml">
+<link rel="Edit-Time-Data" href="Library_files/editdata.mso"><!--[if !mso]> <style> v\:* {behavior:url(#default#VML);} o\:* {behavior:url(#default#VML);} w\:* {behavior:url(#default#VML);} .shape {behavior:url(#default#VML);} </style> <![endif]--><title>Release Notes for STM8L15x Standard Peripherals Library Examples</title><!--[if gte mso 9]><xml> <o:DocumentProperties> <o:Author>STMicroelectronics</o:Author> <o:LastAuthor>STMicroelectronics</o:LastAuthor> <o:Revision>37</o:Revision> <o:TotalTime>136</o:TotalTime> <o:Created>2009-02-27T19:26:00Z</o:Created> <o:LastSaved>2009-03-01T17:56:00Z</o:LastSaved> <o:Pages>1</o:Pages> <o:Words>522</o:Words> <o:Characters>2977</o:Characters> <o:Company>STMicroelectronics</o:Company> <o:Lines>24</o:Lines> <o:Paragraphs>6</o:Paragraphs> <o:CharactersWithSpaces>3493</o:CharactersWithSpaces> <o:Version>11.6568</o:Version> </o:DocumentProperties> </xml><![endif]--><!--[if gte mso 9]><xml> <w:WordDocument> <w:Zoom>110</w:Zoom> <w:ValidateAgainstSchemas/> <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid> <w:IgnoreMixedContent>false</w:IgnoreMixedContent> <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText> <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel> </w:WordDocument> </xml><![endif]--><!--[if gte mso 9]><xml> <w:LatentStyles DefLockedState="false" LatentStyleCount="156"> </w:LatentStyles> </xml><![endif]-->
+
+
+
+<style>
+<!--
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+{mso-style-parent:"";
+margin:0in;
+margin-bottom:.0001pt;
+mso-pagination:widow-orphan;
+font-size:12.0pt;
+font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";}
+h2
+{mso-style-next:Normal;
+margin-top:12.0pt;
+margin-right:0in;
+margin-bottom:3.0pt;
+margin-left:0in;
+mso-pagination:widow-orphan;
+page-break-after:avoid;
+mso-outline-level:2;
+font-size:14.0pt;
+font-family:Arial;
+font-weight:bold;
+font-style:italic;}
+a:link, span.MsoHyperlink
+{color:blue;
+text-decoration:underline;
+text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+{color:blue;
+text-decoration:underline;
+text-underline:single;}
+p
+{mso-margin-top-alt:auto;
+margin-right:0in;
+mso-margin-bottom-alt:auto;
+margin-left:0in;
+mso-pagination:widow-orphan;
+font-size:12.0pt;
+font-family:"Times New Roman";
+mso-fareast-font-family:"Times New Roman";}
+@page Section1
+{size:8.5in 11.0in;
+margin:1.0in 1.25in 1.0in 1.25in;
+mso-header-margin:.5in;
+mso-footer-margin:.5in;
+mso-paper-source:0;}
+div.Section1
+{page:Section1;}
+-->
+</style><!--[if gte mso 10]> <style> /* Style Definitions */ table.MsoNormalTable {mso-style-name:"Table Normal"; mso-tstyle-rowband-size:0; mso-tstyle-colband-size:0; mso-style-noshow:yes; mso-style-parent:""; mso-padding-alt:0in 5.4pt 0in 5.4pt; mso-para-margin:0in; mso-para-margin-bottom:.0001pt; mso-pagination:widow-orphan; font-size:10.0pt; font-family:"Times New Roman"; mso-ansi-language:#0400; mso-fareast-language:#0400; mso-bidi-language:#0400;} </style> <![endif]--><!--[if gte mso 9]><xml> <o:shapedefaults v:ext="edit" spidmax="5122"/> </xml><![endif]--><!--[if gte mso 9]><xml> <o:shapelayout v:ext="edit"> <o:idmap v:ext="edit" data="1"/> </o:shapelayout></xml><![endif]--></head>
+<body style="" lang="EN-US" link="blue" vlink="blue">
+<div class="Section1">
+<p class="MsoNormal"><span style="font-family: Arial;"><o:p><br>
+</o:p></span></p>
+<div align="center">
+<table class="MsoNormalTable" style="width: 675pt;" border="0" cellpadding="0" cellspacing="0" width="900">
+<tbody>
+<tr>
+<td style="padding: 0cm;" valign="top">
+<table class="MsoNormalTable" style="width: 675pt;" border="0" cellpadding="0" cellspacing="0" width="900">
+<tbody>
+          <tr>
+            <td style="vertical-align: top;"><span style="font-size: 8pt; font-family: Arial; color: blue;"><a href="../../Release_Notes.html">Back to Release page</a></span></td>
+          </tr>
+<tr style="">
+<td style="padding: 1.5pt;">
+<h1 style="margin-bottom: 18pt; text-align: center;" align="center"><span style="font-size: 20pt; font-family: Verdana; color: rgb(51, 102, 255);">Release
+Notes for STM8L15x Standard Peripherals Library Examples
+(StdPeriph_Examples)</span><span style="font-size: 20pt; font-family: Verdana;"><o:p></o:p></span></h1>
+<p class="MsoNormal" style="text-align: center;" align="center"><span style="font-size: 10pt; font-family: Arial; color: black;">Copyright 2011 STMicroelectronics</span><span style="color: black;"><u1:p></u1:p><o:p></o:p></span></p>
+<p class="MsoNormal" style="text-align: center;" align="center"><span style="font-size: 10pt; font-family: Arial; color: black;"><img alt="" id="_x0000_i1025" src="../../_htmresc/logo.bmp" style="border: 0px solid ; width: 86px; height: 65px;"></span><span style="font-size: 10pt;"><o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-family: Arial; display: none;"><o:p>&nbsp;</o:p></span></p>
+<table class="MsoNormalTable" style="width: 675pt;" border="0" cellpadding="0" width="900">
+<tbody>
+<tr>
+<td style="padding: 0cm;" valign="top">
+<h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><span style="font-size: 12pt; color: white;">Contents<o:p></o:p></span></h2>
+<ol style="margin-top: 0cm;" start="1" type="1">
+<li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;"><a href="#History">STM8L15x Standard Peripherals Library
+Examples update History</a><o:p></o:p></span></li>
+<li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;"><a href="#License">License</a><o:p></o:p></span></li>
+</ol>
+<span style="font-family: &quot;Times New Roman&quot;;">
+</span>
+<h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><a name="History"></a><span style="font-size: 12pt; color: white;">STM8L15x Standard
+Peripherals Library Examples update History</span></h2>
+<h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 167px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.5.0 / 13-May-2011<o:p></o:p></span></h3><p class="MsoNormal" style="margin: 4.5pt 0cm 4.5pt 18pt;"><b style=""><u><span style="font-size: 10pt; font-family: Verdana; color: black;">Main
+Changes<o:p></o:p></span></u></b></p>
+<ul style="margin-top: 0cm;" type="square"><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">Update almost examples to use Single function for IP configuration(IP, CLK, GPIO, DMA...)</span><span style="font-size: 10pt; font-family: Verdana;"></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">Update almost examples&nbsp;readme files to add support of&nbsp;</span><span style="font-size: 10pt; font-family: Verdana;"><span style="font-weight: bold; font-style: italic;">stm8l15x Low Density</span> devices</span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">Add Library_Examples html file to provide the list, description&nbsp;and supported devices by all available examples.<br></span></li><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;">ADC</span>&nbsp;</span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">ADC_DMA example updated use single conversion mode triggered by timer.</span></li></ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;">AES</span></span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">AES_MultipleBlockEncryptDecrypt
+example updated by replacing DMA_Init() function by
+DMA_SetCurrDataCounter() function when re-configuring Channel0</span></li></ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;">DMA</span></span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">Add a file&nbsp;in DMA example forlder to provide the Complete list of DMA examples provided within the whole package</span></li></ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;">I2C</span></span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">I2C_DataExchange example updated to support 10-bit addressing mode.</span></li></ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;">IWDG</span></span></li><ul><li class="MsoNormal" style="color: black; margin-top: 4.5pt; margin-bottom: 4.5pt;"><span style="font-size: 10pt; font-family: Verdana;">IWDG_RearmReset
+example removed and replaced by new added IWDG_Example to show how to
+update at regular period the IWDG reload counter and&nbsp;to simulate a
+software fault generating an MCU IWDG reset on expiry of a&nbsp;programmed time period.</span></li></ul></ul><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 558.05pt;"><span style="font-size: 10pt; font-family: Arial; color: white;">1.4.0
+- 09/24/2010</span></h3>
+<ol style="margin-top: 0in;" start="1" type="1"><li class="MsoNormal" style=""><b><i><span style="font-size: 10pt; font-family: Verdana;">General</span></i></b><i><span style="font-size: 10pt; font-family: Verdana;"> </span></i><i><span style="font-size: 10pt;"><o:p></o:p></span></i></li></ol>
+<ul style="margin-top: 0in;" type="disc"><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update all examples to support <span style="font-weight: bold; font-style: italic;">stm8l15x High Density</span> devices</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update all examples to use new "stm8l15x_it.c" and "stm8l15x_it.h" template files.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add new examples for AES, COMP, DAC, DMA, RTC, TIMs.<br></span></li></ul>
+<ol style="margin-top: 0in;" start="2" type="1"><li class="MsoNormal" style=""><b><i><span style="font-size: 10pt; font-family: Verdana;">STM8L15x_StdPeriph_Examples</span></i></b><b><i><span style="font-size: 10pt;"><o:p></o:p></span></i></b></li></ol>
+<ul style="margin-top: 0in;" type="disc"><li class="MsoNormal" style=""><i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u><u><span style="font-size: 10pt;"><o:p></o:p></span></u><i><u><span style="font-size: 10pt; font-family: Verdana;">ADC</span></u></i></li></ul>
+            <ul style="margin-top: 0in;" type="disc"><ul style="margin-top: 0in;" type="circle"><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;"></span><span style="font-size: 10pt; font-family: Verdana;">ADC_IDD_measurement<span style="font-style: italic;"> </span>example updated to measure consumption in HALT mode in addition to RUN mode, and to use timing_delay implementation </span><span style="font-size: 10pt; font-family: Verdana;">available under Utilities\Misc</span><span style="font-size: 10pt; font-family: Verdana;">.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">ADC_IT example updated to use </span><span style="font-size: 10pt; font-family: Verdana;">timing_delay implementation </span><span style="font-size: 10pt; font-family: Verdana;">available under Utilities\Misc</span><span style="font-size: 10pt; font-family: Verdana;">.</span></li></ul></ul><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;"><span style="font-style: italic;"></span></span></span><i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></i><ul style="margin-top: 0in;" type="disc"><li class="MsoNormal" style=""><i><u><span style="font-size: 10pt; font-family: Verdana;">CLK</span></u></i><span style="font-size: 10pt; font-family: Verdana;"></span><ul style="margin-top: 0in;" type="circle"><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update&nbsp;</span><span style="font-size: 10pt; font-family: Verdana;">CLK example to use&nbsp;</span><span style="font-size: 10pt; font-family: Verdana;">timing_delay implementation </span><span style="font-size: 10pt; font-family: Verdana;">available under Utilities\Misc<span style="text-decoration: underline;"><span style="font-style: italic;"></span></span></span></li></ul><span style="font-size: 10pt; font-family: Verdana;"></span><span style="font-size: 10pt; font-family: Verdana;"></span><br></li><li class="MsoNormal" style=""><span style="font-style: italic;"><span style="text-decoration: underline;"></span></span><i><u><span style="font-size: 10pt; font-family: Verdana;">COMP</span></u></i><span style="font-size: 10pt; font-family: Verdana;"></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add new examples:<br></span><span style="font-size: 10pt; font-family: Verdana;"></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">COMP_AnalogVoltageMonitoring&nbsp;to show how to use ADC1 and COMP2 to monitor analog voltage.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">COMP_FrequencyMeasurement&nbsp;to show how to use COMP2 to measure external signal frequency and duty cycle.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">COMP_PWMSignalControl&nbsp;</span><span style="font-size: 10pt; font-family: Verdana;">to show how to use&nbsp;COMP2 to control PWM signals of TIM1.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">COMP_AnalogWatchdog&nbsp;to show how to use COMP1 and COMP2 in window mode to make an analog watchdog.<br></span></li></ul></ul></ul><ul><li><i><u><span style="font-size: 10pt; font-family: Verdana;">DAC</span></u></i><span style="font-size: 10pt; font-family: Verdana;"></span></li><ul><li><span style="font-size: 10pt; font-family: Verdana;">Add new DAC_NoiseTriangleGenerator example to show how to use DAC Noise and Triangle Generator feature.<span style="text-decoration: underline;"><span style="font-style: italic;"></span></span></span></li></ul><li><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;"><span style="font-style: italic;">DMA</span></span></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add new examples:<br></span><span style="font-size: 10pt; font-family: Verdana;"></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">DMA_ChannelsPriority&nbsp;to show how to use DMA to transfer data with different channels priorities.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">DMA_TIIM1BurstMode&nbsp;to show how to use DMA to transfer data in Burst mode from RAM buffer to TIM1.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">DMA_WFE&nbsp;</span><span style="font-size: 10pt; font-family: Verdana;">to show how to use DMA to transfer data during wfe low power mode.&nbsp;</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">DMA_WFI&nbsp;to show how to use DMA to transfer data during wfi low power mode.</span></li></ul></ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;"><span style="font-style: italic;"><span style="text-decoration: underline;">FLASH</span></span></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">FLASH_Data_Program example updated to perform block operation and to highlight the steps to use for functions execution from RAM</span></li></ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;"><span style="font-style: italic;"><span style="text-decoration: underline;">LCD</span></span></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">LCD_SegmentsDrive example updated to highlight new features of stm8l152x High Density devices LCD&nbsp;</span></li></ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;"><span style="font-style: italic;"><span style="text-decoration: underline;">RTC</span></span></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add new examples:<br></span><span style="font-size: 10pt; font-family: Verdana;"></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">RTC_ChronoSubSecond&nbsp;to show how to use &nbsp;RTC as a chronometer.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">RTC_PeriodicWakeup500ms&nbsp;to show how to use RTC periodic Wakeup unit to toggle leds each 500ms.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">RTC_Tamper1Detection&nbsp;</span><span style="font-size: 10pt; font-family: Verdana;">to show how to use &nbsp;RTC Tamper1 Filter feature.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">RTC_WakeUpLPMode&nbsp;to show how to use RTC wake up from Low power Mode.</span></li></ul></ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;"><span style="font-style: italic;"><span style="text-decoration: underline;">TIMs</span></span><span style="text-decoration: underline;"></span></span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">TIM1 add new examples:</span></li><ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">TIM1_DMABurstMode </span><span style="font-size: 10pt; font-family: Verdana;">to show how to use DMA to transfer data in Burst mode from RAM buffer to TIM1.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">TIM1_Synchro </span><span style="font-size: 10pt; font-family: Verdana;">to show how to synchronize TIM1 with TIM2 and TIM3 using TIM1 update event.</span></li></ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">TIM2 add new TIM2_TRIGLSE example to show how to generate PWM signal using LSE clock source for TIM2 counter.<br></span></li></ul></ul><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 558.05pt;"><span style="font-size: 10pt; font-family: Arial; color: white;">1.3.0
+- 07/14/2010</span></h3>
+<ol style="margin-top: 0in;" start="1" type="1"><li class="MsoNormal" style=""><b><i><span style="font-size: 10pt; font-family: Verdana;">General</span></i></b><i><span style="font-size: 10pt; font-family: Verdana;"> </span></i><i><span style="font-size: 10pt;"><o:p></o:p></span></i></li></ol>
+<ul style="margin-top: 0in;" type="disc"><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update all examples to support <span style="font-weight: bold; font-style: italic;">IAR Embedded Workbench for STM8 (EWSTM8)</span> toolchain.</span></li><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update all examples to use new "stm8l15x_it.c" template file.<br></span></li></ul>
+<ol style="margin-top: 0in;" start="2" type="1"><li class="MsoNormal" style=""><b><i><span style="font-size: 10pt; font-family: Verdana;">STM8L15x_StdPeriph_Examples</span></i></b><b><i><span style="font-size: 10pt;"><o:p></o:p></span></i></b></li></ol>
+<ul style="margin-top: 0in;" type="disc"><li class="MsoNormal" style=""><i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u><u><span style="font-size: 10pt;"><o:p></o:p></span></u><i><u><span style="font-size: 10pt; font-family: Verdana;">I2C</span></u></i></li></ul>
+            <ul style="margin-top: 0in;" type="disc"><ul style="margin-top: 0in;" type="circle"><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update Two boards I2C examples (</span><span style="font-size: 10pt; font-family: Verdana;">I2C_DataExchange &amp; </span><span style="font-size: 10pt; font-family: Verdana;">I2C_JoystickPlay</span><span style="font-size: 10pt; font-family: Verdana;">) by removing toolchains related define<span style="font-style: italic;">s</span> in variables declarations<span style="font-style: italic;">.</span></span></li></ul></ul><span style="font-size: 10pt; font-family: Verdana;"><span style="text-decoration: underline;"><span style="font-style: italic;"></span></span></span><i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></i><ul style="margin-top: 0in;" type="disc"><li class="MsoNormal" style=""><i><u><span style="font-size: 10pt; font-family: Verdana;">RTC</span></u></i><span style="font-size: 10pt; font-family: Verdana;"></span><ul style="margin-top: 0in;" type="circle"><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update </span><span style="font-size: 10pt; font-family: Verdana;">RTC example to use the&nbsp;standard library printf function instead of the customized reduced one.</span></li></ul></li></ul>
+            <i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u><u><span style="font-size: 10pt;"><o:p></o:p></span></u><i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></i><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 558.05pt;"><span style="font-size: 10pt; font-family: Arial; color: white;">1.2.0
+- 05/14/2010</span></h3>
+<ol style="margin-top: 0in;" start="1" type="1">
+<li class="MsoNormal" style=""><b><i><span style="font-size: 10pt; font-family: Verdana;">General</span></i></b><i><span style="font-size: 10pt; font-family: Verdana;"> </span></i><i><span style="font-size: 10pt;"><o:p></o:p></span></i></li>
+</ol>
+<ul style="margin-top: 0in;" type="disc">
+
+<li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update almost examples with the use of stm8_eval.h file instead of stm8l_eval.h and new Common utilities drivers</span></li>
+              <li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add new examples: I2C two boards, SPI Slave with DMA.</span><span style="font-size: 10pt;"><o:p></o:p></span></li>
+
+</ul>
+<ol style="margin-top: 0in;" start="2" type="1">
+<li class="MsoNormal" style=""><b><i><span style="font-size: 10pt; font-family: Verdana;">STM8L15x_StdPeriph_Examples</span></i></b><b><i><span style="font-size: 10pt;"><o:p></o:p></span></i></b></li>
+</ol>
+<ul style="margin-top: 0in;" type="disc">
+<li class="MsoNormal" style=""><i><u><span style="font-size: 10pt; font-family: Verdana;">ADC</span></u></i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u><u><span style="font-size: 10pt;"><o:p></o:p></span></u></li>
+</ul>
+            <ul style="margin-top: 0in;" type="disc">
+
+              <ul style="margin-top: 0in;" type="circle">
+
+<li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update all ADC examples to use new stm8_eval_lcd.c/.h driver available under Utilities\STM8_EVAL\Common.</span></li>
+                </ul>
+
+            </ul>
+            <ul style="margin-top: 0in;" type="disc">
+<li class="MsoNormal" style=""><i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u><u><span style="font-size: 10pt;"><o:p></o:p></span></u><i><u><span style="font-size: 10pt; font-family: Verdana;">CLK</span></u></i><u><span style="font-size: 10pt; font-family: Verdana;"></span></u></li>
+            </ul>
+
+            <ul style="margin-top: 0in;" type="circle">
+              <ul>
+                <li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update CLK example to use new stm8_eval_lcd.c/.h driver available under Utilities\STM8_EVAL\Common.</span></li>
+              </ul>
+            </ul>
+            <ul>
+              <li><i><u><span style="font-size: 10pt; font-family: Verdana;">DMA</span></u></i><br>
+              </li>
+            </ul>
+
+
+            <ul style="margin-top: 0in;" type="circle">
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update DMA_USARTtoRAM example to use new stm8_eval_lcd.c/.h driver available under Utilities\STM8_EVAL\Common. <br>
+</span></li></ul>
+            </ul>
+            <ul>
+<li><i><u><span style="font-size: 10pt; font-family: Verdana;">EXTI</span></u></i><br>
+  </li>
+            </ul>
+<ul style="margin-top: 0in;" type="circle">
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update EXTI example to use new stm8_eval_lcd.c/.h driver available under Utilities\STM8_EVAL\Common. <br>
+</span></li></ul>
+            </ul>
+            
+           <ul>
+<li><i><u><span style="font-size: 10pt; font-family: Verdana;">I2C</span></u></i><br>
+  </li>
+            </ul>
+            <ul style="margin-top: 0in;" type="circle">
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">EEPROM
+example: the i2c_ee.h/.c files are removed. The example is using the
+new Serial EEPROM driver stm8_eval_i2c_ee.h/.c driver available under
+Utilities\STM8_EVAL\Common.</span><span style="font-size: 10pt; font-family: Verdana;"><br>
+      </span></li></ul>
+	  <ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">TSENSOR
+example: the tsensor.h/.c files are removed. The example is using the
+new temperature sensor driver stm8_eval_i2c_tsensor.h/.c driver available under
+Utilities\STM8_EVAL\Common.</span><span style="font-size: 10pt; font-family: Verdana;"><br>
+      </span></li></ul>
+	  <ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add
+new example : I2C_DataExchange which is two boards based and aims to
+illustrate basic master and slave I2C communication steps and data
+exchange.</span><span style="font-size: 10pt; font-family: Verdana;"><br>
+      </span></li></ul>
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add
+new example : I2C_JoystickPlay which is two boards based and consists
+of a small application where joystick buttons are used to trigger I2C
+communication.</span><span style="font-size: 10pt; font-family: Verdana;"><br>
+      </span></li></ul>
+            </ul>
+<ul>
+<li><i><u><span style="font-size: 10pt; font-family: Verdana;">PWR</span></u></i><br>
+  </li>
+            </ul>
+<ul style="margin-top: 0in;" type="circle">
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update PWR_PVD_Halt example to use new stm8_eval_lcd.c/.h driver available under Utilities\STM8_EVAL\Common. <br>
+</span></li></ul>
+            </ul>
+<ul>
+<li><i><u><span style="font-size: 10pt; font-family: Verdana;">RTC</span></u></i><br>
+  </li>
+            </ul>
+<ul style="margin-top: 0in;" type="circle">
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Update
+RTC example to use new stm8_eval_lcd.c/.h driver available under
+Utilities\STM8_EVAL\Common, combined with the reduced printf function
+available under Utilities\Misc. <br>
+</span></li></ul>
+            </ul>
+			
+            <ul>
+<li><i><u><span style="font-size: 10pt; font-family: Verdana;">SPI</span></u></i><br>
+  </li>
+            </ul>
+            <ul style="margin-top: 0in;" type="circle">
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">SPI_FLASH
+example : the spi_flash.h/.c files are removed. The example is using
+the new Serial SPI FLASH driver stm8_eval_spi_flash.h/.c driver
+available under Utilities\STM8_EVAL\Common.</span><span style="font-size: 10pt; font-family: Verdana;"><br>
+      </span></li></ul>
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">SPI_MSD
+example : the msd.h/.c files are removed. The example is using the new
+SPI sd driver stm8_eval_spi_sd.h/.c driver available under
+Utilities\STM8_EVAL\Common.</span><span style="font-size: 10pt; font-family: Verdana;"><br>
+      </span></li></ul>
+<ul><li class="MsoNormal" style=""><span style="font-size: 10pt; font-family: Verdana;">Add
+new example : SPI_SlaveDMA that provides a description of how to use
+the SPI firmware library to configure SPI as Slave receiver in DMA mode.</span><span style="font-size: 10pt; font-family: Verdana;">
+      </span></li></ul>
+           </ul>
+           
+
+            <span style="font-size: 10pt; font-family: Verdana;"></span><span style="font-size: 10pt; font-family: Verdana;"></span><span style="font-size: 10pt; font-family: Verdana;"></span><span style="font-size: 10pt; font-family: Verdana;"></span>
+<ul style="margin-top: 0in;" type="disc">
+
+</ul>
+<h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><a name="License"></a><span style="font-size: 12pt; color: white;">License<o:p></o:p></span></h2>
+<p class="MsoNormal" style="margin: 4.5pt 0cm;"><span style="font-size: 10pt; font-family: Verdana; color: black;">The
+enclosed firmware and all the related documentation are not covered by
+a License Agreement, if you need such License you can contact your
+local STMicroelectronics office.<u1:p></u1:p><o:p></o:p></span></p>
+<p class="MsoNormal"><b style=""><span style="font-size: 10pt; font-family: Verdana; color: black;">THE
+PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
+WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO
+SAVE TIME. AS A RESULT, STMICROELECTRONICS SHALL NOT BE HELD LIABLE FOR
+ANY DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES WITH RESPECT TO ANY
+CLAIMS ARISING FROM THE CONTENT OF SUCH FIRMWARE AND/OR THE USE MADE BY
+CUSTOMERS OF THE CODING INFORMATION CONTAINED HEREIN IN CONNECTION WITH
+THEIR PRODUCTS. <o:p></o:p></span></b></p>
+<p class="MsoNormal"><span style="color: black;"><o:p>&nbsp;</o:p></span></p>
+<div class="MsoNormal" style="text-align: center;" align="center"><span style="color: black;">
+<hr align="center" size="2" width="100%"></span></div>
+<p class="MsoNormal" style="margin: 4.5pt 0cm 4.5pt 18pt; text-align: center;" align="center"><span style="font-size: 10pt; font-family: Arial;">For complete documentation on
+    STM8L15x 8-bit microcontrollers platform visit&nbsp;</span><a href="http://www.st.com/mcu/inchtml-pages-stm8l.html" target="_blank"><span style="font-size: 10pt; font-family: Verdana;"><span style="color: black;"></span></span></a><a target="_blank" href="http://www.st.com/internet/mcu/family/141.jsp"><u><span style="color: blue;">www.st.com</span></u></a><u><span style="font-size: 10pt; font-family: Verdana; color: black;"><br>
+    </span></u><u><span style="font-size: 10pt; font-family: Verdana; color: blue;"><a href="http://www.st.com/mcu/inchtml-pages-stm8l.html" target="_blank"></a></span></u><span style="color: black;"><o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="MsoNormal"><span style="font-size: 10pt;"><o:p></o:p></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body></html>
