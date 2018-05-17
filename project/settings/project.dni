@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=1207309269
+Checksum=236730760
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -84,9 +84,9 @@ Bp8=_ "STD_CODE" "{}.122.5" 0 0 0 0 "" 0 ""
 Bp9=_ "STD_CODE" "{}.231.7" 0 0 0 0 "" 0 ""
 Bp10=_ "STD_CODE" "{}.139.9" 0 0 0 0 "" 0 ""
 Bp11=_ "STD_CODE" "{}.256.7" 0 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.47.3" 1 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.615.5" 1 0 0 0 "" 0 ""
-Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.64.3" 1 0 0 0 "" 0 ""
+Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.615.5" 1 0 0 0 "" 0 ""
+Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.64.3" 1 0 0 0 "" 0 ""
+Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.622.5" 1 0 0 0 "" 0 ""
 Count=15
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""

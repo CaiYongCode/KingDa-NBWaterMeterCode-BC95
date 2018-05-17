@@ -44,6 +44,10 @@ void Pulse_Acquire_Config(void)
 {
   GPIO_Init(Cai1_PORT, Cai1_Pin , Cai1_Mode);   //初始化霍尔开关1
   GPIO_Init(Cai2_PORT, Cai2_Pin , Cai2_Mode);   //初始化霍尔开关2
+  
+//  GPIO_Init(Cai1_PORT, Cai1_Pin , GPIO_Mode_In_PU_IT);   //初始化霍尔开关1
+//  GPIO_Init(Cai2_PORT, Cai2_Pin , GPIO_Mode_In_PU_IT);   //初始化霍尔开关2
+  
   GPIO_Init(Weak_Up_PORT, Weak_Up_Pin , Weak_Up_Mode);   //初始化霍尔开关唤醒
   
   EXTI_SelectPort(EXTI_Port_D);
@@ -85,9 +89,13 @@ void ExtiD_Interrupt (void)                        //外中断D
     if(RESET == Cai1 && RESET == Cai2)       //判断磁报警
     {
       //有磁报警的处理
-      Device_Status = RUN_MODE;
       BC95.Send_Bit.Mag_Alarm = 1;
-      BC95.Start_Process = BC95_RECONNECT;
+      if(BC95.Start_Process == BC95_POWER_DOWN)
+      {
+        Device_Status = RUN_MODE;
+        RCC_Configuration();       
+        BC95.Start_Process = BC95_RECONNECT;
+      }
     }
     else
     {
@@ -120,10 +128,13 @@ void Exti0_Interrupt (void)                        //外中断F
 {
   if(RESET == Weak_Up)
   {
-    RCC_Configuration();
     BC95.Send_Bit.All_Para = 1;
-    BC95.Start_Process = BC95_RECONNECT;
-    Device_Status = RUN_MODE;
+    if(BC95.Start_Process == BC95_POWER_DOWN)
+    {
+      Device_Status = RUN_MODE;
+      RCC_Configuration();     
+      BC95.Start_Process = BC95_RECONNECT;    
+    }
   }
   EXTI_ClearITPendingBit (EXTI_IT_Pin0);            //清中断标志位
 }

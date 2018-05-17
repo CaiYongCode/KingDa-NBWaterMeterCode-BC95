@@ -64,6 +64,7 @@ void main(void)
   BC95.Send_Bit.All_Para = 1;
   BC95.Start_Process = BC95_RECONNECT;
   
+//  BC95.Send_Bit.Mag_Alarm = 1;
   
 //  Device_Status = SLEEP_MODE;
 //  BC95.Start_Process = BC95_POWER_DOWN;
@@ -127,7 +128,9 @@ void Sleep(void)
 
   GPIO_Init(GPIOE, GPIO_Pin_4 , GPIO_Mode_Out_PP_Low_Slow);    //USART2 TXD
   GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_Low_Slow);    //USART3 TXD
-    
+  
+  BC95.Start_Process = BC95_POWER_DOWN;
+
   CLK_HaltConfig(CLK_Halt_FastWakeup,ENABLE);   //快速唤醒后时钟为HSI  
   PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
   PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          //开启后内部参考电压获取值变小

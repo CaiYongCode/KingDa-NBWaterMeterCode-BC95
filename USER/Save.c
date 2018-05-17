@@ -237,7 +237,7 @@ void Read_BAT_Alarm_Value(void)     //读取电压告警值
   BAT_Alarm_Vol = *((const unsigned short *)(BAT_ALARM_ADD));
   if(BAT_Alarm_Vol == 0)        //默认告警电压3.10V
   {
-    BAT_Alarm_Vol = 310;
+    BAT_Alarm_Vol = 320;
   }
 }
 /*********************************************************************************
@@ -328,9 +328,9 @@ void Save_Settle_Time(void)   //保存结算时间
 void Read_Report_Cycle(void)        //读取上报周期
 {
   Report_Cycle = *((const unsigned short *)(REPORT_CYCLE_ADDR));
-  if(Report_Cycle == 0) //默认上报周期24小时
+  if(Report_Cycle == 0) //默认上报周期12小时
   {
-    Report_Cycle = 24;
+    Report_Cycle = 720;
   }
 }
 /*********************************************************************************

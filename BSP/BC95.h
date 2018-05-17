@@ -107,7 +107,7 @@ struct BC95_Str//BC95 总结构体
   char S_Buffer[SEND_BUFF_SIZE]; //发送缓冲区
   unsigned short Recv_Length; //发送长度
   unsigned short Send_Length; //发送长度
-  unsigned char Data_Buffer[RECV_BUFF_SIZE-20];//数据缓冲
+//  unsigned char Data_Buffer[RECV_BUFF_SIZE-20];//数据缓冲
   unsigned short Data_Length;//数据长度
   unsigned char R_Channel;//接收的信道
   unsigned char S_Channel;//发送的信道
@@ -156,7 +156,7 @@ void Report_Settle_Time(void);
 void Report_Battery_Alarm(void);
 void Report_Meter_Number(void);
 void Report_Valve_Status(void);
-void Report_Magnetic_Alarm(void);
+void Report_Magnetic_Alarm(u8 value);
 
 //void GSM_SET_AT_IP(unsigned short Port,unsigned char *IP,unsigned char Channel);
 //void BC95_PowerUP_CallBalk(void);

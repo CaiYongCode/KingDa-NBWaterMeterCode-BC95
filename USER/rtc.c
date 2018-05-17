@@ -11,7 +11,6 @@
 /*********************************************************************************
 常量定义区
 *********************************************************************************/
-u8 flag = 0;
 /*********************************************************************************
 公共变量定义区
 *********************************************************************************/
@@ -146,8 +145,8 @@ void Set_RTC(unsigned char *buff)
 void Set_Alarm(void) //设置闹钟
 {
 //  RTC_AlarmStructInit(RTC_Alarm);    //设置闹钟
-  RTC_AlarmStr.RTC_AlarmTime.RTC_Hours   = 0;
-  RTC_AlarmStr.RTC_AlarmTime.RTC_Minutes = 1;
+  RTC_AlarmStr.RTC_AlarmTime.RTC_Hours   = 1;
+  RTC_AlarmStr.RTC_AlarmTime.RTC_Minutes = 0;
   RTC_AlarmStr.RTC_AlarmTime.RTC_Seconds = 0;
   RTC_AlarmStr.RTC_AlarmMask = RTC_AlarmMask_DateWeekDay;
  

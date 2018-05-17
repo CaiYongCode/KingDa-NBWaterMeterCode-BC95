@@ -76,7 +76,7 @@ void BC95_Reset(void)
 {
   GPIO_ResetBits(GPIOE,GPIO_Pin_1);     //复位脚拉高
   
-  Create_Timer(ONCE,15,
+  Create_Timer(ONCE,30,
                      BC95_Start,0,PROCESS);//建议定时器延时回调
 }
 
@@ -116,10 +116,10 @@ void BC95_Process(void)                         //BC95主进程
       if(BC95.Reconnect_Times >= 3)  //重连超次数则睡眠
       {
         BC95.Reconnect_Times = 0;
-        BC95.Send_Bit.All_Para = 0;
-        BC95.Send_Bit.HC_Flow = 0;
-        BC95.Send_Bit.Vol_Alarm = 0;
-        BC95.Send_Bit.Mag_Alarm = 0;
+//        BC95.Send_Bit.All_Para = 0;
+//        BC95.Send_Bit.HC_Flow = 0;
+//        BC95.Send_Bit.Vol_Alarm = 0;
+//        BC95.Send_Bit.Mag_Alarm = 0;
         
         BC95.Start_Process = BC95_POWER_DOWN;
         Device_Status = SLEEP_MODE;
@@ -619,7 +619,7 @@ unsigned char Send_Data_Process(void)
   
   if(BC95.Send_Bit.Mag_Alarm == 1)      //发送磁告警
   {  
-    Report_Magnetic_Alarm();
+    Report_Magnetic_Alarm(1);
     BC95.Send_Bit.Mag_Alarm = 0;
     return 1;
   }
@@ -978,12 +978,12 @@ void Report_HC_Flow(void)
  Return:        //
  Others:        //
 *********************************************************************************/
-void Report_Magnetic_Alarm(void)
+void Report_Magnetic_Alarm(u8 value)
 {
   uint8_t data[128] = "AT+NMGS=2,0e00\r\n";
   
-  data[12] = 0x30;
-  data[13] = 0x30;
+  data[12] = Int_to_ASCLL(value/0x10);;
+  data[13] = Int_to_ASCLL(value%0x10);;
  
   BC95_Data_Send(data,16);
 }
