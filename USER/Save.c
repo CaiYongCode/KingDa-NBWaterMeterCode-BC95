@@ -155,9 +155,9 @@ void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow)       //读取累积
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Save_Add_Flow(union flow_union *Flow)       //存储当前累积水量
+void Save_Add_Flow(u16 addr,union flow_union *Flow)       //存储累积水量
 {
-    WriteRom (ADD_FLOW_ADD,Flow->flow8,4);      //写累积流量
+    WriteRom (addr,Flow->flow8,4);      //写累积流量
 }
 /*********************************************************************************
  Function:      //

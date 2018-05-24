@@ -61,20 +61,18 @@ void main(void)
   Read_Report_Cycle();                                  //读取上报周期
   Read_Meter_Number();                                  //读取表号
 
-  BC95.Send_Bit.All_Para = 1;
+  BC95.Report_Bit = 1;
   BC95.Start_Process = BC95_RECONNECT;
-  
-//  BC95.Send_Bit.Mag_Alarm = 1;
-  
+ 
 //  Device_Status = SLEEP_MODE;
 //  BC95.Start_Process = BC95_POWER_DOWN;
 
   while (1)
   {
     IWDG_ReloadCounter();//重载计数器
-    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
-    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
-    i++;
+//    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
+//    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
+//    i++;
     Sys_Timer_Process();
     BC95_Process();  
     if(Device_Status == SLEEP_MODE)     //设备进入睡眠状态

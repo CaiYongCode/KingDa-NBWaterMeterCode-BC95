@@ -62,7 +62,7 @@ void MCU_Config(void)
 void RCC_Configuration(void)                                                   //时钟初始化
 {
 //  CLK_DeInit(); 
-  CLK_HSICmd(ENABLE);
+//  CLK_HSICmd(ENABLE);
   CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSI);
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);                                         //16M速度
 
@@ -105,14 +105,12 @@ void GPIO_Configuration(void)
  Others:        //
 *********************************************************************************/
 void TIM4_Config(void)
-{
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, ENABLE);
-  TIM4_DeInit();
-  TIM4_TimeBaseInit(TIM4_Prescaler_128, 124);                                   //定时时间为1ms = 1/1M/8/(124+1)
-  TIM4_ITConfig(TIM4_IT_Update, ENABLE);                                        //启动溢出 中断
-  TIM4_ClearITPendingBit(TIM4_IT_Update);                                       //清空中断标志位
-//  TIM4_ClearFlag(TIM4_FLAG_Update);
-  TIM4_Cmd(ENABLE);                                                             //启动定时器4
+{ 
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4 , ENABLE);              //使能定时器4时钟
+  TIM4_TimeBaseInit(TIM4_Prescaler_128 , 125);    //设置定时器4为128分频，向上计数，计数值为125即为1毫秒的计数值
+  TIM4_ITConfig(TIM4_IT_Update , ENABLE);         //使能向上计数溢出中断
+  TIM4_ARRPreloadConfig(ENABLE);                  //使能定时器4自动重载功能    
+  TIM4_Cmd(ENABLE);                               //启动定时器4开始计数
 }
 /*********************************************************************************
  Function:      //

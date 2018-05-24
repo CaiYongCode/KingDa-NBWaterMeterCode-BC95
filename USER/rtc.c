@@ -79,23 +79,22 @@ void Rtc_Config(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Set_RTC(unsigned char *buff)
-{//17,0100013230313830343039313730323330
-
-  RTC_TimeTypeDef  RTC_Time;
-  RTC_DateTypeDef  RTC_Date;
-  
-  RTC_Date.RTC_Year = buff[12]*10+buff[14];
-  RTC_Date.RTC_Month = buff[16]*10+buff[18];
-  RTC_Date.RTC_Date = buff[20]*10+buff[22];
-  RTC_Date.RTC_WeekDay = RTC_Weekday_Monday;
-  
-  RTC_Time.RTC_Hours   = buff[24]*10+buff[26];
-  RTC_Time.RTC_Minutes = buff[28]*10+buff[30];
-  RTC_Time.RTC_Seconds = buff[32]*10+buff[34];
-  
-  RTC_SetDate(RTC_Format_BIN, &RTC_Date);
-  RTC_SetTime(RTC_Format_BIN, &RTC_Time);
+void Set_RTC(void)
+{
+//  RTC_TimeTypeDef  RTC_Time;
+//  RTC_DateTypeDef  RTC_Date;
+//  
+//  RTC_Date.RTC_Year = BC95.R_Buffer[22]*10+BC95.R_Buffer[24];
+//  RTC_Date.RTC_Month = BC95.R_Buffer[26]*10+BC95.R_Buffer[28];
+//  RTC_Date.RTC_Date = BC95.R_Buffer[30]*10+BC95.R_Buffer[32];
+//  RTC_Date.RTC_WeekDay = RTC_Weekday_Monday;
+//  
+//  RTC_Time.RTC_Hours   = BC95.R_Buffer[34]*10+BC95.R_Buffer[36];
+//  RTC_Time.RTC_Minutes = BC95.R_Buffer[38]*10+BC95.R_Buffer[40];
+//  RTC_Time.RTC_Seconds = BC95.R_Buffer[42]*10+BC95.R_Buffer[44];
+//  
+//  RTC_SetDate(RTC_Format_BIN, &RTC_Date);
+//  RTC_SetTime(RTC_Format_BIN, &RTC_Time);
 }
 /*********************************************************************************
  Function:      //
@@ -226,7 +225,7 @@ void Wake_Interrupt (void)                        //唤醒中断
     if( (Report_Cycle_counter/60) >= Report_Cycle )
     {
     
-      BC95.Send_Bit.All_Para = 1;
+      BC95.Report_Bit = 1;
       if(BC95.Start_Process == BC95_POWER_DOWN)
       {
         BC95.Start_Process = BC95_RECONNECT;
@@ -271,7 +270,7 @@ void rtc_interrupt (void)  //RTC中断处理函数 5s一次
     {
       if(Last_Vol >= BAT_Alarm_Vol)                                   //判断是否为第一次欠压
       {
-        Save_Add_Flow(&Cal.Water_Data);                                  //保存当前水量
+        Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);                                  //保存当前水量
         //报警
         GPIO_SetBits(GPIOD,GPIO_Pin_6);
       }

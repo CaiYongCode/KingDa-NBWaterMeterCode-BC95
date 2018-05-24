@@ -31,7 +31,7 @@ void Save_IP(unsigned char *IP,unsigned char Num);
 void Save_Version(void);
 unsigned char Sum_Check(unsigned char *sdata,unsigned short NUM);                //计算和校验
 void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow);
-void Save_Add_Flow(union flow_union *Flow);       //存储累积水量
+void Save_Add_Flow(u16 addr,union flow_union *Flow);       //存储累积水量
 void Save_SDCF_Flow(union flow_union *Flow);
 void Save_Cal(enum Cal_State_En *Cal);       //存储霍尔状态
 void Read_BAT_Alarm_Value(void);     //读取电压告警值

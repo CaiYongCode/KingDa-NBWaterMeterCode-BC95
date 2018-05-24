@@ -36,7 +36,7 @@ extern RTC_AlarmTypeDef  RTC_AlarmStr;       //闹钟结构体
 /*********************************************************************************************************
 函数声明区
 *********************************************************************************************************/
-void Set_RTC(unsigned char *buff);
+void Set_RTC(void);
 void Set_Time(RTC_TimeTypeDef  *RTC_Time);
 void Set_Date(RTC_DateTypeDef  *RTC_Date);
 void Alarm_Interrupt (void);

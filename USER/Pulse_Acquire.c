@@ -89,7 +89,7 @@ void ExtiD_Interrupt (void)                        //外中断D
     if(RESET == Cai1 && RESET == Cai2)       //判断磁报警
     {
       //有磁报警的处理
-      BC95.Send_Bit.Mag_Alarm = 1;
+      BC95.Alarm.Mag_Alarm = 1;
       if(BC95.Start_Process == BC95_POWER_DOWN)
       {
         Device_Status = RUN_MODE;
@@ -128,7 +128,7 @@ void Exti0_Interrupt (void)                        //外中断F
 {
   if(RESET == Weak_Up)
   {
-    BC95.Send_Bit.All_Para = 1;
+    BC95.Report_Bit= 1;
     if(BC95.Start_Process == BC95_POWER_DOWN)
     {
       Device_Status = RUN_MODE;

@@ -63,7 +63,8 @@ enum Start_Process_En   //启动流程
   SETCGATT,             //激活网络
   CEREG,                //查询网络注册状态
   CSQ,                  //查询信号强度
-  NNMI,                 //新消息指示
+  NSMI,                 //设置发送消息指示
+  NNMI,                 //设置接收消息指示
   NQMGR,                //查询消息接收
   NMGR,                 //接收消息
   NMGS,                 //发送消息
@@ -85,18 +86,17 @@ enum Send_Process_En//发送流程
   SEND_READY,//发送等待
   
   SEND_AII_PARA,//发送所有参数
-  SEND_TEMP_ALARM,//发送温度报警
+  SEND_HC_FLOW,//发送历史累积流量
   SEND_VOL_ALARM,//发送电压报警
   SEND_MAG_ALARM,//发送磁报警  
 
   SEND_WAIT_OK,//等待发送成功
   SEND_ERROR,//发送失败
+  SEND_FINISH,//发送完成
 };
 
-struct Send_Bit_EN         //发送标志位
+struct Alarm_EN         //发送标志位
 {
-  unsigned char All_Para:1;     //发送所有参数
-  unsigned char HC_Flow:1;      //发送历史累积流量
   unsigned char Vol_Alarm:1;    //发送电压报警
   unsigned char Mag_Alarm:1;   //发送磁报警  
 };
@@ -117,7 +117,8 @@ struct BC95_Str//BC95 总结构体
   unsigned char Connect_Channel_Num;//连接中的信道
   enum Start_Process_En Start_Process;//连接进程
   enum Send_Process_En Send_Process;//发送进程
-  struct Send_Bit_EN  Send_Bit;         //发送标志位
+  struct Alarm_EN  Alarm;         //告警
+  u8 Report_Bit;                          //发送位
   struct Error_Connter_Str Err_Conner;//错误计数
   unsigned char Rssi;//信号强度
   bool Incident_Pend;//事件挂起标志
@@ -148,8 +149,9 @@ void BC95_Start_Timeout_CallBalk(void);
 void BC95_Delay_CallBalk(void);
 
 void Recv_Data_Process(void);
-unsigned char Send_Data_Process(void);
-void ACK(unsigned char messageId,unsigned char errcode);
+void Send_Data_Process(void);
+void Send_Response(void);
+void ACK(u8 messageId,u8 errcode,u8 mid[4]);
 void Report_All_Parameters(void);
 void Report_HC_Flow(void);
 void Report_Settle_Time(void);
