@@ -92,8 +92,7 @@ void ExtiD_Interrupt (void)                        //外中断D
       BC95.Alarm.Mag_Alarm = 1;
       if(BC95.Start_Process == BC95_POWER_DOWN)
       {
-        Device_Status = RUN_MODE;
-        RCC_Configuration();       
+        Device_Status = RUN_MODE;      
         BC95.Start_Process = BC95_RECONNECT;
       }
     }
@@ -102,13 +101,11 @@ void ExtiD_Interrupt (void)                        //外中断D
       if(Cal.Cal_State == CAL2 && RESET == Cai1) //第1个霍尔触发 且 上次状态为第2个霍尔触发
       {
         Cal.Cal_State = CAL1;
-        GPIO_ResetBits(GPIOD,GPIO_Pin_7);
       }
       else if(Cal.Cal_State == CAL1 && RESET == Cai2) //第2个霍尔触发 且 上次状态为第1个霍尔触发
       {
         Cal.Water_Data.flow32++;
         Cal.Cal_State = CAL2;
-        GPIO_SetBits(GPIOD,GPIO_Pin_7);
       }
     }
   }
@@ -131,8 +128,7 @@ void Exti0_Interrupt (void)                        //外中断F
     BC95.Report_Bit= 1;
     if(BC95.Start_Process == BC95_POWER_DOWN)
     {
-      Device_Status = RUN_MODE;
-      RCC_Configuration();     
+      Device_Status = RUN_MODE;  
       BC95.Start_Process = BC95_RECONNECT;    
     }
   }

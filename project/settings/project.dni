@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-2108079563
+Checksum=-939849227
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -64,6 +64,7 @@ Fmt4={W}42:run_state	4	0
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
+ShowTimeSum=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -72,22 +73,22 @@ Category=_ 0
 LoggingEnabled=_ 0
 LogFile=_ ""
 [Breakpoints]
-Bp0=_ "STD_CODE" "{}.514.9" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{}.601.3" 0 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{}.46.7" 0 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{}.515.9" 0 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{}.499.9" 0 0 0 0 "" 0 ""
-Bp5=_ "STD_CODE" "{}.61.3" 0 0 0 0 "" 0 ""
-Bp6=_ "STD_CODE" "{}.270.12" 0 0 0 0 "" 0 ""
-Bp7=_ "STD_CODE" "{}.251.3" 0 0 0 0 "" 0 ""
-Bp8=_ "STD_CODE" "{}.122.5" 0 0 0 0 "" 0 ""
-Bp9=_ "STD_CODE" "{}.231.7" 0 0 0 0 "" 0 ""
-Bp10=_ "STD_CODE" "{}.139.9" 0 0 0 0 "" 0 ""
-Bp11=_ "STD_CODE" "{}.256.7" 0 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.80.7" 1 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.619.9" 1 0 0 0 "" 0 ""
-Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.638.9" 1 0 0 0 "" 0 ""
-Bp15=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.419.13" 1 0 0 0 "" 0 ""
+Bp0=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.514.9" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.601.3" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.46.7" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.515.9" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.499.9" 0 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.61.3" 0 0 0 0 "" 0 ""
+Bp6=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.270.12" 0 0 0 0 "" 0 ""
+Bp7=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.251.3" 0 0 0 0 "" 0 ""
+Bp8=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.122.5" 0 0 0 0 "" 0 ""
+Bp9=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.231.7" 0 0 0 0 "" 0 ""
+Bp10=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.139.9" 0 0 0 0 "" 0 ""
+Bp11=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.256.7" 0 0 0 0 "" 0 ""
+Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.620.9" 1 0 0 0 "" 0 ""
+Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.639.11" 1 0 0 0 "" 0 ""
+Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.75.7" 1 0 0 0 "" 0 ""
+Bp15=_ "STD_CODE" "{$PROJ_DIR$\..\USER\Pulse_Acquire.c}.128.5" 1 0 0 0 "" 0 ""
 Count=16
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""

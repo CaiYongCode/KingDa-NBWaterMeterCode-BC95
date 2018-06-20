@@ -19,22 +19,6 @@
 @REM 
 
 
-@echo off 
+"D:\IAR for STM8\common\bin\cspybat" "D:\IAR for STM8\stm8\bin\stm8proc.dll" "D:\IAR for STM8\stm8\bin\stm8stlink.dll"  %1 --plugin "D:\IAR for STM8\stm8\bin\stm8bat.dll" --backend -B "-p" "D:\IAR for STM8\stm8\config\ddf\iostm8l151c8.ddf" "-d" "stlink" "--mcuname" "STM8L151C8" 
 
-if not "%~1" == "" goto debugFile 
 
-@echo on 
-
-"D:\IAR 7.1.4 for STM8 2.10.4\common\bin\cspybat" -f "F:\中科君达\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.general.xcl" --backend -f "F:\中科君达\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.driver.xcl" 
-
-@echo off 
-goto end 
-
-:debugFile 
-
-@echo on 
-
-"D:\IAR 7.1.4 for STM8 2.10.4\common\bin\cspybat" -f "F:\中科君达\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.general.xcl" "--debug_file=%~1" --backend -f "F:\中科君达\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.driver.xcl" 
-
-@echo off 
-:end

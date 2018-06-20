@@ -508,7 +508,6 @@
       <data>
         <extensions></extensions>
         <cmdline></cmdline>
-        <hasPrio>0</hasPrio>
       </data>
     </settings>
     <settings>
@@ -1301,7 +1300,6 @@
       <data>
         <extensions></extensions>
         <cmdline></cmdline>
-        <hasPrio>0</hasPrio>
       </data>
     </settings>
     <settings>
@@ -1702,21 +1700,6 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\src\stm8l15x_wwdg.c</name>
-    </file>
-  </group>
-  <group>
-    <name>Protocol</name>
-    <file>
-      <name>$PROJ_DIR$\..\USER\CJT-188-2004.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\CJT-188-2004.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\protocol.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\protocol.h</name>
     </file>
   </group>
   <group>

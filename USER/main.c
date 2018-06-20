@@ -41,7 +41,6 @@ extern RTC_DateTypeDef   RTC_DateStr;        //RTC日期结构体
  Return:      	//
  Others:        //
 *********************************************************************************/
-unsigned short i;
 void main(void)
 { 
   disableInterrupts();                                      //关总中断
@@ -51,7 +50,7 @@ void main(void)
   Set_Alarm();
   Pulse_Acquire_Config();
   
-  IWDG_INIT();
+//  IWDG_INIT();
   //  Save_Version();  //保存版本问题
   enableInterrupts();                                       //开总中断
 /////////////////////////////////////////////////////////    
@@ -65,14 +64,10 @@ void main(void)
   BC95.Start_Process = BC95_RECONNECT;
  
 //  Device_Status = SLEEP_MODE;
-//  BC95.Start_Process = BC95_POWER_DOWN;
 
   while (1)
   {
     IWDG_ReloadCounter();//重载计数器
-//    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
-//    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
-//    i++;
     Sys_Timer_Process();
     BC95_Process();  
     if(Device_Status == SLEEP_MODE)     //设备进入睡眠状态
@@ -99,30 +94,14 @@ void Sleep(void)
   CLK_PeripheralClockConfig(CLK_Peripheral_USART3, DISABLE);    //关闭USART3时钟
   CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);
   
-//  CLK_PeripheralClockConfig(CLK_Peripheral_USART1, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_TIM2, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_TIM3, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_TIM5, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_I2C1, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_SPI1, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_SPI2, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_DAC, DISABLE);
-//  CLK_PeripheralClockConfig(CLK_Peripheral_LCD, DISABLE);
-//
-//  ADC_ChannelCmd(ADC1,ADC_Channel_1,DISABLE );         //通道选择1
-//  ADC_VrefintCmd (DISABLE);//关闭内部参考电压
-//  ADC_ChannelCmd(ADC1,ADC_Channel_Vrefint,DISABLE );
-  
   GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_Low_Slow);         // 热敏电阻
   GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_Out_PP_Low_Slow);         // 热敏电阻ADC检测端
   
   GPIO_Init(GPIOE,GPIO_Pin_0,GPIO_Mode_Out_PP_Low_Slow);       //BC95 RI
   GPIO_Init(GPIOE,GPIO_Pin_1,GPIO_Mode_Out_PP_Low_Slow);       //BC95 复位脚
   GPIO_Init(GPIOE,GPIO_Pin_2,GPIO_Mode_Out_PP_Low_Slow);        //BC95 VBAT
-  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //绿灯
-  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //黄灯
+//  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //绿灯
+//  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //黄灯
 
   GPIO_Init(GPIOE, GPIO_Pin_4 , GPIO_Mode_Out_PP_Low_Slow);    //USART2 TXD
   GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_Low_Slow);    //USART3 TXD

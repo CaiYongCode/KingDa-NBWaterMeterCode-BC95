@@ -637,7 +637,7 @@ void Recv_Data_Process(void)
           Flow.flow8[1] = BC95.R_Buffer[2+i+11]*0x10+BC95.R_Buffer[2+i+12];
           Flow.flow8[2] = BC95.R_Buffer[2+i+13]*0x10+BC95.R_Buffer[2+i+14];
           Flow.flow8[3] = BC95.R_Buffer[2+i+15]*0x10+BC95.R_Buffer[2+i+16];
-          Save_Add_Flow(SDCF1_ADDR+5*(i-1),&Flow);
+          Save_Add_Flow(SDCF1_ADDR+5*(month-1),&Flow);
         }
         //0x05œÏ”¶
         ACK(0x05,0x00,mid);

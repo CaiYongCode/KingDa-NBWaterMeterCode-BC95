@@ -8,9 +8,9 @@ F:\中科君达\NB水表\软件\NB-IOT程序V1.0\project\..\inc
 -I
 F:\中科君达\NB水表\软件\NB-IOT程序V1.0\project\..\USER
 -I
-D:\IAR 7.1.4 for STM8 2.10.4\stm8\inc
+D:\IAR for STM8\stm8\inc
 -I
-D:\IAR 7.1.4 for STM8 2.10.4\stm8\inc\c
+D:\IAR for STM8\stm8\inc\c
 -I
 F:\中科君达\NB水表\软件\NB-IOT程序V1.0\BSP
 -I
@@ -135,23 +135,19 @@ F:\中科君达\NB水表\软件\NB-IOT程序V1.0\USER
 -D__JMP_BUF_ELEMENT_TYPE__=unsigned char
 -D__JMP_BUF_NUM_ELEMENTS__=28
 -D__TID__=0x3800
--D__VER__=220
--D__SUBVERSION__=1
--D__BUILD_NUMBER__=176
+-D__VER__=210
+-D__SUBVERSION__=4
+-D__BUILD_NUMBER__=157
 -D__IAR_SYSTEMS_ICC__=8
 -D__VA_STACK_DECREASING__=1
 -D__VA_STACK_ALIGN__=1
 -D__VA_STACK_ALIGN_EXTRA_BEFORE__=1
 -D__LITTLE_ENDIAN__=0
 -D__BOOL_TYPE__=unsigned char
--D__BOOL_SIZE__=1
 -D__WCHAR_T_TYPE__=unsigned short int
 -D__WCHAR_T_SIZE__=2
 -D__WCHAR_T_MAX__=0xffffU
 -D__DEF_PTR_MEM__=__near
--D__DEF_PTR_SIZE__=2
--D__CODE_MEMORY_LIST3__(_P1,_P2)=__CODE_MEM_HELPER3__(__near_func, 0, _P1, _P2)
--D__DATA_MEMORY_LIST3__(_P1,_P2)=__DATA_MEM_HELPER3__(__tiny, 0, _P1, _P2) __DATA_MEM_HELPER3__(__near, 1, _P1, _P2) __DATA_MEM_HELPER3__(__far, 2, _P1, _P2) __DATA_MEM_HELPER3__(__huge, 3, _P1, _P2) __DATA_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
 -D__CODE_MEM0__=__near_func
 -D__CODE_MEM0_POINTER_OK__=1
 -D__CODE_MEM0_UNIQUE_POINTER__=1
@@ -207,14 +203,8 @@ F:\中科君达\NB水表\软件\NB-IOT程序V1.0\USER
 -D__DATA_MEM4_UINTPTR_TYPE__=unsigned short int
 -D__DATA_MEM4_INTPTR_SIZE_PREFIX__="h"
 -D__DATA_MEM4_MAX_SIZE__=0xffff
--D__CODE_PTR_MEMORY_LIST3__(_P1,_P2)=__CODE_PTR_MEM_HELPER3__(__near_func, 0, _P1, _P2)
--D__DATA_PTR_MEMORY_LIST3__(_P1,_P2)=__DATA_PTR_MEM_HELPER3__(__tiny, 0, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__near, 1, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__far, 2, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__huge, 3, _P1, _P2) __DATA_PTR_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
--D__VAR_MEMORY_LIST3__(_P1,_P2)=__VAR_MEM_HELPER3__(__tiny, 0, _P1, _P2) __VAR_MEM_HELPER3__(__near, 1, _P1, _P2) __VAR_MEM_HELPER3__(__far, 2, _P1, _P2) __VAR_MEM_HELPER3__(__huge, 3, _P1, _P2) __VAR_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
 -D__HEAP_MEM0__=1
--D__HEAP_MEMORY_LIST3__(_P1,_P2)=__HEAP_MEM_HELPER3__(__near, 1, _P1, _P2)
 -D__MULTIPLE_HEAPS__=0
--D__TOPM_DATA_MEMORY_LIST3__(_P1,_P2)=__TOPM_DATA_MEM_HELPER3__(__huge, 3, _P1, _P2) __TOPM_DATA_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
--D__TOPP_DATA_MEMORY_LIST3__(_P1,_P2)=__TOPP_DATA_MEM_HELPER3__(__near, 1, _P1, _P2) __TOPP_DATA_MEM_HELPER3__(__huge, 3, _P1, _P2) __TOPP_DATA_MEM_HELPER3__(__eeprom, 4, _P1, _P2)
 -D__DEF_HEAP_MEM__=__near
 -D__MULTIPLE_INHERITANCE__=1
 -D_RTSL_COMPARE_T=unsigned char
@@ -233,7 +223,10 @@ F:\中科君达\NB水表\软件\NB-IOT程序V1.0\USER
 -D__HAS_WEAK__=1
 -D__HAS_LOCATED_DECLARATION__=1
 -D__HAS_LOCATED_WITH_INIT__=1
--D__IAR_COMPILERBASE__=594444
+-D__IAR_COMPILERBASE__=594189
+-D_GOANNA=1
+-D__DATE__="Jun 11 2018"
+-D__TIME__="09:27:31"
 -D__STDC__=1
 -D__STDC_VERSION__=199901L
 -D__STDC_HOSTED__=1
@@ -260,9 +253,9 @@ F:\中科君达\NB水表\软件\NB-IOT程序V1.0\USER
 -D__EDG_SYSV=0
 -D__EDG_ANSIC=1
 -D__EDG_CPP11_IL_EXTENSIONS_SUPPORTED=1
--D_DLIB_CONFIG_FILE_HEADER_NAME="D:\IAR 7.1.4 for STM8 2.10.4\stm8\LIB\dlstm8smn.h"
--D_DLIB_CONFIG_FILE_STRING="D:\\IAR 7.1.4 for STM8 2.10.4\\stm8\\LIB\\dlstm8smn.h"
--D__VERSION__="IAR C/C++ Compiler V2.20.1.176 for STM8"
+-D_DLIB_CONFIG_FILE_HEADER_NAME="D:\IAR for STM8\stm8\LIB\dlstm8smn.h"
+-D_DLIB_CONFIG_FILE_STRING="D:\\IAR for STM8\\stm8\\LIB\\dlstm8smn.h"
+-D__VERSION__="IAR C/C++ Compiler V2.10.4.157 for STM8"
 -D__CODE_MEMORY_LIST1__()=__CODE_MEM_HELPER1__(__code, 0 )
 -D__CODE_MEMORY_LIST2__(_P1)=__CODE_MEM_HELPER2__(__code, 0 ,  _P1 )
 -D__CODE_MEMORY_LIST3__(_P1, _P2)=__CODE_MEM_HELPER3__(__code, 0 ,  _P1 ,  _P2 )

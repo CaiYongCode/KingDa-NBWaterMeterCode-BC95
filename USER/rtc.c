@@ -272,7 +272,6 @@ void rtc_interrupt (void)  //RTC中断处理函数 5s一次
       {
         Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);                                  //保存当前水量
         //报警
-        GPIO_SetBits(GPIOD,GPIO_Pin_6);
       }
     }
     Last_Vol = BAT_Vol;
