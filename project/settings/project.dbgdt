@@ -45,7 +45,7 @@
           
           
           
-        <item>i</item><item>Temp</item><item>BAT_Vol</item><item>Cal</item><item>BC95</item><item>RTC_DateStr</item><item>RTC_TimeStr</item><item>Uart2</item><item>Device_Status</item><item>Sys_Timer</item><item>BAT_Alarm_Vol</item><item>Report_Cycle_counter</item><item>Report_Cycle</item><item>Settle_Date</item><item>Meter_Number</item><item></item></expressions>
+        <item>i</item><item>Temp</item><item>BAT_Vol</item><item>Cal</item><item>BC95</item><item>RTC_DateStr</item><item>RTC_TimeStr</item><item>Uart2</item><item>Device_Status</item><item>Sys_Timer</item><item>BAT_Alarm_Vol</item><item>Report_Cycle_counter</item><item>Report_Cycle</item><item>Settle_Date</item><item>Meter_Number</item><item/></expressions>
         <col-names>
           
           

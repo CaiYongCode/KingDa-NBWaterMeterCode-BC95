@@ -50,7 +50,7 @@ void main(void)
   Set_Alarm();
   Pulse_Acquire_Config();
   
-//  IWDG_INIT();
+  IWDG_INIT();
   //  Save_Version();  //保存版本问题
   enableInterrupts();                                       //开总中断
 /////////////////////////////////////////////////////////    
