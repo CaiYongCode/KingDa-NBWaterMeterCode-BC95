@@ -188,10 +188,7 @@ void Alarm_Interrupt (void)                        //闹钟中断
     RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
     if(RTC_DateStr.RTC_Date == Settle_Date)       //结算日保存累积流量
     {
-//      Device_Status = RUN_MODE;
       Save_SDCF_Flow(&Cal.Water_Data);
-//      BC95.Send_Bit.HC_Flow = 1; 
-//      BC95.Start_Process = BC95_RECONNECT;
     }
     RTC_ClearITPendingBit(RTC_IT_ALRA);              //清除闹钟中断
   }

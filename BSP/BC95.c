@@ -75,7 +75,7 @@ void BC95_Reset(void)
 {
   GPIO_ResetBits(GPIOE,GPIO_Pin_1);     //复位脚拉高
   
-  Create_Timer(ONCE,30,
+  Create_Timer(ONCE,40,
                      BC95_Start,0,PROCESS);//建议定时器延时回调
 }
 
