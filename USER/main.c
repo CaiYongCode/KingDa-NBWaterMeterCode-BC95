@@ -60,10 +60,10 @@ void main(void)
   Read_Report_Cycle();                                  //读取上报周期
   Read_Meter_Number();                                  //读取表号
 
-  BC95.Report_Bit = 1;
-  BC95.Start_Process = BC95_RECONNECT;
+//  BC95.Report_Bit = 1;
+//  BC95.Start_Process = BC95_RECONNECT;
  
-//  Device_Status = SLEEP_MODE;
+  Device_Status = SLEEP_MODE;
 
   while (1)
   {
@@ -100,8 +100,8 @@ void Sleep(void)
   GPIO_Init(GPIOE,GPIO_Pin_0,GPIO_Mode_Out_PP_Low_Slow);       //BC95 RI
   GPIO_Init(GPIOE,GPIO_Pin_1,GPIO_Mode_Out_PP_Low_Slow);       //BC95 复位脚
   GPIO_Init(GPIOE,GPIO_Pin_2,GPIO_Mode_Out_PP_Low_Slow);        //BC95 VBAT
-//  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //绿灯
-//  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //黄灯
+  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //绿灯
+  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //黄灯
 
   GPIO_Init(GPIOE, GPIO_Pin_4 , GPIO_Mode_Out_PP_Low_Slow);    //USART2 TXD
   GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_Low_Slow);    //USART3 TXD

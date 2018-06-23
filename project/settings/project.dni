@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-670980734
+Checksum=318302912
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -78,11 +78,7 @@ Bp8=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.122.5" 0 0 0
 Bp9=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.231.7" 0 0 0 0 "" 0 ""
 Bp10=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.139.9" 0 0 0 0 "" 0 ""
 Bp11=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.256.7" 0 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.620.9" 1 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.639.11" 1 0 0 0 "" 0 ""
-Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.75.7" 1 0 0 0 "" 0 ""
-Bp15=_ "STD_CODE" "{$PROJ_DIR$\..\USER\Pulse_Acquire.c}.128.5" 1 0 0 0 "" 0 ""
-Count=16
+Count=12
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -92,14 +88,20 @@ LoggingEnabled=_ 0
 LogFile=_ ""
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""
-A1=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\CJT-188-2004.c" ""
-A2=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\Save.c" ""
-A3=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\main.c" ""
-A4=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\rtc.c" ""
-A5=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\uart.c" ""
-A6=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\src\stm8l15x_rtc.c" ""
-A7=_ "I:\125K 卡表\软体\125K卡表程序V2.0\USER\main.c" ""
-Count=8
+A1=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\BSP\mcu_init.c" ""
+A2=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\USER\Globaldata.c" ""
+A3=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\USER\main.c" ""
+A4=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\src\stm8l15x_adc.c" ""
+A5=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\src\stm8l15x_rtc.c" ""
+A6=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\src\stm8l15x_usart.c" ""
+A7=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\CJT-188-2004.c" ""
+A8=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\Save.c" ""
+A9=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\main.c" ""
+A10=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\rtc.c" ""
+A11=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\USER\uart.c" ""
+A12=_ "F:\中科君达\NB水表\软体\NB-IOT程序V1.0\src\stm8l15x_rtc.c" ""
+A13=_ "I:\125K 卡表\软体\125K卡表程序V2.0\USER\main.c" ""
+Count=14
 SuppressDialog=0
 [DebuggerSettings]
 DisableInterruptsWhenStepping=0

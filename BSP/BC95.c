@@ -455,7 +455,7 @@ void BC95_Process(void)                         //BC95主进程
           BC95.Report_Bit = 0;
           BC95.Start_Process = NQMGR;
           Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
-          Create_Timer(ONCE,1,
+          Create_Timer(ONCE,2,
                      BC95_Delay_CallBalk,0,PROCESS);//建议定时器延时回调,等待1s查询消息接收缓存
         }
         else   //平台消息
@@ -463,7 +463,7 @@ void BC95_Process(void)                         //BC95主进程
           Recv_Data_Process();   
           BC95.Start_Process = NQMGR;
           Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
-          Create_Timer(ONCE,1,
+          Create_Timer(ONCE,2,
                      BC95_Delay_CallBalk,0,PROCESS);//建议定时器延时回调,等待1s查询消息接收缓存
         }
       }
@@ -723,7 +723,9 @@ void Report_All_Parameters(void)
   GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_In_FL_No_IT);      // 热敏电阻ADC检测端
   Read_Temp();
   GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_Low_Slow); 
-  //获取时间     
+  //获取时间   
+  RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
+  RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
   year = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Year);
   month = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Month);
   date = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Date);

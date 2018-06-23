@@ -84,8 +84,7 @@ void GPIO_Configuration(void)
 //  GPIO_Init(GPIOC, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
 //  GPIO_Init(GPIOD, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
 //  GPIO_Init(GPIOE, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
-//  GPIO_Init(GPIOF, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
-//  
+//  GPIO_Init(GPIOF, GPIO_Pin_All,GPIO_LOW_POWER_MODE); 
   
   GPIO_Init(GPIOA, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow); //GPIO¶Ë¿ÚÍÆÍìÊä³öµÍ
   GPIO_Init(GPIOB, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow);
