@@ -60,10 +60,10 @@ void main(void)
   Read_Report_Cycle();                                  //读取上报周期
   Read_Meter_Number();                                  //读取表号
 
-//  BC95.Report_Bit = 1;
-//  BC95.Start_Process = BC95_RECONNECT;
+  BC95.Report_Bit = 1;
+  BC95.Start_Process = BC95_RECONNECT;
  
-  Device_Status = SLEEP_MODE;
+//  Device_Status = SLEEP_MODE;
 
   while (1)
   {
