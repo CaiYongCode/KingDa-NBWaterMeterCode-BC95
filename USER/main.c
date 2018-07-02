@@ -107,6 +107,7 @@ void Sleep(void)
   GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_Low_Slow);    //USART3 TXD
   
   BC95.Start_Process = BC95_POWER_DOWN;
+  BC95.Run_Time = 0;
 
   CLK_HaltConfig(CLK_Halt_FastWakeup,ENABLE);   //快速唤醒后时钟为HSI  
   PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  

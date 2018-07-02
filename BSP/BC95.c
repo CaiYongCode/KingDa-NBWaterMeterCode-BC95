@@ -106,6 +106,7 @@ void BC95_Start(void)        //BC95复位
 *********************************************************************************/
 void BC95_Process(void)                         //BC95主进程
 {
+  char *str = NULL;
   //如果需要上报消息，启动BC95
   if(BC95.Report_Bit != 0)
   {
@@ -163,7 +164,8 @@ void BC95_Process(void)                         //BC95主进程
       break;  
      case CIMI:                 //查询IMSI
       {
-        BC95_Data_Send("AT+CIMI\r\n",9); 
+//        BC95_Data_Send("AT+CIMI\r\n",9); 
+        BC95_Data_Send("AT+NCCID\r\n",10); 
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
                      BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
       }
@@ -293,8 +295,10 @@ void BC95_Process(void)                         //BC95主进程
       break;
     case CGSN:         // 查询IMEI
       {
-        if( strstr(BC95.R_Buffer,"+CGSN:") != NULL)//获取到IMEI
+        str = strstr(BC95.R_Buffer,"+CGSN");
+        if( str != NULL)//获取到IMEI
         {
+          memcpy(BC95.IMEI,&str[6],15);
           BC95.Start_Process = CIMI;
           BC95.Incident_Pend = TRUE;//标记挂起
           Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
@@ -303,8 +307,11 @@ void BC95_Process(void)                         //BC95主进程
       break;
      case CIMI:          //查询IMSI
       {
-        if( strstr(BC95.R_Buffer,"OK") != NULL)
+//        if( strstr(BC95.R_Buffer,"OK") != NULL)
+        str = strstr(BC95.R_Buffer,"+NCCID");
+        if( str != NULL)
         {
+          memcpy(BC95.ICCID,&str[7],20);
           BC95.Start_Process = CSQ;
           BC95.Incident_Pend = TRUE;//标记挂起
           Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
@@ -707,11 +714,11 @@ void ACK(u8 messageId,u8 errcode,u8 mid[4])
  Return:        //
  Others:        //
 *********************************************************************************/
-//AT+NMGS=112,00000000020000000100040506000708090A0B0C30303030313830353030303030310E000F001011121300140000001541414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141
-//unsigned char data[128] = "AT+NMGS=48,00000000020000000100040506000708090A0B0C30303030313830353030303030310E000F0010111213001400000015\r\n";
+//uint8_t data[320] = "AT+NMGS=147,00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\
+//0000000000000030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030\r\n";
 void Report_All_Parameters(void)
 {
-  uint8_t data[128] = "AT+NMGS=48,000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
+  uint8_t data[320] = "AT+NMGS=76,00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
   union flow_union flow;     //结算日累积流量
   uint8_t year,month,date,hour,minute,second;
   uint8_t valueH = 0,valueL = 0;
@@ -846,8 +853,81 @@ void Report_All_Parameters(void)
   //霍尔状态
   data[91] = Int_to_ASCLL(BC95.Alarm.Mag_Alarm/0x10);
   data[92] = Int_to_ASCLL(BC95.Alarm.Mag_Alarm%0x10);
+  //IMEI
+  data[93] = Int_to_ASCLL(BC95.IMEI[0]/0x10);
+  data[94] = Int_to_ASCLL(BC95.IMEI[0]%0x10);
+  data[95] = Int_to_ASCLL(BC95.IMEI[1]/0x10);
+  data[96] = Int_to_ASCLL(BC95.IMEI[1]%0x10);
+  data[97] = Int_to_ASCLL(BC95.IMEI[2]/0x10);
+  data[98] = Int_to_ASCLL(BC95.IMEI[2]%0x10);
+  data[99] = Int_to_ASCLL(BC95.IMEI[3]/0x10);
+  data[100] = Int_to_ASCLL(BC95.IMEI[3]%0x10);
+  data[101] = Int_to_ASCLL(BC95.IMEI[4]/0x10);
+  data[102] = Int_to_ASCLL(BC95.IMEI[4]%0x10);
+  data[103] = Int_to_ASCLL(BC95.IMEI[5]/0x10);
+  data[104] = Int_to_ASCLL(BC95.IMEI[5]%0x10);
+  data[105] = Int_to_ASCLL(BC95.IMEI[6]/0x10);
+  data[106] = Int_to_ASCLL(BC95.IMEI[6]%0x10);
+  data[107] = Int_to_ASCLL(BC95.IMEI[7]/0x10);
+  data[108] = Int_to_ASCLL(BC95.IMEI[7]%0x10);
+  data[109] = Int_to_ASCLL(BC95.IMEI[8]/0x10);
+  data[110] = Int_to_ASCLL(BC95.IMEI[8]%0x10);
+  data[111] = Int_to_ASCLL(BC95.IMEI[9]/0x10);
+  data[112] = Int_to_ASCLL(BC95.IMEI[9]%0x10);
+  data[113] = Int_to_ASCLL(BC95.IMEI[10]/0x10);
+  data[114] = Int_to_ASCLL(BC95.IMEI[10]%0x10);
+  data[115] = Int_to_ASCLL(BC95.IMEI[11]/0x10);
+  data[116] = Int_to_ASCLL(BC95.IMEI[11]%0x10);
+  data[117] = Int_to_ASCLL(BC95.IMEI[12]/0x10);
+  data[118] = Int_to_ASCLL(BC95.IMEI[12]%0x10);
+  data[119] = Int_to_ASCLL(BC95.IMEI[13]/0x10);
+  data[120] = Int_to_ASCLL(BC95.IMEI[13]%0x10);
+  data[121] = Int_to_ASCLL(BC95.IMEI[14]/0x10);
+  data[122] = Int_to_ASCLL(BC95.IMEI[14]%0x10);
+  //ICCID
+  data[123] = Int_to_ASCLL(BC95.ICCID[0]/0x10);
+  data[124] = Int_to_ASCLL(BC95.ICCID[0]%0x10);
+  data[125] = Int_to_ASCLL(BC95.ICCID[1]/0x10);
+  data[126] = Int_to_ASCLL(BC95.ICCID[1]%0x10);
+  data[127] = Int_to_ASCLL(BC95.ICCID[2]/0x10);
+  data[128] = Int_to_ASCLL(BC95.ICCID[2]%0x10);
+  data[129] = Int_to_ASCLL(BC95.ICCID[3]/0x10);
+  data[130] = Int_to_ASCLL(BC95.ICCID[3]%0x10);
+  data[131] = Int_to_ASCLL(BC95.ICCID[4]/0x10);
+  data[132] = Int_to_ASCLL(BC95.ICCID[4]%0x10);
+  data[133] = Int_to_ASCLL(BC95.ICCID[5]/0x10);
+  data[134] = Int_to_ASCLL(BC95.ICCID[5]%0x10);
+  data[135] = Int_to_ASCLL(BC95.ICCID[6]/0x10);
+  data[136] = Int_to_ASCLL(BC95.ICCID[6]%0x10);
+  data[137] = Int_to_ASCLL(BC95.ICCID[7]/0x10);
+  data[138] = Int_to_ASCLL(BC95.ICCID[7]%0x10);
+  data[139] = Int_to_ASCLL(BC95.ICCID[8]/0x10);
+  data[140] = Int_to_ASCLL(BC95.ICCID[8]%0x10);
+  data[141] = Int_to_ASCLL(BC95.ICCID[9]/0x10);
+  data[142] = Int_to_ASCLL(BC95.ICCID[9]%0x10);
+  data[143] = Int_to_ASCLL(BC95.ICCID[10]/0x10);
+  data[144] = Int_to_ASCLL(BC95.ICCID[10]%0x10);
+  data[145] = Int_to_ASCLL(BC95.ICCID[11]/0x10);
+  data[146] = Int_to_ASCLL(BC95.ICCID[11]%0x10);
+  data[147] = Int_to_ASCLL(BC95.ICCID[12]/0x10);
+  data[148] = Int_to_ASCLL(BC95.ICCID[12]%0x10);
+  data[149] = Int_to_ASCLL(BC95.ICCID[13]/0x10);
+  data[150] = Int_to_ASCLL(BC95.ICCID[13]%0x10);
+  data[151] = Int_to_ASCLL(BC95.ICCID[14]/0x10);
+  data[152] = Int_to_ASCLL(BC95.ICCID[14]%0x10);
+  data[153] = Int_to_ASCLL(BC95.ICCID[15]/0x10);
+  data[154] = Int_to_ASCLL(BC95.ICCID[15]%0x10);
+  data[155] = Int_to_ASCLL(BC95.ICCID[16]/0x10);
+  data[156] = Int_to_ASCLL(BC95.ICCID[16]%0x10);
+  data[157] = Int_to_ASCLL(BC95.ICCID[17]/0x10);
+  data[158] = Int_to_ASCLL(BC95.ICCID[17]%0x10);
+  data[159] = Int_to_ASCLL(BC95.ICCID[18]/0x10);
+  data[160] = Int_to_ASCLL(BC95.ICCID[18]%0x10);
+  data[161] = Int_to_ASCLL(BC95.ICCID[19]/0x10);
+  data[162] = Int_to_ASCLL(BC95.ICCID[19]%0x10);
+
   
-  BC95_Data_Send(data,109);
+  BC95_Data_Send(data,165);
 }
 /*********************************************************************************
  Function:      //

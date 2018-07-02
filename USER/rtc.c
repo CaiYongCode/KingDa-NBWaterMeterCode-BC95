@@ -236,6 +236,16 @@ void Wake_Interrupt (void)                        //唤醒中断
         Device_Status = SLEEP_MODE;
       }
     }
+    
+    //BC95运行超时判定
+    if(BC95.Start_Process != BC95_POWER_DOWN)
+    {
+      BC95.Run_Time++;
+      if(BC95.Run_Time > 300)
+      {
+        Device_Status = SLEEP_MODE;
+      }
+    }
     RTC_ClearITPendingBit(RTC_IT_WUT);                        //清除RTC唤醒标志
   }
 }
