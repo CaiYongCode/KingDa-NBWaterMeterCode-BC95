@@ -29,7 +29,7 @@
 #define  SETTLEMENT_TIME_ADD    (EEPROM_ADD+111)     //结算时间地址
 #define  REPORT_CYCLE_ADDR      (EEPROM_ADD+114)     //上报周期
 #define  BAT_ALARM_ADD          (EEPROM_ADD+116)     //电池报警值地址
-#define  UP_DATE_ADD            (EEPROM_ADD+122)     //双传日期时间
+#define  BC95_ERROR_RECORD_ADD  (EEPROM_ADD+122)     //BC95联网错误记录地址
 
 #define  SDCF1_ADDR             (EEPROM_ADD+125)      //上1月结算日流量地址
 #define  SDCF2_ADDR             (EEPROM_ADD+130)      //上2月结算日流量地址

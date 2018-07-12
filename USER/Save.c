@@ -387,6 +387,32 @@ void Save_Meter_Number(void)           //保存表号
  Return:		    //
  Others:        //
 *********************************************************************************/
+void Read_BC95_ErrorRecord(void)           //读取BC95错误记录
+{
+  BC95.ErrorRecord = *((const unsigned char *)(BC95_ERROR_RECORD_ADD));
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //
+ Input:         //
+                //
+ Output:        //
+ Return:		    //
+ Others:        // 
+*********************************************************************************/
+void Save_BC95_ErrorRecord(void)           //保存BC95错误记录
+{
+  WriteRom(BC95_ERROR_RECORD_ADD,&BC95.ErrorRecord,1);
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //
+ Input:         //
+                //
+ Output:        //
+ Return:		    //
+ Others:        //
+*********************************************************************************/
 unsigned char Sum_Check(unsigned char *sdata,unsigned short NUM)                //计算和校验
 {
   unsigned char rdata = 0;

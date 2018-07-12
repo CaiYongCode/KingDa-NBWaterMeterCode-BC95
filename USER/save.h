@@ -44,6 +44,8 @@ void Read_Report_Cycle(void);        //读取上报周期
 void Save_Report_Cycle(void);        //保存上报周期
 void Read_Meter_Number(void);           //读取表号
 void Save_Meter_Number(void);           //保存表号
+void Read_BC95_ErrorRecord(void);           //读取BC95错误记录
+void Save_BC95_ErrorRecord(void);           //保存BC95错误记录
 /********************************************************************************************************/
 #endif
 

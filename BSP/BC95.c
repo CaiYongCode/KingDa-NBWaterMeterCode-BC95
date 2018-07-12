@@ -518,6 +518,9 @@ void BC95_Start_Timeout_CallBalk(void)//启动超时重发
   }
   else
   {
+    BC95.ErrorRecord = BC95.Start_Process;
+    Save_BC95_ErrorRecord();
+    
     BC95.Incident_Pend = TRUE;
     BC95.Start_Process = BC95_CONNECT_ERROR;//启动错误
   }
@@ -718,7 +721,7 @@ void ACK(u8 messageId,u8 errcode,u8 mid[4])
 //0000000000000030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030\r\n";
 void Report_All_Parameters(void)
 {
-  uint8_t data[320] = "AT+NMGS=76,00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
+  uint8_t data[200] = "AT+NMGS=77,0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
   union flow_union flow;     //结算日累积流量
   uint8_t year,month,date,hour,minute,second;
   uint8_t valueH = 0,valueL = 0;
@@ -739,6 +742,8 @@ void Report_All_Parameters(void)
   hour = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Hours);
   minute = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Minutes);
   second = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Seconds);
+  //获取上次联网错误信息
+  Read_BC95_ErrorRecord();
   
   //当前累积流量
   data[13] = Int_to_ASCLL(Cal.Water_Data.flow32/0x10000000);
@@ -925,9 +930,12 @@ void Report_All_Parameters(void)
   data[160] = Int_to_ASCLL(BC95.ICCID[18]%0x10);
   data[161] = Int_to_ASCLL(BC95.ICCID[19]/0x10);
   data[162] = Int_to_ASCLL(BC95.ICCID[19]%0x10);
-
   
-  BC95_Data_Send(data,165);
+  //上次联网错误信息
+  data[163] = Int_to_ASCLL(BC95.ErrorRecord/0x10);
+  data[164] = Int_to_ASCLL(BC95.ErrorRecord%0x10);
+  
+  BC95_Data_Send(data,167);
 }
 /*********************************************************************************
  Function:      //

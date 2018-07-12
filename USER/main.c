@@ -50,7 +50,7 @@ void main(void)
   Set_Alarm();
   Pulse_Acquire_Config();
   
-  IWDG_INIT();
+  IWDG_INIT(); 
   //  Save_Version();  //保存版本问题
   enableInterrupts();                                       //开总中断
 /////////////////////////////////////////////////////////    
@@ -68,6 +68,8 @@ void main(void)
   while (1)
   {
     IWDG_ReloadCounter();//重载计数器
+//    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
+//    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
     Sys_Timer_Process();
     BC95_Process();  
     if(Device_Status == SLEEP_MODE)     //设备进入睡眠状态

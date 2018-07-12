@@ -103,10 +103,8 @@ INTERRUPT_HANDLER(DMA1_CHANNEL2_3_IRQHandler,3)
   * @param  None
   * @retval None
   */
-uint8_t aa = 0;
 INTERRUPT_HANDLER(RTC_CSSLSE_IRQHandler,4)
 {
-  aa++;
   Wake_Interrupt();//唤醒中断服务函数
   Alarm_Interrupt ();//闹钟中断服务函数
   

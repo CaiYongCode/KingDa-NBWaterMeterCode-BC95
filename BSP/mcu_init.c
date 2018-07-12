@@ -154,10 +154,10 @@ void USART3_Configuration ( void )
   GPIO_Init(GPIOE, GPIO_Pin_7 , GPIO_Mode_In_PU_No_IT);
   GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_High_Fast);
   USART_Init(USART3,
-             2400,
-             USART_WordLength_9b,
+             9600,
+             USART_WordLength_8b,
              USART_StopBits_1,
-             USART_Parity_Even,
+             USART_Parity_No,
              USART_Mode_TxRx);    
   USART_ITConfig(USART3,USART_IT_RXNE, ENABLE);//允许接收完成中断
   USART_Cmd(USART3,ENABLE);

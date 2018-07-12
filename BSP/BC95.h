@@ -121,6 +121,7 @@ struct BC95_Str//BC95 总结构体
   struct Alarm_EN  Alarm;         //告警
   u8 Report_Bit;                          //发送位
   struct Error_Connter_Str Err_Conner;//错误计数
+  unsigned char ErrorRecord;    //错误记录
   unsigned char Rssi;//信号强度
   bool Incident_Pend;//事件挂起标志
   enum BC95_State_Eum State;//状态
