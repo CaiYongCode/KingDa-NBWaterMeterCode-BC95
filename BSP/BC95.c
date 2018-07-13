@@ -39,7 +39,17 @@ void BC95_Power_On(void)        //BC95上电
 {
   RCC_Configuration();
   USART2_Configuration();       //初始化串口2
-   
+  
+  Uart2.Sent_Length = 0;                                //清空串口2发送长度
+  Uart2.Receive_Length = 0;                             //清空串口2接收长度
+  Uart2.Send_Busy = FALSE;                              //清空串口2发送忙标志  
+  Uart2.Receive_Busy = FALSE;                           //清空串口2接收忙
+  Uart2.Receive_Pend = FALSE;                           //清空串口2挂起
+  USART_ITConfig(USART2,USART_IT_TC,DISABLE);           //关闭串口2发送中断
+  USART_ClearITPendingBit (USART2, USART_IT_TC);        //清空串口2发送完成标志
+  USART_ClearITPendingBit (USART2, USART_IT_TXE);       //清空串口2发送标志 
+  USART_ClearITPendingBit(USART2, USART_IT_RXNE);       //清空串口2接收标志 
+  
   
   GPIO_SetBits(GPIOE,GPIO_Pin_2);       //VBAT拉高        3.1-4.2V，典型值3.6V
   GPIO_SetBits(GPIOE,GPIO_Pin_1);      //复位脚拉低
