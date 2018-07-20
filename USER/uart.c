@@ -169,17 +169,6 @@ ErrorStatus Uart2_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
     err = ERROR;                                                //表示发送错误
   return err; 
 }
-////查询发送
-//ErrorStatus Uart2_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
-//{
-//  u16 i = 0;
-//  for(i = 0;i < Send_Lenght;i++)
-//  {
-//    USART_SendData8 (USART2,Send_Data[i]);
-//    while(USART_GetFlagStatus(USART2,USART_FLAG_TC)==RESET);
-//  }
-//  return SUCCESS;
-//}
 
 /*********************************************************************************
  Function:      //
@@ -215,7 +204,7 @@ unsigned short Uart2_Receive(unsigned char *R_buff)
 *********************************************************************************/
 void USART3_IRQHandler(void)                                                   //串口3中断服务函数
 {    
-  if(USART_GetITStatus(USART3,USART_IT_RXNE)==SET)//USART_IT_RXNE：接收中断  
+  if(USART_GetITStatus(USART3,USART_IT_RXNE) != RESET)//USART_IT_RXNE：接收中断  
   {   
     if(Uart3.Receive_Pend == FALSE)//判断当前数据已被取走
     {
@@ -235,7 +224,7 @@ void USART3_IRQHandler(void)                                                   /
     }
     USART_ClearITPendingBit (USART3, USART_IT_RXNE);
   }
-  else if(USART_GetITStatus(USART3,USART_IT_IDLE)==SET)//检测总线空闲
+  else if(USART_GetITStatus(USART3,USART_IT_IDLE) != RESET)//检测总线空闲
   {
     if(Uart3.Receive_Pend == FALSE)//判断当前数据已被取走
     {
@@ -243,27 +232,61 @@ void USART3_IRQHandler(void)                                                   /
       Uart3.Receive_Pend = TRUE;//标志串口挂起
       USART_ITConfig(USART3, USART_IT_IDLE, DISABLE);            //禁止总线空闲中断
     }
+    USART_ClearITPendingBit (USART3, USART_IT_IDLE);
   }
-  else if(USART_GetITStatus(USART3,USART_IT_TC) == SET)//判断发送完成
+//  else if(USART_GetITStatus(USART3,USART_IT_TC) == SET)//判断发送完成
+//  {
+//    if(Uart3.Send_Busy != FALSE)//判断是否为发送忙状态，防止发送误判断
+//    {
+//      if(Uart3.Send_Length != Uart3.Sent_Length)//判断 未发送完成
+//      {
+//        USART_SendData9 (USART3,Uart3.S_Buffer[Uart3.Sent_Length]);//根据已发送字节发送下一个字节
+//        Uart3.Sent_Length++;
+//      }
+//      else //已发送完成
+//      {
+//        Uart3.Send_Busy = FALSE;//清空忙标志
+//        #ifdef Uart3_Half_Duplex                                      //如果是半双工则开启接收
+//        Uart3_RX_ENABLE;
+//        #endif
+//        USART_ITConfig(USART3,USART_IT_TC,DISABLE);                //禁止串口3发送中断。  
+//      }
+//    }
+//    USART_ClearITPendingBit (USART3, USART_IT_TC);//清空相关标志
+//  }
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //
+ Input:         //
+                //
+ Output:        //
+ Return:      	//
+ Others:        //
+*********************************************************************************/
+void USART3_TX_IRQHandler(void)                                                   //串口3发送中断服务函数
+{
+  if(USART_GetITStatus(USART3,USART_IT_TC)!= RESET)//判断发送完成
   {
     if(Uart3.Send_Busy != FALSE)//判断是否为发送忙状态，防止发送误判断
     {
       if(Uart3.Send_Length != Uart3.Sent_Length)//判断 未发送完成
       {
-        USART_SendData9 (USART3,Uart3.S_Buffer[Uart3.Sent_Length]);//根据已发送字节发送下一个字节
-        Uart3.Sent_Length++;
+        USART_SendData8 (USART3,Uart3.S_Buffer[Uart3.Sent_Length]);//根据已发送字节发送下一个字节
+        Uart3.Sent_Length++;     
       }
       else //已发送完成
       {
+        USART_ITConfig(USART3,USART_IT_TC,DISABLE); //关闭发送中断
         Uart3.Send_Busy = FALSE;//清空忙标志
         #ifdef Uart3_Half_Duplex                                      //如果是半双工则开启接收
         Uart3_RX_ENABLE;
         #endif
-        USART_ITConfig(USART3,USART_IT_TC,DISABLE);                //禁止串口3发送中断。  
       }
     }
     USART_ClearITPendingBit (USART3, USART_IT_TC);//清空相关标志
   }
+  USART_ClearITPendingBit (USART3, USART_IT_TXE);//清空相关标志
 }
 /*********************************************************************************
  Function:      //
@@ -278,7 +301,11 @@ ErrorStatus Uart3_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
 {
   ErrorStatus err;  //定义返回值
   unsigned short i;
-  while(Uart3.Send_Busy != FALSE);
+//  while(Uart3.Send_Busy != FALSE);
+   if(Uart3.Send_Length == Uart3.Sent_Length)//如果已发送完成，强制发送空闲
+  {
+    Uart3.Send_Busy = FALSE;
+  }
   if(Uart3.Send_Busy == FALSE)                                  //检测是否忙
   {
   #ifdef Uart3_Half_Duplex                                      //如果是半双工则关闭接收
@@ -293,7 +320,7 @@ ErrorStatus Uart3_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
       Uart3.S_Buffer[i] = Send_Data[i];
     Uart3.Sent_Length = 0;          //已发送的长度清零
     Uart3.Send_Busy = TRUE;      //标志忙
-    USART_SendData9 (USART3,Uart3.S_Buffer[0]);
+    USART_SendData8(USART3,Uart3.S_Buffer[0]);
     Uart3.Sent_Length++;
   }
   else
@@ -313,7 +340,7 @@ ErrorStatus Uart3_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
 unsigned short Uart3_Receive(unsigned char *R_buff)
 {
   unsigned short R_Len,i;
-  if(Uart3.Receive_Pend == TRUE)
+  if(Uart3.Receive_Pend != FALSE)
   {
     for(i=0;i<Uart3.Receive_Length;i++)
       R_buff[i] = Uart3.R_Buffer[i];

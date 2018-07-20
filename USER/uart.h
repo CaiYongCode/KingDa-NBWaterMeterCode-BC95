@@ -82,6 +82,7 @@ void USART2_TX_IRQHandler(void);
 ErrorStatus Uart3_Send(unsigned char *Send_Data,unsigned short Send_Lenght);
 unsigned short Uart3_Receive(unsigned char *R_buff);
 void USART3_IRQHandler(void);
+void USART3_TX_IRQHandler(void);
 /********************************************************************************************************/
 #endif
 

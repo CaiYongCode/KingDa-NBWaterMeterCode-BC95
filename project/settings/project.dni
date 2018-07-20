@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=787278063
+Checksum=-1688962814
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -78,7 +78,7 @@ Bp9=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.231.7" 0 0 0
 Bp10=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.139.9" 0 0 0 0 "" 0 ""
 Bp11=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.256.7" 0 0 0 0 "" 0 ""
 Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\USER\rtc.c}.246.9" 1 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.532.5" 1 0 0 0 "" 0 ""
+Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.330.9" 1 0 0 0 "" 0 ""
 Count=14
 [Log file]
 LoggingEnabled=_ 0

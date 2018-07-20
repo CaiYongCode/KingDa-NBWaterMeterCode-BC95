@@ -45,10 +45,6 @@ void BC95_Power_On(void)        //BC95上电
   Uart2.Send_Busy = FALSE;                              //清空串口2发送忙标志  
   Uart2.Receive_Busy = FALSE;                           //清空串口2接收忙
   Uart2.Receive_Pend = FALSE;                           //清空串口2挂起
-  USART_ITConfig(USART2,USART_IT_TC,DISABLE);           //关闭串口2发送中断
-  USART_ClearITPendingBit (USART2, USART_IT_TC);        //清空串口2发送完成标志
-  USART_ClearITPendingBit (USART2, USART_IT_TXE);       //清空串口2发送标志 
-  USART_ClearITPendingBit(USART2, USART_IT_RXNE);       //清空串口2接收标志 
   
   
   GPIO_SetBits(GPIOE,GPIO_Pin_2);       //VBAT拉高        3.1-4.2V，典型值3.6V
@@ -172,7 +168,7 @@ void BC95_Process(void)                         //BC95主进程
                      BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
       }
       break;  
-     case CIMI:                 //查询IMSI
+     case CIMI:                 //查询CCID
       {
 //        BC95_Data_Send("AT+CIMI\r\n",9); 
         BC95_Data_Send("AT+NCCID\r\n",10); 
@@ -315,9 +311,8 @@ void BC95_Process(void)                         //BC95主进程
         }
       }
       break;
-     case CIMI:          //查询IMSI
+     case CIMI:          //查询CCID
       {
-//        if( strstr(BC95.R_Buffer,"OK") != NULL)
         str = strstr(BC95.R_Buffer,"+NCCID");
         if( str != NULL)
         {
@@ -330,12 +325,20 @@ void BC95_Process(void)                         //BC95主进程
       break;
     case CSQ:           //查询信号强度
       {
-        if(strstr(BC95.R_Buffer,"+CSQ") != NULL)
+        str = strstr(BC95.R_Buffer,"+CSQ");
+        if( str != NULL)
         {
           BC95.Rssi =0;//保存信号强度
-          BC95.Rssi += BC95.R_Buffer[7]-0x30;
-          BC95.Rssi *=10;
-          BC95.Rssi += BC95.R_Buffer[8]-0x30;
+          if( (str[5] >= '0') && (str[5] <= '9') )
+          {
+            BC95.Rssi += str[5]-0x30;
+          }
+          if( (str[6] >= '0') && (str[6] <= '9') )
+          {
+            BC95.Rssi *=10;
+            BC95.Rssi += str[6]-0x30;
+          }
+          
           BC95.Rssi %= 100;
           if(BC95.Rssi < 99)
           {
