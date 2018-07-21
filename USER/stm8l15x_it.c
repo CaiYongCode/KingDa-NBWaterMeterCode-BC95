@@ -328,7 +328,7 @@ INTERRUPT_HANDLER(TIM2_CC_USART2_RX_IRQHandler,20)
   */
 INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQHandler,21)
 {
-   USART3_IRQHandler();
+ //  USART3_IRQHandler();
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
@@ -341,7 +341,7 @@ INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQHandler,21)
 INTERRUPT_HANDLER(TIM3_CC_USART3_RX_IRQHandler,22)
 {
   //tim3_cc();
-  USART3_IRQHandler();
+ // USART3_IRQHandler();
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */

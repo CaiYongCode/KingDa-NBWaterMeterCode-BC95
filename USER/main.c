@@ -51,7 +51,6 @@ void main(void)
   Pulse_Acquire_Config();
   
   IWDG_INIT(); 
-  //  Save_Version();  //保存版本问题
   enableInterrupts();                                       //开总中断
 /////////////////////////////////////////////////////////    
   Read_ACUM_Flow(ADD_FLOW_ADD,&Cal.Water_Data);         //读取当前累积流量
@@ -67,9 +66,9 @@ void main(void)
 
   while (1)
   {
-    IWDG_ReloadCounter();//重载计数器
 //    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
 //    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
+    IWDG_ReloadCounter();//重载计数器
     Sys_Timer_Process();
     BC95_Process();  
     if(Device_Status == SLEEP_MODE)     //设备进入睡眠状态

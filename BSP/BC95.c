@@ -593,7 +593,7 @@ void Recv_Data_Process(void)
   switch(messageId)
   {
     case 0x02:            //配置参数
-      {//45,020004303030303138303530303030303132303138303532323136333033300102D00140000000000000000030
+      {//31,020004 3030303031383035303030303031 01 02D0 0140 000000000000000030
         //表号
         valueH = BC95.R_Buffer[2+i+7]*0x10+BC95.R_Buffer[2+i+8];
         valueL = BC95.R_Buffer[2+i+9]*0x10+BC95.R_Buffer[2+i+10];
@@ -617,26 +617,15 @@ void Recv_Data_Process(void)
         valueL = BC95.R_Buffer[2+i+33]*0x10+BC95.R_Buffer[2+i+34];
         Meter_Number[6] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         Save_Meter_Number();
-        //时间       
-        RTC_Date.RTC_Year = BC95.R_Buffer[2+i+40]*10+BC95.R_Buffer[2+i+42];
-        RTC_Date.RTC_Month = BC95.R_Buffer[2+i+44]*10+BC95.R_Buffer[2+i+46];
-        RTC_Date.RTC_Date = BC95.R_Buffer[2+i+48]*10+BC95.R_Buffer[2+i+50];
-        RTC_Date.RTC_WeekDay = RTC_Weekday_Monday;
         
-        RTC_Time.RTC_Hours   = BC95.R_Buffer[2+i+52]*10+BC95.R_Buffer[2+i+54];
-        RTC_Time.RTC_Minutes = BC95.R_Buffer[2+i+56]*10+BC95.R_Buffer[2+i+58];
-        RTC_Time.RTC_Seconds = BC95.R_Buffer[2+i+60]*10+BC95.R_Buffer[2+i+62];
-        
-        RTC_SetDate(RTC_Format_BIN, &RTC_Date);
-        RTC_SetTime(RTC_Format_BIN, &RTC_Time);
         //结算日期
-        Settle_Date = BC95.R_Buffer[2+i+63]*0x10+BC95.R_Buffer[2+i+64];   //设置结算日期
+        Settle_Date = BC95.R_Buffer[2+i+35]*0x10+BC95.R_Buffer[2+i+36];   //设置结算日期
         Save_Settle_Date();       
         //上报周期
-         Report_Cycle = BC95.R_Buffer[2+i+65]*0x1000+BC95.R_Buffer[2+i+66]*0x100+BC95.R_Buffer[2+i+67]*0x10+BC95.R_Buffer[2+i+68]; //设置上报周期
+         Report_Cycle = BC95.R_Buffer[2+i+37]*0x1000+BC95.R_Buffer[2+i+38]*0x100+BC95.R_Buffer[2+i+39]*0x10+BC95.R_Buffer[2+i+40]; //设置上报周期
         Save_Report_Cycle();
         //告警电压
-        BAT_Alarm_Vol = BC95.R_Buffer[2+i+69]*0x1000+BC95.R_Buffer[2+i+70]*0x100+BC95.R_Buffer[2+i+71]*0x10+BC95.R_Buffer[2+i+72];
+        BAT_Alarm_Vol = BC95.R_Buffer[2+i+41]*0x1000+BC95.R_Buffer[2+i+42]*0x100+BC95.R_Buffer[2+i+43]*0x10+BC95.R_Buffer[2+i+44];
         Save_BAT_Alarm_Value();
         
         //0x03响应
@@ -664,6 +653,24 @@ void Recv_Data_Process(void)
         }
         //0x05响应
         ACK(0x05,0x00,mid);
+      } 
+      break;
+    case 0x06:           //校准时间
+      {//
+        //时间       
+        RTC_Date.RTC_Year = BC95.R_Buffer[2+i+12]*10+BC95.R_Buffer[2+i+14];
+        RTC_Date.RTC_Month = BC95.R_Buffer[2+i+16]*10+BC95.R_Buffer[2+i+18];
+        RTC_Date.RTC_Date = BC95.R_Buffer[2+i+20]*10+BC95.R_Buffer[2+i+22];
+        RTC_Date.RTC_WeekDay = RTC_Weekday_Monday;
+        
+        RTC_Time.RTC_Hours   = BC95.R_Buffer[2+i+24]*10+BC95.R_Buffer[2+i+26];
+        RTC_Time.RTC_Minutes = BC95.R_Buffer[2+i+28]*10+BC95.R_Buffer[2+i+30];
+        RTC_Time.RTC_Seconds = BC95.R_Buffer[2+i+32]*10+BC95.R_Buffer[2+i+34];
+        
+        RTC_SetDate(RTC_Format_BIN, &RTC_Date);
+        RTC_SetTime(RTC_Format_BIN, &RTC_Time);
+        //0x05响应
+        ACK(0x07,0x00,mid);
       } 
       break;
     default:
@@ -736,7 +743,8 @@ void Report_All_Parameters(void)
 {
   uint8_t data[200] = "AT+NMGS=77,0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
   union flow_union flow;     //结算日累积流量
-  uint8_t year,month,date,hour,minute,second;
+  uint8_t month,date,hour,minute,second;
+  unsigned short year = 0;
   uint8_t valueH = 0,valueL = 0;
   
   //获取上一月累计流量
@@ -749,7 +757,7 @@ void Report_All_Parameters(void)
   //获取时间   
   RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
   RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
-  year = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Year);
+  year = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Year)+2000;
   month = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Month);
   date = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Date);
   hour = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Hours);
@@ -792,7 +800,9 @@ void Report_All_Parameters(void)
   data[36] = Int_to_ASCLL((u8)Temp%0x10);
   
   //年
-  data[39] = Int_to_ASCLL(year/0x10);
+  data[37] = Int_to_ASCLL(year/0x1000);
+  data[38] = Int_to_ASCLL(year%0x1000/0x100);
+  data[39] = Int_to_ASCLL(year%0x100/0x10);
   data[40] = Int_to_ASCLL(year%0x10); 
   //月
   data[41] = Int_to_ASCLL(month/0x10);

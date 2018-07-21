@@ -79,13 +79,6 @@ void RCC_Configuration(void)                                                   /
 *********************************************************************************/
 void GPIO_Configuration(void)
 {
-//  GPIO_Init(GPIOA, GPIO_Pin_All,GPIO_LOW_POWER_MODE); //GPIO端口低功耗处理
-//  GPIO_Init(GPIOB, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
-//  GPIO_Init(GPIOC, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
-//  GPIO_Init(GPIOD, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
-//  GPIO_Init(GPIOE, GPIO_Pin_All,GPIO_LOW_POWER_MODE);
-//  GPIO_Init(GPIOF, GPIO_Pin_All,GPIO_LOW_POWER_MODE); 
-  
   GPIO_Init(GPIOA, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow); //GPIO端口推挽输出低
   GPIO_Init(GPIOB, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow);
   GPIO_Init(GPIOC, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow);
@@ -147,21 +140,21 @@ void USART2_Configuration ( void )
  Return:      	//
  Others:        //
 *********************************************************************************/
-void USART3_Configuration ( void )
-{
-  CLK_PeripheralClockConfig(CLK_Peripheral_USART3, ENABLE);
-  USART_DeInit(USART3);
-  GPIO_Init(GPIOE, GPIO_Pin_7 , GPIO_Mode_In_PU_No_IT);
-  GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_High_Fast);
-  USART_Init(USART3,
-             9600,
-             USART_WordLength_8b,
-             USART_StopBits_1,
-             USART_Parity_No,
-             USART_Mode_TxRx);    
-  USART_ITConfig(USART3,USART_IT_RXNE, ENABLE);//允许接收完成中断
-  USART_Cmd(USART3,ENABLE);
-}
+//void USART3_Configuration ( void )
+//{
+//  CLK_PeripheralClockConfig(CLK_Peripheral_USART3, ENABLE);
+//  USART_DeInit(USART3);
+//  GPIO_Init(GPIOE, GPIO_Pin_7 , GPIO_Mode_In_PU_No_IT);
+//  GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_High_Fast);
+//  USART_Init(USART3,
+//             9600,
+//             USART_WordLength_8b,
+//             USART_StopBits_1,
+//             USART_Parity_No,
+//             USART_Mode_TxRx);    
+//  USART_ITConfig(USART3,USART_IT_RXNE, ENABLE);//允许接收完成中断
+//  USART_Cmd(USART3,ENABLE);
+//}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -208,17 +201,17 @@ void ADC_CH1_Config ( void )
  Return:      	//
  Others:        //
 *********************************************************************************/
-void ADC_CHV_Config(void)
-{
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);   //开启ADC时钟
-  ADC_Init (ADC1,ADC_ConversionMode_Continuous, 
-                                          ADC_Resolution_8Bit, ADC_Prescaler_1 );         //断续模式 8位 1分频
-  ADC_VrefintCmd (ENABLE);                                  //启动内部参考电压
-  ADC_ChannelCmd(ADC1,ADC_Channel_Vrefint,ENABLE );         //通道选择内部电压
-
-  ADC_SamplingTimeConfig (ADC1,ADC_Group_FastChannels,ADC_SamplingTime_4Cycles);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1,DISABLE);   //关闭ADC时钟
-}
+//void ADC_CHV_Config(void)
+//{
+//  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);   //开启ADC时钟
+//  ADC_Init (ADC1,ADC_ConversionMode_Continuous, 
+//                                          ADC_Resolution_8Bit, ADC_Prescaler_1 );         //断续模式 8位 1分频
+//  ADC_VrefintCmd (ENABLE);                                  //启动内部参考电压
+//  ADC_ChannelCmd(ADC1,ADC_Channel_Vrefint,ENABLE );         //通道选择内部电压
+//
+//  ADC_SamplingTimeConfig (ADC1,ADC_Group_FastChannels,ADC_SamplingTime_4Cycles);
+//  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1,DISABLE);   //关闭ADC时钟
+//}
 /*********************************************************************************
  Function:      //
  Description:   //

@@ -45,9 +45,6 @@ void Pulse_Acquire_Config(void)
   GPIO_Init(Cai1_PORT, Cai1_Pin , Cai1_Mode);   //初始化霍尔开关1
   GPIO_Init(Cai2_PORT, Cai2_Pin , Cai2_Mode);   //初始化霍尔开关2
   
-//  GPIO_Init(Cai1_PORT, Cai1_Pin , GPIO_Mode_In_PU_IT);   //初始化霍尔开关1
-//  GPIO_Init(Cai2_PORT, Cai2_Pin , GPIO_Mode_In_PU_IT);   //初始化霍尔开关2
-  
   GPIO_Init(Weak_Up_PORT, Weak_Up_Pin , Weak_Up_Mode);   //初始化霍尔开关唤醒
   
   EXTI_SelectPort(EXTI_Port_D);
@@ -55,9 +52,6 @@ void Pulse_Acquire_Config(void)
   EXTI_SetPortSensitivity(EXTI_Port_D,EXTI_Trigger_Falling); //GPIOD接口 下降沿中断
   EXTI_ClearITPendingBit (EXTI_IT_PortD);                    //清中断标志位
   ITC_SetSoftwarePriority(EXTID_H_IRQn , ITC_PriorityLevel_1);//中断优先级设定
-  
-//  Cal.Cal_State = *CAL_STATE;//从EEPROM中获取 霍尔状态
-//  Cal.Water_Data.flow32 = ADD_FLOW->flow32;
   
 
   EXTI_SetPinSensitivity(EXTI_Pin_0, EXTI_Trigger_Falling);

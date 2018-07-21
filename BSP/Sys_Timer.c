@@ -44,7 +44,6 @@ NEAR static struct Str_Sys_Timer Sys_Timer[SYS_TIMER_NUMBER];//系统使用函数定义
 void SysTick_Handler(void)                                                     //滴答中断服务函数
 {
   static unsigned char Timer_Num=0;
- // Connect.time_Falg = TRUE;
   for(Timer_Num=0;Timer_Num<SYS_TIMER_NUMBER-1;Timer_Num++)
   {
     if(Sys_Timer[Timer_Num].Start != DISABLE)//判断开始的定时器

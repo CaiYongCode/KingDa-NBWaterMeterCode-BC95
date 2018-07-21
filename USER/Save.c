@@ -86,21 +86,6 @@ void WriteRom (unsigned short addr, void *pbuff, unsigned char length)
  Return:		    //
  Others:        //
 *********************************************************************************/
-void Save_IP(unsigned char *IP,unsigned char Num)
-{
-  if(Num == 1)
-  {
-    WriteRom(SERVER_ADD1_EEPROM_ADD,IP,4);//存储IP1
-    WriteRom(SERVER_ADD1_EEPROM_ADD+4,&IP[4],1);//存储IP1
-    WriteRom(SERVER_ADD1_EEPROM_ADD+5,&IP[5],1);//存储IP1
-  }
-  else if(Num == 2)
-  {
-    WriteRom(SERVER_ADD2_EEPROM_ADD,IP,4);//存储IP2
-    WriteRom(SERVER_ADD2_EEPROM_ADD+4,&IP[4],1);//存储IP2
-    WriteRom(SERVER_ADD2_EEPROM_ADD+5,&IP[5],1);//存储IP2
-  }
-}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -110,27 +95,6 @@ void Save_IP(unsigned char *IP,unsigned char Num)
  Return:		    //
  Others:        //
 *********************************************************************************/
-void Save_Version(void)
-{
-  unsigned char version = SOFTWARE_VERSION;
-  union Network_Par_Uni ip;
-  if(VERSION != SOFTWARE_VERSION)
-  {
-    WriteRom(SOFTWARE_VERSION_ADD,&version,1);
-    ip.Str.IP[0] = 112;
-    ip.Str.IP[1] = 25;
-    ip.Str.IP[2] = 204;
-    ip.Str.IP[3] = 3;
-    ip.Str.Port = 10001;
-    Save_IP(ip.Byte,1);
-    ip.Str.IP[0] = 0;
-    ip.Str.IP[1] = 0;
-    ip.Str.IP[2] = 0;
-    ip.Str.IP[3] = 0;
-    ip.Str.Port = 0;
-    Save_IP(ip.Byte,2);
-  }
-}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -292,12 +256,6 @@ void Save_Settle_Date(void)         //保存结算日期
  Return:		    //
  Others:        //
 *********************************************************************************/
-void Read_Settle_Time(void)   //读取日结算时间
-{
-  Settlement_Time.RTC_Hours = *((const unsigned char *)(SETTLEMENT_TIME_ADD));
-  Settlement_Time.RTC_Minutes = *((const unsigned char *)(SETTLEMENT_TIME_ADD+1));
-  Settlement_Time.RTC_Seconds = *((const unsigned char *)(SETTLEMENT_TIME_ADD+2));
-}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -307,15 +265,6 @@ void Read_Settle_Time(void)   //读取日结算时间
  Return:		    //
  Others:        //
 *********************************************************************************/
-void Save_Settle_Time(void)   //保存结算时间
-{
-  unsigned char buff[3] = {0};
-  buff[0] = Settlement_Time.RTC_Hours;
-  buff[1] = Settlement_Time.RTC_Minutes;
-  buff[2] = Settlement_Time.RTC_Seconds;
-  
-  WriteRom (SETTLEMENT_TIME_ADD,buff,3);
-}
 /*********************************************************************************
  Function:      //
  Description:   //
