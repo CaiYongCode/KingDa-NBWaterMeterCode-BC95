@@ -121,7 +121,11 @@ void BC95_Process(void)                         //BC95主进程
       if(BC95.Reconnect_Times >= 3)  //重连超次数则睡眠
       {
         BC95.Reconnect_Times = 0;
-        
+        BC95.Fail_Times++;
+        if(BC95.Fail_Times >= 2)
+        {
+          Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
+        }
         BC95.Start_Process = BC95_POWER_DOWN;
         BC95_Power_Off();
         Device_Status = SLEEP_MODE;

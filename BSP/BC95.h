@@ -127,6 +127,7 @@ struct BC95_Str//BC95 总结构体
   enum BC95_State_Eum State;//状态
   bool ZIPSTATUS_Pend;//用于查询状态
   unsigned char Reconnect_Times;        //重连次数
+  unsigned char Fail_Times;     //失败次数
   unsigned short Run_Time;         //运行时间
   unsigned char ICCID[20];
   unsigned char IMEI[15];

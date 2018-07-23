@@ -68,7 +68,10 @@ void main(void)
   {
 //    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
 //    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
-    IWDG_ReloadCounter();//重载计数器
+    if(BC95.Fail_Times < 2)
+    {
+      IWDG_ReloadCounter();//重载计数器
+    }
     Sys_Timer_Process();
     BC95_Process();  
     if(Device_Status == SLEEP_MODE)     //设备进入睡眠状态
@@ -137,14 +140,13 @@ void IWDG_INIT(void)  //看门狗初始化
 }
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //独立看门狗复位
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-
 /*********************************************************************************
  Function:      //
  Description:   //
