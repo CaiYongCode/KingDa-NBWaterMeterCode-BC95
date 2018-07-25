@@ -172,7 +172,7 @@ void BC95_Process(void)                         //BC95主进程
                      BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
       }
       break;  
-     case CIMI:                 //查询CCID
+     case CCID:                 //查询CCID
       {
 //        BC95_Data_Send("AT+CIMI\r\n",9); 
         BC95_Data_Send("AT+NCCID\r\n",10); 
@@ -309,13 +309,13 @@ void BC95_Process(void)                         //BC95主进程
         if( str != NULL)//获取到IMEI
         {
           memcpy(BC95.IMEI,&str[6],15);
-          BC95.Start_Process = CIMI;
+          BC95.Start_Process = CCID;
           BC95.Incident_Pend = TRUE;//标记挂起
           Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
         }
       }
       break;
-     case CIMI:          //查询CCID
+     case CCID:          //查询CCID
       {
         str = strstr(BC95.R_Buffer,"+NCCID");
         if( str != NULL)
@@ -466,7 +466,7 @@ void BC95_Process(void)                         //BC95主进程
         {
           
         }
-        else if(strstr(BC95.R_Buffer,"AAAA0000") != NULL)  //上报全部参数的响应
+        else if(strstr(BC95.R_Buffer,",AAAA0000") != NULL)  //上报全部参数的响应
         {      
           BC95.Alarm.Mag_Alarm = 0;
           BC95.Report_Bit = 2;
@@ -474,7 +474,7 @@ void BC95_Process(void)                         //BC95主进程
           BC95.Incident_Pend = TRUE;//标记挂起
           Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
         }
-        else if(strstr(BC95.R_Buffer,"AAAA0001") != NULL)     //上报历史流量的响应
+        else if(strstr(BC95.R_Buffer,",AAAA0001") != NULL)     //上报历史流量的响应
         {
           BC95.Report_Bit = 0;
           BC95.Start_Process = NQMGR;

@@ -49,7 +49,7 @@ enum Start_Process_En   //启动流程
   AT,                   //同步波特率
   CIMI,                 //查询IMSI
   CGSN,                 //查询IMEI  
-  
+  CCID,                //查询CCID
   GETNBAND,             //查询频段
   SETNBAND,             //设置频段
   GETCFUN,              //查询电话功能
