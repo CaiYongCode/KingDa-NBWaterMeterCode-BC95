@@ -80,26 +80,71 @@ void ExtiD_Interrupt (void)                        //外中断D
 {
   if(RESET == Cai1 || RESET == Cai2)
   {
-    if(RESET == Cai1 && RESET == Cai2)       //判断磁报警
+    if(RESET == Cai1 && RESET == Cai2)       //强磁干扰
     {
-      //有磁报警的处理
-      BC95.Alarm.Mag_Alarm = 1;
-      if(BC95.Start_Process == BC95_POWER_DOWN)
+      if(Cal.Error != INTERFERE) 
       {
-        Device_Status = RUN_MODE;      
-        BC95.Start_Process = BC95_RECONNECT;
+        Cal.Error = INTERFERE;
+        Cal.ErrorTimes = 0;
+        
+        if(BC95.Start_Process == BC95_POWER_DOWN)       //第一次出现，立即上报
+        {
+          Device_Status = RUN_MODE;      
+          BC95.Report_Bit = 1;
+          BC95.Start_Process = BC95_RECONNECT;
+        }
       }
     }
     else
-    {
+    { 
       if(Cal.Cal_State == CAL2 && RESET == Cai1) //第1个霍尔触发 且 上次状态为第2个霍尔触发
       {
         Cal.Cal_State = CAL1;
+        
+        Cal.Error = NORMAL;
+        Cal.ErrorTimes = 0;
       }
       else if(Cal.Cal_State == CAL1 && RESET == Cai2) //第2个霍尔触发 且 上次状态为第1个霍尔触发
       {
         Cal.Water_Data.flow32++;
         Cal.Cal_State = CAL2;
+               
+        Cal.Error = NORMAL;
+        Cal.ErrorTimes = 0;
+      }
+      else if(Cal.Cal_State == CAL1 && RESET == Cai1) //第1个霍尔触发 且 上次状态为第1个霍尔触发
+      {
+        Cal.ErrorTimes++;
+        if(Cal.ErrorTimes >= 3)
+        {
+          if(Cal.Error != HALL1) 
+          {
+            Cal.Error = HALL1;
+            if(BC95.Start_Process == BC95_POWER_DOWN)
+            {
+              Device_Status = RUN_MODE;      
+              BC95.Report_Bit = 1;
+              BC95.Start_Process = BC95_RECONNECT;
+            }
+          }
+        }
+      }
+      else if(Cal.Cal_State == CAL2 && RESET == Cai2) //第2个霍尔触发 且 上次状态为第2个霍尔触发
+      {
+        Cal.ErrorTimes++;
+        if(Cal.ErrorTimes >= 3)
+        {
+          if(Cal.Error != HALL2) 
+          {
+            Cal.Error = HALL2;
+            if(BC95.Start_Process == BC95_POWER_DOWN)
+            {
+              Device_Status = RUN_MODE;      
+              BC95.Report_Bit = 1;
+              BC95.Start_Process = BC95_RECONNECT;
+            }
+          }
+        }
       }
     }
   }

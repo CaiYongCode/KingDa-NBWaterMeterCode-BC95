@@ -126,6 +126,7 @@ void BC95_Process(void)                         //BC95主进程
         {
           Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
         }
+        
         BC95.Start_Process = BC95_POWER_DOWN;
         BC95_Power_Off();
         Device_Status = SLEEP_MODE;
@@ -147,7 +148,7 @@ void BC95_Process(void)                         //BC95主进程
       {
         BC95_Data_Send("AT\r\n",4);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;
     case GETNBAND:               //查询频段
@@ -155,21 +156,21 @@ void BC95_Process(void)                         //BC95主进程
         
         BC95_Data_Send("AT+NBAND?\r\n",11);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;
     case GETCFUN:                //查询电话功能
       {
         BC95_Data_Send("AT+CFUN?\r\n",10);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       } 
       break;
     case CGSN:                 //查询IMEI      
       {
         BC95_Data_Send("AT+CGSN=1\r\n",11);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;  
      case CCID:                 //查询CCID
@@ -177,65 +178,66 @@ void BC95_Process(void)                         //BC95主进程
 //        BC95_Data_Send("AT+CIMI\r\n",9); 
         BC95_Data_Send("AT+NCCID\r\n",10); 
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;  
     case CSQ:                //查询电话功能
       {
         BC95_Data_Send("AT+CSQ\r\n",8);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       } 
       break;
     case GETCGATT:                //查询网络激活状态    
       {
         BC95_Data_Send("AT+CGATT?\r\n",11);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;    
     case CEREG:                //查询网络注册状态     
       {
         BC95_Data_Send("AT+CEREG?\r\n",11);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;
     case GETNCDP:                 //查询CDP服务器
       {
         BC95_Data_Send("AT+NCDP?\r\n",10);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;
     case SETNCDP:                 //设置CDP服务器 
       {
         BC95_Data_Send("AT+NCDP=180.101.147.115,5683\r\n",30);   
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break; 
     case NSMI:                 //设置发送消息指示
       {
         BC95_Data_Send("AT+NSMI=1\r\n",11);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;
 //    case NNMI:                 //设置接收消息指示
 //      {
 //        BC95_Data_Send("AT+NNMI=1\r\n",11);
 //        Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-//                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+//                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
 //      }
 //      break;
     case NMGS:                 //发送消息     
-      {       
+      {     
+        Send_Data_Process();
         if(BC95.Report_Bit != 0)   //有消息发送
         {   
-          Send_Data_Process();
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
           Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
         }
       }
       break;
@@ -243,14 +245,14 @@ void BC95_Process(void)                         //BC95主进程
       {
         BC95_Data_Send("AT+NQMGR\r\n",10);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;
     case NMGR:                 //接收消息
       {
         BC95_Data_Send("AT+NMGR\r\n",9);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-                     BC95_Start_Timeout_CallBalk,0,PROCESS);//建议定时器延时回调
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;
     case BC95_CONNECT_ERROR:      //连接失败
@@ -266,7 +268,7 @@ void BC95_Process(void)                         //BC95主进程
       break;
     }
   }
-  if(Uart2.Receive_Pend == TRUE)//判断有数据
+  if(Uart2.Receive_Pend != FALSE)//判断有数据
   {
     memset(BC95.R_Buffer,'\0',RECV_BUFF_SIZE);//清缓存
     BC95.Recv_Length = Uart2_Receive((unsigned char *)BC95.R_Buffer);//接收数据
@@ -279,7 +281,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = GETNBAND;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;
@@ -289,7 +291,7 @@ void BC95_Process(void)                         //BC95主进程
         {
           BC95.Start_Process = GETCFUN;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;
@@ -299,7 +301,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = CGSN;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       } 
       break;
@@ -311,7 +313,7 @@ void BC95_Process(void)                         //BC95主进程
           memcpy(BC95.IMEI,&str[6],15);
           BC95.Start_Process = CCID;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;
@@ -323,7 +325,7 @@ void BC95_Process(void)                         //BC95主进程
           memcpy(BC95.ICCID,&str[7],20);
           BC95.Start_Process = CSQ;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;
@@ -348,7 +350,7 @@ void BC95_Process(void)                         //BC95主进程
           {
             BC95.Start_Process = GETCGATT;
             BC95.Incident_Pend = TRUE;//标记挂起
-            Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+            Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
           }
         }
       }
@@ -359,7 +361,7 @@ void BC95_Process(void)                         //BC95主进程
         {        
           BC95.Start_Process = CEREG;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }       
       }
       break;
@@ -369,7 +371,7 @@ void BC95_Process(void)                         //BC95主进程
         {        
           BC95.Start_Process = GETNCDP;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;   
@@ -379,13 +381,13 @@ void BC95_Process(void)                         //BC95主进程
         {        
           BC95.Start_Process = NSMI;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
         else
         {        
           BC95.Start_Process = SETNCDP;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;
@@ -395,7 +397,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = GETNCDP;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }  
       }
       break;
@@ -405,7 +407,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = NMGS;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }  
       }
       break;
@@ -415,7 +417,7 @@ void BC95_Process(void)                         //BC95主进程
 //        {         
 //          BC95.Start_Process = NMGS;
 //          BC95.Incident_Pend = TRUE;//标记挂起
-//          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+//          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
 //        }  
 //      }
 //      break;
@@ -424,9 +426,9 @@ void BC95_Process(void)                         //BC95主进程
         if( strstr(BC95.R_Buffer,"+NSMI:SENT") != NULL)//已发送
         { 
           BC95.Start_Process = NQMGR;
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
           Create_Timer(ONCE,5,
-                     BC95_Delay_CallBalk,0,PROCESS);//建议定时器延时回调,发送消息后等待3s查询消息接收缓存
+                     BC95_Delay_CallBalk,0,PROCESS);//建议定时器延时回调,发送消息后等待5s查询消息接收缓存
         }
       }
       break;
@@ -438,25 +440,15 @@ void BC95_Process(void)                         //BC95主进程
         }
         else if(strstr(BC95.R_Buffer,"BUFFERED=0") != NULL)  //待读消息数量为零
         { 
-          if(BC95.Report_Bit == 0)      //没有消息上报,则关机
-          {          
-            BC95.Start_Process = BC95_POWER_DOWN;
-            Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调   
-            Create_Timer(ONCE,2,
-                     BC95_Delay_CallBalk,0,PROCESS);//建议定时器延时回调,等待2s关机
-          }
-          else  //发送消息
-          {
-            BC95.Start_Process = NMGS;
-            BC95.Incident_Pend = TRUE;//标记挂起
-            Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
-          }
+          BC95.Start_Process = NMGS;
+          BC95.Incident_Pend = TRUE;//标记挂起
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
         else                                            //否则读取消息
         {
           BC95.Start_Process = NMGR;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;
@@ -467,28 +459,32 @@ void BC95_Process(void)                         //BC95主进程
           
         }
         else if(strstr(BC95.R_Buffer,",AAAA0000") != NULL)  //上报全部参数的响应
-        {      
-          BC95.Alarm.Mag_Alarm = 0;
-          BC95.Report_Bit = 2;
-          BC95.Start_Process = NMGS;
+        {   
+          if(BC95.Report_Bit == 1)
+          {
+            BC95.Report_Bit = 2;
+          }
+          else if(BC95.Report_Bit == 2)
+          {  
+            Clear_History_Data(HistoryDataIndex);
+          }
+          BC95.Start_Process = NQMGR;
           BC95.Incident_Pend = TRUE;//标记挂起
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
         else if(strstr(BC95.R_Buffer,",AAAA0001") != NULL)     //上报历史流量的响应
         {
           BC95.Report_Bit = 0;
           BC95.Start_Process = NQMGR;
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
-          Create_Timer(ONCE,2,
-                     BC95_Delay_CallBalk,0,PROCESS);//建议定时器延时回调,等待1s查询消息接收缓存
+          BC95.Incident_Pend = TRUE;//标记挂起
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
         else   //平台消息
         {
           Recv_Data_Process();   
           BC95.Start_Process = NQMGR;
-          Delete_Timer(BC95_Start_Timeout_CallBalk);//删除超时回调
-          Create_Timer(ONCE,2,
-                     BC95_Delay_CallBalk,0,PROCESS);//建议定时器延时回调,等待1s查询消息接收缓存
+          BC95.Incident_Pend = TRUE;//标记挂起
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
       }
       break;
@@ -526,7 +522,7 @@ void BC95_Data_Send(unsigned char *Data,unsigned short Len)
  Return:        //
  Others:        //
 *********************************************************************************/
-void BC95_Start_Timeout_CallBalk(void)//启动超时重发
+void BC95_Start_Timeout_CallBack(void)//启动超时重发
 {
   if(BC95.Err_Conner.Connect != 0)//判断次数是否超时
   {
@@ -568,68 +564,72 @@ void Recv_Data_Process(void)
 {
   u16 i = 0;
   u8 month = 0;
-  u8 messageId = 0;
-  u16 messageLen = 0;
+  u8 MessageID = 0;
+  u16 DataLength = 0;
   u8 mid[4] = {0};           //命令序列号
   u8 valueH = 0,valueL = 0;
   RTC_TimeTypeDef  RTC_Time;
   RTC_DateTypeDef  RTC_Date;
   union flow_union Flow;
+  unsigned char* str = NULL;
   
-  for(i = 0;i < BC95.Recv_Length;i++)
+  while(BC95.R_Buffer[i] != ',')
   {
-    BC95.R_Buffer[i] = ASCLL_to_Int(BC95.R_Buffer[i]);
-  }
-  i = 0;
-  while(BC95.R_Buffer[2+i] != ',')
-  {
-    messageLen = messageLen*10+BC95.R_Buffer[2+i];
+    if( (BC95.R_Buffer[i]>= '0')&&(BC95.R_Buffer[i]<= '9') )
+    {
+      DataLength = DataLength*10+ASCLL_to_Int(BC95.R_Buffer[i]);
+    }  
     i++;
   }
   
+  str = (unsigned char*)&BC95.R_Buffer[i];
+  for(i = 0;i < (DataLength*2);i++)
+  {
+    str[i+1] = ASCLL_to_Int(str[i+1]);
+  }
   
-  messageId = BC95.R_Buffer[2+i+1]*16+BC95.R_Buffer[2+i+2];
-  mid[0] = BC95.R_Buffer[2+i+3];
-  mid[1] = BC95.R_Buffer[2+i+4];
-  mid[2] = BC95.R_Buffer[2+i+5];
-  mid[3] = BC95.R_Buffer[2+i+6];
   
-  switch(messageId)
+  MessageID = str[1]*16+str[2];
+  mid[0] = str[3];
+  mid[1] = str[4];
+  mid[2] = str[5];
+  mid[3] = str[6];
+  
+  switch(MessageID)
   {
     case 0x02:            //配置参数
       {//31,020004 3030303031383035303030303031 01 02D0 0140 000000000000000030
         //表号
-        valueH = BC95.R_Buffer[2+i+7]*0x10+BC95.R_Buffer[2+i+8];
-        valueL = BC95.R_Buffer[2+i+9]*0x10+BC95.R_Buffer[2+i+10];
+        valueH = str[7]*0x10+str[8];
+        valueL = str[9]*0x10+str[10];
         Meter_Number[0] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
-        valueH = BC95.R_Buffer[2+i+11]*0x10+BC95.R_Buffer[2+i+12];
-        valueL = BC95.R_Buffer[2+i+13]*0x10+BC95.R_Buffer[2+i+14];
+        valueH = str[11]*0x10+str[12];
+        valueL = str[13]*0x10+str[14];
         Meter_Number[1] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
-        valueH = BC95.R_Buffer[2+i+15]*0x10+BC95.R_Buffer[2+i+16];
-        valueL = BC95.R_Buffer[2+i+17]*0x10+BC95.R_Buffer[2+i+18];
+        valueH = str[15]*0x10+str[16];
+        valueL = str[17]*0x10+str[18];
         Meter_Number[2] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
-        valueH = BC95.R_Buffer[2+i+19]*0x10+BC95.R_Buffer[2+i+20];
-        valueL = BC95.R_Buffer[2+i+21]*0x10+BC95.R_Buffer[2+i+22];
+        valueH = str[19]*0x10+str[20];
+        valueL = str[21]*0x10+str[22];
         Meter_Number[3] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
-        valueH = BC95.R_Buffer[2+i+23]*0x10+BC95.R_Buffer[2+i+24];
-        valueL = BC95.R_Buffer[2+i+25]*0x10+BC95.R_Buffer[2+i+26];
+        valueH = str[23]*0x10+str[24];
+        valueL = str[25]*0x10+str[26];
         Meter_Number[4] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
-        valueH = BC95.R_Buffer[2+i+27]*0x10+BC95.R_Buffer[2+i+28];
-        valueL = BC95.R_Buffer[2+i+29]*0x10+BC95.R_Buffer[2+i+30];
+        valueH = str[27]*0x10+str[28];
+        valueL = str[29]*0x10+str[30];
         Meter_Number[5] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
-        valueH = BC95.R_Buffer[2+i+31]*0x10+BC95.R_Buffer[2+i+32];
-        valueL = BC95.R_Buffer[2+i+33]*0x10+BC95.R_Buffer[2+i+34];
+        valueH = str[31]*0x10+str[32];
+        valueL = str[33]*0x10+str[34];
         Meter_Number[6] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         Save_Meter_Number();
-        
         //结算日期
-        Settle_Date = BC95.R_Buffer[2+i+35]*0x10+BC95.R_Buffer[2+i+36];   //设置结算日期
+        Settle_Date = str[35]*0x10+str[36];   //设置结算日期
         Save_Settle_Date();       
         //上报周期
-         Report_Cycle = BC95.R_Buffer[2+i+37]*0x1000+BC95.R_Buffer[2+i+38]*0x100+BC95.R_Buffer[2+i+39]*0x10+BC95.R_Buffer[2+i+40]; //设置上报周期
+         Report_Cycle = str[37]*0x1000+str[38]*0x100+str[39]*0x10+str[40]; //设置上报周期
         Save_Report_Cycle();
         //告警电压
-        BAT_Alarm_Vol = BC95.R_Buffer[2+i+41]*0x1000+BC95.R_Buffer[2+i+42]*0x100+BC95.R_Buffer[2+i+43]*0x10+BC95.R_Buffer[2+i+44];
+        BAT_Alarm_Vol = str[41]*0x1000+str[42]*0x100+str[43]*0x10+str[44];
         Save_BAT_Alarm_Value();
         
         //0x03响应
@@ -638,22 +638,22 @@ void Recv_Data_Process(void)
       break;
     case 0x04:           //校准水量
       {//8,040003010000007B 
-        month = BC95.R_Buffer[2+i+7]*0x10+BC95.R_Buffer[2+i+8];
+        month = str[7]*0x10+str[8];
         if(month == 0)  //校准当前累积水量
         {
-          Cal.Water_Data.flow8[0] = BC95.R_Buffer[2+i+9]*0x10+BC95.R_Buffer[2+i+10];
-          Cal.Water_Data.flow8[1] = BC95.R_Buffer[2+i+11]*0x10+BC95.R_Buffer[2+i+12];
-          Cal.Water_Data.flow8[2] = BC95.R_Buffer[2+i+13]*0x10+BC95.R_Buffer[2+i+14];
-          Cal.Water_Data.flow8[3] = BC95.R_Buffer[2+i+15]*0x10+BC95.R_Buffer[2+i+16];
+          Cal.Water_Data.flow8[0] = str[9]*0x10+str[10];
+          Cal.Water_Data.flow8[1] = str[11]*0x10+str[12];
+          Cal.Water_Data.flow8[2] = str[13]*0x10+str[14];
+          Cal.Water_Data.flow8[3] = str[15]*0x10+str[16];
           Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);
         }
         else if(month <= 13)  //校准结算日累积水量
         {
-          Flow.flow8[0] = BC95.R_Buffer[2+i+9]*0x10+BC95.R_Buffer[2+i+10];
-          Flow.flow8[1] = BC95.R_Buffer[2+i+11]*0x10+BC95.R_Buffer[2+i+12];
-          Flow.flow8[2] = BC95.R_Buffer[2+i+13]*0x10+BC95.R_Buffer[2+i+14];
-          Flow.flow8[3] = BC95.R_Buffer[2+i+15]*0x10+BC95.R_Buffer[2+i+16];
-          Save_Add_Flow(SDCF1_ADDR+5*(month-1),&Flow);
+          Flow.flow8[0] = str[9]*0x10+str[10];
+          Flow.flow8[1] = str[11]*0x10+str[12];
+          Flow.flow8[2] = str[13]*0x10+str[14];
+          Flow.flow8[3] = str[15]*0x10+str[16];
+          Save_Add_Flow(SDCF1_ADDR+4*(month-1),&Flow);
         }
         //0x05响应
         ACK(0x05,0x00,mid);
@@ -662,14 +662,14 @@ void Recv_Data_Process(void)
     case 0x06:           //校准时间
       {//
         //时间       
-        RTC_Date.RTC_Year = BC95.R_Buffer[2+i+12]*10+BC95.R_Buffer[2+i+14];
-        RTC_Date.RTC_Month = BC95.R_Buffer[2+i+16]*10+BC95.R_Buffer[2+i+18];
-        RTC_Date.RTC_Date = BC95.R_Buffer[2+i+20]*10+BC95.R_Buffer[2+i+22];
+        RTC_Date.RTC_Year = str[12]*10+str[14];
+        RTC_Date.RTC_Month = str[2+i+16]*10+str[18];
+        RTC_Date.RTC_Date = str[20]*10+str[22];
         RTC_Date.RTC_WeekDay = RTC_Weekday_Monday;
         
-        RTC_Time.RTC_Hours   = BC95.R_Buffer[2+i+24]*10+BC95.R_Buffer[2+i+26];
-        RTC_Time.RTC_Minutes = BC95.R_Buffer[2+i+28]*10+BC95.R_Buffer[2+i+30];
-        RTC_Time.RTC_Seconds = BC95.R_Buffer[2+i+32]*10+BC95.R_Buffer[2+i+34];
+        RTC_Time.RTC_Hours   = str[24]*10+str[26];
+        RTC_Time.RTC_Minutes = str[28]*10+str[30];
+        RTC_Time.RTC_Seconds = str[32]*10+str[34];
         
         RTC_SetDate(RTC_Format_BIN, &RTC_Date);
         RTC_SetTime(RTC_Format_BIN, &RTC_Time);
@@ -694,12 +694,22 @@ void Send_Data_Process(void)
 { 
    switch(BC95.Report_Bit)
   {
+  case 0:             //没有消息上报,则关机
+      {
+        BC95.Start_Process = BC95_POWER_DOWN;
+      }
+      break;
     case 1:            //发送全部参数
       {
         Report_All_Parameters();
       }
       break;
-    case 2:            //发送历史累积流量
+    case 2:            //发送历史数据
+      {
+        Report_All_Parameters();
+      }
+      break;
+    case 3:            //发送历史累积流量
       {
         Report_HC_Flow();
       }
@@ -746,49 +756,84 @@ void ACK(u8 messageId,u8 errcode,u8 mid[4])
 void Report_All_Parameters(void)
 {
   uint8_t data[200] = "AT+NMGS=77,0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
-  union flow_union flow;     //结算日累积流量
+  union flow_union LastMonthFlow;     //上一月结算日累积流量
+  union flow_union CurrentFlow;     //当前累积流量
   uint8_t month,date,hour,minute,second;
   unsigned short year = 0;
   uint8_t valueH = 0,valueL = 0;
-  
-  //获取上一月累计流量
-  Read_ACUM_Flow(SDCF1_ADDR,&flow);
+  unsigned char buff[14] = {0};
+   
   //采集温度
   GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_High_Fast);         // 热敏电阻
   GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_In_FL_No_IT);      // 热敏电阻ADC检测端
   Read_Temp();
   GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_Low_Slow); 
-  //获取时间   
-  RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
-  RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
-  year = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Year)+2000;
-  month = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Month);
-  date = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Date);
-  hour = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Hours);
-  minute = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Minutes);
-  second = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Seconds);
   //获取上次联网错误信息
   Read_BC95_ErrorRecord();
   
+  if(BC95.Report_Bit == 1)      //上传当前数据
+  {
+    CurrentFlow.flow32 = Cal.Water_Data.flow32;
+    //获取上一月累计流量
+    Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
+    //获取时间   
+    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
+    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
+    year = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Year)+2000;
+    month = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Month);
+    date = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Date);
+    hour = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Hours);
+    minute = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Minutes);
+    second = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Seconds);
+  }
+  else if(BC95.Report_Bit == 2) //上传历史数据
+  {
+    Read_History_Data(buff);
+    if(buff[0] == 1)
+    {
+      CurrentFlow.flow8[0] = buff[1];
+      CurrentFlow.flow8[1] = buff[2];
+      CurrentFlow.flow8[2] = buff[3];
+      CurrentFlow.flow8[3] = buff[4];
+      LastMonthFlow.flow8[0] = buff[5];
+      LastMonthFlow.flow8[1] = buff[6];
+      LastMonthFlow.flow8[2] = buff[7];
+      LastMonthFlow.flow8[3] = buff[8];
+      year = BCD_to_Int((unsigned char)buff[9])+2000;
+      month = BCD_to_Int((unsigned char)buff[10]);
+      date = BCD_to_Int((unsigned char)buff[11]);
+      hour = BCD_to_Int((unsigned char)buff[12]);
+      minute = BCD_to_Int((unsigned char)buff[13]);
+      second = 0;
+    }
+    else
+    {
+      BC95.Report_Bit = 3;
+      BC95.Incident_Pend = TRUE;//标记挂起
+      return;
+    }
+  }
+  
+  
   //当前累积流量
-  data[13] = Int_to_ASCLL(Cal.Water_Data.flow32/0x10000000);
-  data[14] = Int_to_ASCLL(Cal.Water_Data.flow32%0x10000000/0x1000000);
-  data[15] = Int_to_ASCLL(Cal.Water_Data.flow32%0x1000000/0x100000);
-  data[16] = Int_to_ASCLL(Cal.Water_Data.flow32%0x100000/0x10000);
-  data[17] = Int_to_ASCLL(Cal.Water_Data.flow32%0x10000/0x1000);
-  data[18] = Int_to_ASCLL(Cal.Water_Data.flow32%0x1000/0x100);
-  data[19] = Int_to_ASCLL(Cal.Water_Data.flow32%0x100/0x10);
-  data[20] = Int_to_ASCLL(Cal.Water_Data.flow32%0x10);
+  data[13] = Int_to_ASCLL(CurrentFlow.flow8[0]/0x10);
+  data[14] = Int_to_ASCLL(CurrentFlow.flow8[0]%0x10);
+  data[15] = Int_to_ASCLL(CurrentFlow.flow8[1]/0x10);
+  data[16] = Int_to_ASCLL(CurrentFlow.flow8[1]%0x10);
+  data[17] = Int_to_ASCLL(CurrentFlow.flow8[2]/0x10);
+  data[18] = Int_to_ASCLL(CurrentFlow.flow8[2]%0x10);
+  data[19] = Int_to_ASCLL(CurrentFlow.flow8[3]/0x10);
+  data[20] = Int_to_ASCLL(CurrentFlow.flow8[3]%0x10);
 
   //结算日累积流量
-  data[21] = Int_to_ASCLL(flow.flow32/0x10000000);
-  data[22] = Int_to_ASCLL(flow.flow32%0x10000000/0x1000000);
-  data[23] = Int_to_ASCLL(flow.flow32%0x1000000/0x100000);
-  data[24] = Int_to_ASCLL(flow.flow32%0x100000/0x10000);
-  data[25] = Int_to_ASCLL(flow.flow32%0x10000/0x1000);
-  data[26] = Int_to_ASCLL(flow.flow32%0x1000/0x100);
-  data[27] = Int_to_ASCLL(flow.flow32%0x100/0x10);
-  data[28] = Int_to_ASCLL(flow.flow32%0x10);
+  data[21] = Int_to_ASCLL(LastMonthFlow.flow8[0]/0x10);
+  data[22] = Int_to_ASCLL(LastMonthFlow.flow8[0]%0x10);
+  data[23] = Int_to_ASCLL(LastMonthFlow.flow8[1]/0x10);
+  data[24] = Int_to_ASCLL(LastMonthFlow.flow8[1]%0x10);
+  data[25] = Int_to_ASCLL(LastMonthFlow.flow8[2]/0x10);
+  data[26] = Int_to_ASCLL(LastMonthFlow.flow8[2]%0x10);
+  data[27] = Int_to_ASCLL(LastMonthFlow.flow8[3]/0x10);
+  data[28] = Int_to_ASCLL(LastMonthFlow.flow8[3]%0x10);
   
   //电池电压
   data[29] = Int_to_ASCLL(BAT_Vol/0x1000);
@@ -883,8 +928,8 @@ void Report_All_Parameters(void)
   data[89] = 0x30;
   data[90] = 0x30;
   //霍尔状态
-  data[91] = Int_to_ASCLL(BC95.Alarm.Mag_Alarm/0x10);
-  data[92] = Int_to_ASCLL(BC95.Alarm.Mag_Alarm%0x10);
+  data[91] = Int_to_ASCLL(Cal.Error/0x10);
+  data[92] = Int_to_ASCLL(Cal.Error%0x10);
   //IMEI
   data[93] = Int_to_ASCLL(BC95.IMEI[0]/0x10);
   data[94] = Int_to_ASCLL(BC95.IMEI[0]%0x10);

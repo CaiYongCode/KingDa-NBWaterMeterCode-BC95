@@ -61,9 +61,7 @@ void main(void)
 
   BC95.Report_Bit = 1;
   BC95.Start_Process = BC95_RECONNECT;
- 
 //  Device_Status = SLEEP_MODE;
-
   while (1)
   {
 //    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
@@ -110,6 +108,12 @@ void Sleep(void)
   GPIO_Init(GPIOE, GPIO_Pin_4 , GPIO_Mode_Out_PP_Low_Slow);    //USART2 TXD
   GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_Low_Slow);    //USART3 TXD
   
+  if(BC95.Report_Bit == 1)
+  {
+    Save_History_Data();    //保存本次数据
+  }
+  HistoryDataIndex = 0;
+  BC95.Report_Bit = 0;
   BC95.Start_Process = BC95_POWER_DOWN;
   BC95.Run_Time = 0;
 

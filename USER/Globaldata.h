@@ -20,6 +20,7 @@ extern u16 Report_Cycle;             //上报周期，时
 extern u32 Report_Cycle_counter;     //上报周期计数，秒
 extern u8 Gather_Cycle_counter;     //采集周期计数，秒
 extern u8 Meter_Number[7];             //表号
+extern unsigned char HistoryDataIndex; //历史数据索引
 /*********************************************************************************
 外部变量声明区
 *********************************************************************************/

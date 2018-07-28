@@ -174,19 +174,32 @@ void Save_SDCF_Flow(union flow_union *Flow)       //存储结算日累积水量
   
   WriteRom (SDCF1_ADDR,Flow->flow8,4);      //写累积流量
 }
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-void Save_Cal(enum Cal_State_En *Cal)       //存储霍尔状态
-{
-    WriteRom (ADD_FLOW_ADD,Cal,1);      //写霍尔状态
-}
+///*********************************************************************************
+// Function:      //
+// Description:   //读取霍尔故障
+// Input:         //
+//                //
+// Output:        //
+// Return:      	//
+// Others:        //
+//*********************************************************************************/
+//enum Hall_Error_EN Read_Cal_Error(void)       
+//{
+//  return (enum Hall_Error_EN)(*((const unsigned short *)(HALL_ERROR_ADD)));   
+//}
+///*********************************************************************************
+// Function:      //
+// Description:   ////存储霍尔故障
+// Input:         //
+//                //
+// Output:        //
+// Return:      	//
+// Others:        //
+//*********************************************************************************/
+//void Save_Cal_Error(void)       
+//{
+//    WriteRom (HALL_ERROR_ADD,&Cal.Error,1);      
+//}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -277,9 +290,9 @@ void Save_Settle_Date(void)         //保存结算日期
 void Read_Report_Cycle(void)        //读取上报周期
 {
   Report_Cycle = *((const unsigned short *)(REPORT_CYCLE_ADDR));
-  if(Report_Cycle == 0) //默认上报周期12小时
+  if(Report_Cycle == 0) //默认上报周期24小时
   {
-    Report_Cycle = 720;
+    Report_Cycle = 1440;
   }
 }
 /*********************************************************************************
@@ -373,5 +386,94 @@ unsigned char Sum_Check(unsigned char *sdata,unsigned short NUM)                
     rdata += sdata[i];
   }
   return rdata;
+}
+
+/*********************************************************************************
+ Function:      //
+ Description:   //读取历史数据
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Read_History_Data(unsigned char* buff)
+{
+  unsigned char i = 0,j = 0;
+  
+  for(i = 0;i < 90;i++)
+  {
+    buff[0] = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14));
+    if(buff[0] == 1)
+    {
+      for(j = 1;j < 14;j++)
+      {
+        buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14+j));
+      }
+      HistoryDataIndex = i;
+      return;
+    }
+  }
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //保存历史数据
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Save_History_Data(void)
+{
+  unsigned char i = 0;
+  unsigned char valid = 0;
+  union flow_union LastMonthFlow;     //上一月结算日累积流量
+  unsigned char buff[14] = {0};
+  
+  Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
+  RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
+  RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
+  
+  buff[0] = 1;
+  buff[1] = Cal.Water_Data.flow8[0];
+  buff[2] = Cal.Water_Data.flow8[1];
+  buff[3] = Cal.Water_Data.flow8[2];
+  buff[4] = Cal.Water_Data.flow8[3];
+  buff[5] = LastMonthFlow.flow8[0];
+  buff[6] = LastMonthFlow.flow8[1];
+  buff[7] = LastMonthFlow.flow8[2];
+  buff[8] = LastMonthFlow.flow8[3];
+  buff[9] = RTC_DateStr.RTC_Year;
+  buff[10] = RTC_DateStr.RTC_Month;
+  buff[11] = RTC_DateStr.RTC_Date;
+  buff[12] = RTC_TimeStr.RTC_Hours;
+  buff[13] = RTC_TimeStr.RTC_Minutes;
+  
+  for(i = 0;i < 90;i++)
+  {
+    valid = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14));
+    if(valid != 1)
+    {
+      WriteRom((HISTORYL_DATA_ADDR + i*14),buff,14);
+      return;
+    }
+  }
+  
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //清除历史数据
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Clear_History_Data(unsigned char index)
+{
+  unsigned char buff[14] = {0};
+  
+  WriteRom((HISTORYL_DATA_ADDR + index*14),buff,14);
 }
 /******************************************END********************************************************/
