@@ -357,7 +357,7 @@ INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_COM_IRQHandler,23)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-  TIM1_ClearITPendingBit(TIM1_IT_Update); //清除中断标志
+ // TIM1_ClearITPendingBit(TIM1_IT_Update); //清除中断标志
 }
 /**
   * @brief TIM1 Capture/Compare Interrupt routine.
@@ -382,7 +382,7 @@ INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler,25)
        it is recommended to set a breakpoint on the following instruction.
     */
  // SysTick_Handler();
-  TIM4_ClearITPendingBit(TIM4_IT_Update);                                       //清空中断标志位
+ // TIM4_ClearITPendingBit(TIM4_IT_Update);                                       //清空中断标志位
 }
 /**
   * @brief SPI1 Interrupt routine.

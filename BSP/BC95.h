@@ -47,28 +47,27 @@ enum Start_Process_En   //启动流程
   
   NRB,                  //重启
   AT,                   //同步波特率
-  CIMI,                 //查询IMSI
-  CGSN,                 //查询IMEI  
-  CCID,                //查询CCID
   GETNBAND,             //查询频段
   SETNBAND,             //设置频段
   GETCFUN,              //查询电话功能
   SETCFUN,              //设置电话功能
-
-//  GETCGDCONT,           //查询APN
-//  SETCGDCONT,           //设置APN
-  GETNCDP,              //查询CDP服务器
-  SETNCDP,              //设置CDP服务器
-  
+  CIMI,                 //查询IMSI
+  CGSN,                 //查询IMEI  
+  CCID,                //查询CCID
+  CSQ,                  //查询信号强度
+  GETCGDCONT,           //查询APN
+  SETCGDCONT,           //设置APN  
   GETCGATT,             //查询网络激活状态
   SETCGATT,             //激活网络
   CEREG,                //查询网络注册状态
-  CSQ,                  //查询信号强度
+  CCLK,                 //查询实时时间
+  GETNCDP,              //查询CDP服务器
+  SETNCDP,              //设置CDP服务器
   NSMI,                 //设置发送消息指示
   NNMI,                 //设置接收消息指示
+  NMGS,                 //发送消息
   NQMGR,                //查询消息接收
   NMGR,                 //接收消息
-  NMGS,                 //发送消息
   BC95_CONNECT_ERROR,      //启动错误
 };
 
@@ -127,7 +126,6 @@ struct BC95_Str//BC95 总结构体
   enum BC95_State_Eum State;//状态
   bool ZIPSTATUS_Pend;//用于查询状态
   unsigned char Reconnect_Times;        //重连次数
-  unsigned char Fail_Times;     //失败次数
   unsigned short Run_Time;         //运行时间
   unsigned char ICCID[20];
   unsigned char IMEI[15];

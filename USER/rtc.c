@@ -246,6 +246,9 @@ void Wake_Interrupt (void)                        //唤醒中断
         Device_Status = SLEEP_MODE;
       }
     }
+    
+    DeviceRunTime ++;    //设备运行计时
+    
     RTC_ClearITPendingBit(RTC_IT_WUT);                        //清除RTC唤醒标志
   }
 }
@@ -282,6 +285,105 @@ void rtc_interrupt (void)  //RTC中断处理函数 5s一次
       }
     }
     Last_Vol = BAT_Vol;
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //格林威治时间转换成北京时间
+ Input:         //
+                //
+ Output:        //
+ Return:      	//
+ Others:        //
+*********************************************************************************/
+void GMT_to_BT(unsigned char *str)
+{
+  unsigned char year,month,day,hour,minute,second;
+  unsigned char LeapYear = 0;
+  
+  year   = ASCLL_to_Int(str[6])*10 + ASCLL_to_Int(str[7]);
+  month  = ASCLL_to_Int(str[9])*10 + ASCLL_to_Int(str[10]);
+  day    = ASCLL_to_Int(str[12])*10 + ASCLL_to_Int(str[13]);
+  hour   = ASCLL_to_Int(str[15])*10 + ASCLL_to_Int(str[16]);
+  minute = ASCLL_to_Int(str[18])*10 + ASCLL_to_Int(str[19]);
+  second = ASCLL_to_Int(str[21])*10 + ASCLL_to_Int(str[22]);
+  
+  //闰年判断
+  if( (((year+2000)%4 == 0) && ((year+2000)%100 != 0)) || ((year+2000)%400 == 0))
+  {
+    LeapYear = 1;
+  }
+  
+  hour = hour+8;
+  if(hour > 23)
+  {
+    hour = hour%24;
+    day++;
+    switch(month)
+    {
+      case 1:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+        {
+          if(day > 31)
+          {
+            day = 1;
+            month++;
+          }
+        }
+        break;
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        {
+          if(day > 30)
+          {
+            day = 1;
+            month++;
+          }
+        }
+        break;
+      case 2:
+        {
+          if( (LeapYear == 0)&&(day > 28) )
+          {
+            day = 1;
+            month++;
+          }
+          else if( (LeapYear == 1)&&(day > 29) )
+          {
+            day = 1;
+            month++;
+          }
+        }
+        break;
+      case 12:
+        {
+          if(day > 31)
+          {
+            day = 1;
+            month = 1;
+            year++;
+          }
+        }
+        break;  
+    }
+  }
+  
+  RTC_DateStr.RTC_Year = year;
+  RTC_DateStr.RTC_Month = month;
+  RTC_DateStr.RTC_Date = day;
+  RTC_DateStr.RTC_WeekDay = RTC_Weekday_Monday;
+  
+  RTC_TimeStr.RTC_Hours   = hour;
+  RTC_TimeStr.RTC_Minutes = minute;
+  RTC_TimeStr.RTC_Seconds = second;
+  
+  RTC_SetDate(RTC_Format_BIN, &RTC_DateStr);
+  RTC_SetTime(RTC_Format_BIN, &RTC_TimeStr);
 }
 /*********************************************************************************
  Function:      //

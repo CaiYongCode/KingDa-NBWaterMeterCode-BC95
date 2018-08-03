@@ -45,8 +45,9 @@
 #define  SDCF12_ADDR            (EEPROM_ADD+170)      //上12月结算日流量地址
 #define  SDCF13_ADDR            (EEPROM_ADD+174)      //上13月结算日流量地址
 
-//#define  HISTORYL_INDEX_ADDR    (EEPROM_ADD+190)      //历史数据索引地址
-#define  HISTORYL_DATA_ADDR     (EEPROM_ADD+180)      //历史数据地址
+//#define  HISTORYL_READ_ADDR     (EEPROM_ADD+180)      //历史数据读取索引地址
+#define  HISTORYL_SAVE_ADDR     (EEPROM_ADD+180)      //历史数据保存索引地址
+#define  HISTORYL_DATA_ADDR     (EEPROM_ADD+181)      //历史数据地址
 
 //#define  VERSION        *((const unsigned char *)(SOFTWARE_VERSION_ADD))
 //#define  IP1            ((const union Network_Par_Uni *)(SERVER_ADD1_EEPROM_ADD))  //IP地址1

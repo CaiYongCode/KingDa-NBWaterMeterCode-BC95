@@ -43,9 +43,10 @@ void Read_Meter_Number(void);           //读取表号
 void Save_Meter_Number(void);           //保存表号
 void Read_BC95_ErrorRecord(void);           //读取BC95错误记录
 void Save_BC95_ErrorRecord(void);           //保存BC95错误记录
-void Read_History_Data(unsigned char* buff);
+void Read_History_Save_Index(void);
+unsigned char Read_History_Data(unsigned char* buff);
 void Save_History_Data(void);
-void Clear_History_Data(unsigned char index);
+void Clear_History_Data();
 /********************************************************************************************************/
 #endif
 

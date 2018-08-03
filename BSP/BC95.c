@@ -121,11 +121,6 @@ void BC95_Process(void)                         //BC95主进程
       if(BC95.Reconnect_Times >= 3)  //重连超次数则睡眠
       {
         BC95.Reconnect_Times = 0;
-        BC95.Fail_Times++;
-        if(BC95.Fail_Times >= 2)
-        {
-          Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
-        }
         
         BC95.Start_Process = BC95_POWER_DOWN;
         BC95_Power_Off();
@@ -181,7 +176,7 @@ void BC95_Process(void)                         //BC95主进程
                      BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
       break;  
-    case CSQ:                //查询电话功能
+    case CSQ:                //查询信号强度
       {
         BC95_Data_Send("AT+CSQ\r\n",8);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
@@ -198,6 +193,13 @@ void BC95_Process(void)                         //BC95主进程
     case CEREG:                //查询网络注册状态     
       {
         BC95_Data_Send("AT+CEREG?\r\n",11);
+        Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
+                     BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
+      }
+      break;
+    case CCLK:                //查询实时时间 
+      {
+        BC95_Data_Send("AT+CCLK?\r\n",10);
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
                      BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
       }
@@ -369,6 +371,18 @@ void BC95_Process(void)                         //BC95主进程
       {
         if( strstr(BC95.R_Buffer,"+CEREG:0,1") != NULL)//网络注册
         {        
+          BC95.Start_Process = CCLK;
+          BC95.Incident_Pend = TRUE;//标记挂起
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
+        }
+      }
+      break;   
+    case CCLK:       //查询实时时间
+      {
+        str = strstr(BC95.R_Buffer,"+CCLK:");
+        if( str != NULL)//网络注册
+        {  
+          GMT_to_BT((unsigned char*)str);
           BC95.Start_Process = GETNCDP;
           BC95.Incident_Pend = TRUE;//标记挂起
           Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
@@ -463,10 +477,11 @@ void BC95_Process(void)                         //BC95主进程
           if(BC95.Report_Bit == 1)
           {
             BC95.Report_Bit = 2;
+            HistoryReadIndex =  HistorySaveIndex+1;
           }
           else if(BC95.Report_Bit == 2)
           {  
-            Clear_History_Data(HistoryDataIndex);
+            Clear_History_Data();
           }
           BC95.Start_Process = NQMGR;
           BC95.Incident_Pend = TRUE;//标记挂起
@@ -694,7 +709,7 @@ void Send_Data_Process(void)
 { 
    switch(BC95.Report_Bit)
   {
-  case 0:             //没有消息上报,则关机
+    case 0:             //没有消息上报,则关机
       {
         BC95.Start_Process = BC95_POWER_DOWN;
       }
@@ -763,6 +778,8 @@ void Report_All_Parameters(void)
   uint8_t valueH = 0,valueL = 0;
   unsigned char buff[14] = {0};
    
+  //获取上一月累计流量
+  Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
   //采集温度
   GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_High_Fast);         // 热敏电阻
   GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_In_FL_No_IT);      // 热敏电阻ADC检测端
@@ -774,8 +791,6 @@ void Report_All_Parameters(void)
   if(BC95.Report_Bit == 1)      //上传当前数据
   {
     CurrentFlow.flow32 = Cal.Water_Data.flow32;
-    //获取上一月累计流量
-    Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
     //获取时间   
     RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
     RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
@@ -788,22 +803,18 @@ void Report_All_Parameters(void)
   }
   else if(BC95.Report_Bit == 2) //上传历史数据
   {
-    Read_History_Data(buff);
-    if(buff[0] == 1)
+    
+    if(1 == Read_History_Data(buff))
     {
-      CurrentFlow.flow8[0] = buff[1];
-      CurrentFlow.flow8[1] = buff[2];
-      CurrentFlow.flow8[2] = buff[3];
-      CurrentFlow.flow8[3] = buff[4];
-      LastMonthFlow.flow8[0] = buff[5];
-      LastMonthFlow.flow8[1] = buff[6];
-      LastMonthFlow.flow8[2] = buff[7];
-      LastMonthFlow.flow8[3] = buff[8];
-      year = BCD_to_Int((unsigned char)buff[9])+2000;
-      month = BCD_to_Int((unsigned char)buff[10]);
-      date = BCD_to_Int((unsigned char)buff[11]);
-      hour = BCD_to_Int((unsigned char)buff[12]);
-      minute = BCD_to_Int((unsigned char)buff[13]);
+      CurrentFlow.flow8[0] = buff[0];
+      CurrentFlow.flow8[1] = buff[1];
+      CurrentFlow.flow8[2] = buff[2];
+      CurrentFlow.flow8[3] = buff[3];
+      year = BCD_to_Int((unsigned char)buff[4])+2000;
+      month = BCD_to_Int((unsigned char)buff[5]);
+      date = BCD_to_Int((unsigned char)buff[6]);
+      hour = BCD_to_Int((unsigned char)buff[7]);
+      minute = BCD_to_Int((unsigned char)buff[8]);
       second = 0;
     }
     else

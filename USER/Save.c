@@ -397,23 +397,50 @@ unsigned char Sum_Check(unsigned char *sdata,unsigned short NUM)                
  Return:	//
  Others:        //
 *********************************************************************************/
-void Read_History_Data(unsigned char* buff)
+void Read_History_Save_Index(void)
+{
+  HistorySaveIndex = *((const unsigned char *)HISTORYL_SAVE_ADDR);
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //读取历史数据
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+unsigned char Read_History_Data(unsigned char* buff)
 {
   unsigned char i = 0,j = 0;
   
-  for(i = 0;i < 90;i++)
+  for(i = HistoryReadIndex;i < 60;i++)
   {
-    buff[0] = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14));
-    if(buff[0] == 1)
+    for(j = 0;j < 9;j++)
     {
-      for(j = 1;j < 14;j++)
-      {
-        buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14+j));
-      }
-      HistoryDataIndex = i;
-      return;
+      buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*9+j));
+    }
+    if( (buff[4] <= 99)                                 //年有效
+          &&(1 <= buff[5])&&(buff[5] <= 12)             //月有效
+            &&(1 <= buff[6])&&(buff[6] <= 31)           //日有效
+              &&(buff[7] <= 23)                         //时有效
+                &&(buff[8] <= 59)  )                    //分有效
+    {
+      HistoryReadIndex = i;
+      return 1;
+    }
+    if(HistoryReadIndex == HistorySaveIndex)
+    {
+      break;
+    }
+    HistoryReadIndex++;
+    if(HistoryReadIndex >= 60)
+    {
+      HistoryReadIndex = 0;
     }
   }
+  
+  return 0;
 }
 /*********************************************************************************
  Function:      //
@@ -426,40 +453,54 @@ void Read_History_Data(unsigned char* buff)
 *********************************************************************************/
 void Save_History_Data(void)
 {
-  unsigned char i = 0;
-  unsigned char valid = 0;
-  union flow_union LastMonthFlow;     //上一月结算日累积流量
-  unsigned char buff[14] = {0};
+//  union flow_union LastMonthFlow;     //上一月结算日累积流量
+  unsigned char buff[9] = {0};
   
-  Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
+ // Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
   RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
   RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
   
-  buff[0] = 1;
-  buff[1] = Cal.Water_Data.flow8[0];
-  buff[2] = Cal.Water_Data.flow8[1];
-  buff[3] = Cal.Water_Data.flow8[2];
-  buff[4] = Cal.Water_Data.flow8[3];
-  buff[5] = LastMonthFlow.flow8[0];
-  buff[6] = LastMonthFlow.flow8[1];
-  buff[7] = LastMonthFlow.flow8[2];
-  buff[8] = LastMonthFlow.flow8[3];
-  buff[9] = RTC_DateStr.RTC_Year;
-  buff[10] = RTC_DateStr.RTC_Month;
-  buff[11] = RTC_DateStr.RTC_Date;
-  buff[12] = RTC_TimeStr.RTC_Hours;
-  buff[13] = RTC_TimeStr.RTC_Minutes;
+//  buff[0] = 1;
+//  buff[1] = Cal.Water_Data.flow8[0];
+//  buff[2] = Cal.Water_Data.flow8[1];
+//  buff[3] = Cal.Water_Data.flow8[2];
+//  buff[4] = Cal.Water_Data.flow8[3];
+//  buff[5] = LastMonthFlow.flow8[0];
+//  buff[6] = LastMonthFlow.flow8[1];
+//  buff[7] = LastMonthFlow.flow8[2];
+//  buff[8] = LastMonthFlow.flow8[3];
+//  buff[9] = RTC_DateStr.RTC_Year;
+//  buff[10] = RTC_DateStr.RTC_Month;
+//  buff[11] = RTC_DateStr.RTC_Date;
+//  buff[12] = RTC_TimeStr.RTC_Hours;
+//  buff[13] = RTC_TimeStr.RTC_Minutes;
+//  
+//  for(i = 0;i < 90;i++)
+//  {
+//    valid = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14));
+//    if(valid != 1)
+//    {
+//      WriteRom((HISTORYL_DATA_ADDR + i*14),buff,14);
+//      return;
+//    }
+//  }
+  buff[0] = Cal.Water_Data.flow8[0];
+  buff[1] = Cal.Water_Data.flow8[1]; 
+  buff[2] = Cal.Water_Data.flow8[2];
+  buff[3] = Cal.Water_Data.flow8[3];
+  buff[4] = RTC_DateStr.RTC_Year;
+  buff[5] = RTC_DateStr.RTC_Month;
+  buff[6] = RTC_DateStr.RTC_Date;
+  buff[7] = RTC_TimeStr.RTC_Hours;
+  buff[8] = RTC_TimeStr.RTC_Minutes;
   
-  for(i = 0;i < 90;i++)
+  HistorySaveIndex++;
+  if(HistorySaveIndex >= 60)
   {
-    valid = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14));
-    if(valid != 1)
-    {
-      WriteRom((HISTORYL_DATA_ADDR + i*14),buff,14);
-      return;
-    }
+    HistorySaveIndex = 0;
   }
-  
+  WriteRom(HISTORYL_SAVE_ADDR,&HistorySaveIndex,1);
+  WriteRom((HISTORYL_DATA_ADDR + HistorySaveIndex*9),buff,9);
 }
 /*********************************************************************************
  Function:      //
@@ -470,10 +511,10 @@ void Save_History_Data(void)
  Return:	//
  Others:        //
 *********************************************************************************/
-void Clear_History_Data(unsigned char index)
+void Clear_History_Data(void)
 {
-  unsigned char buff[14] = {0};
+  unsigned char buff[9] = {0};
   
-  WriteRom((HISTORYL_DATA_ADDR + index*14),buff,14);
+  WriteRom((HISTORYL_DATA_ADDR + HistoryReadIndex*9),buff,9);
 }
 /******************************************END********************************************************/
