@@ -32,7 +32,7 @@
 *********************************************************************************/
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //向ROM写数据
  Input:         //
                 //
  Output:        //
@@ -75,36 +75,84 @@ void WriteRom (unsigned short addr, void *pbuff, unsigned char length)
  }
  FLASH_Lock(FLASH_MemType_Data);
 }
-
-
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //读取水表参数
  Input:         //
                 //
  Output:        //
- Return:		    //
+ Return:	//
  Others:        //
 *********************************************************************************/
+void Read_Meter_Parameter(void)
+{
+  //读取表号
+  MeterParameter.MeterNumber[0] = *((const unsigned char *)(CJT_188_ADD));
+  MeterParameter.MeterNumber[1] = *((const unsigned char *)(CJT_188_ADD+1));
+  MeterParameter.MeterNumber[2] = *((const unsigned char *)(CJT_188_ADD+2));
+  MeterParameter.MeterNumber[3] = *((const unsigned char *)(CJT_188_ADD+3));
+  MeterParameter.MeterNumber[4] = *((const unsigned char *)(CJT_188_ADD+4));
+  MeterParameter.MeterNumber[5] = *((const unsigned char *)(CJT_188_ADD+5));
+  MeterParameter.MeterNumber[6] = *((const unsigned char *)(CJT_188_ADD+6));
+  //读取告警电压
+  MeterParameter.AlarmVoltage = *((const unsigned short *)(BAT_ALARM_ADD));
+  if( (MeterParameter.AlarmVoltage < 300)||(MeterParameter.AlarmVoltage > 360))        //默认告警电压3.00V
+  {
+    MeterParameter.AlarmVoltage = 300;
+  }
+  //读取结算日
+  MeterParameter.SettleDate = *((const unsigned char *)(SETTLEMENT_DATE_ADD));
+  if((MeterParameter.SettleDate == 0)||(MeterParameter.SettleDate > 31))//默认结算日期1号
+  {
+    MeterParameter.SettleDate = 1;
+  }
+  //读取上报频率
+  MeterParameter.ReportFrequency = *((const unsigned short *)(REPORT_FREQUENCY_ADDR));
+  if(MeterParameter.ReportFrequency < 5) //默认上报频率24小时
+  {
+    MeterParameter.ReportFrequency = 1440;
+  }
+  //读取采样频率
+  MeterParameter.SampleFrequency = *((const unsigned short *)(SAMPLE_FREQUENCY_ADDR));
+  if(MeterParameter.SampleFrequency < 15) //默认采集频率24小时
+  {
+    MeterParameter.SampleFrequency = 1440;
+  }
+  
+}
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //存储水表参数
  Input:         //
                 //
  Output:        //
- Return:		    //
+ Return:	//
  Others:        //
 *********************************************************************************/
+void Save_Meter_Parameter(void)
+{
+  //存储表号
+  WriteRom (CJT_188_ADD,MeterParameter.MeterNumber,7);
+  //存储电压告警值
+  WriteRom (BAT_ALARM_ADD,&MeterParameter.AlarmVoltage,2);
+  //存储结算日期
+  WriteRom (SETTLEMENT_DATE_ADD,&MeterParameter.SettleDate,1);
+  //存储上报频率
+  WriteRom (REPORT_FREQUENCY_ADDR,&MeterParameter.ReportFrequency,2);
+  //存储采样频率
+  WriteRom (SAMPLE_FREQUENCY_ADDR,&MeterParameter.SampleFrequency,2);
+}
+
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //读取累积水量
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow)       //读取累积水量
+void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow)       
 {
   union flow_union *flow;
   flow = (union flow_union *)(addr);
@@ -112,27 +160,27 @@ void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow)       //读取累积
 }
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //存储累积水量
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Save_Add_Flow(u16 addr,union flow_union *Flow)       //存储累积水量
+void Save_Add_Flow(u16 addr,union flow_union *Flow)       
 {
-    WriteRom (addr,Flow->flow8,4);      //写累积流量
+    WriteRom (addr,Flow->flow8,4);      
 }
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //存储结算日累积水量
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Save_SDCF_Flow(union flow_union *Flow)       //存储结算日累积水量
+void Save_SDCF_Flow(union flow_union *Flow)    
 {
   union flow_union *Water;
   
@@ -174,223 +222,36 @@ void Save_SDCF_Flow(union flow_union *Flow)       //存储结算日累积水量
   
   WriteRom (SDCF1_ADDR,Flow->flow8,4);      //写累积流量
 }
-///*********************************************************************************
-// Function:      //
-// Description:   //读取霍尔故障
-// Input:         //
-//                //
-// Output:        //
-// Return:      	//
-// Others:        //
-//*********************************************************************************/
-//enum Hall_Error_EN Read_Cal_Error(void)       
-//{
-//  return (enum Hall_Error_EN)(*((const unsigned short *)(HALL_ERROR_ADD)));   
-//}
-///*********************************************************************************
-// Function:      //
-// Description:   ////存储霍尔故障
-// Input:         //
-//                //
-// Output:        //
-// Return:      	//
-// Others:        //
-//*********************************************************************************/
-//void Save_Cal_Error(void)       
-//{
-//    WriteRom (HALL_ERROR_ADD,&Cal.Error,1);      
-//}
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //读取BC95错误记录
  Input:         //
                 //
  Output:        //
- Return:		    //
+ Return:	//
  Others:        //
 *********************************************************************************/
-void Read_BAT_Alarm_Value(void)     //读取电压告警值
-{ 
-  BAT_Alarm_Vol = *((const unsigned short *)(BAT_ALARM_ADD));
-  if(BAT_Alarm_Vol == 0)        //默认告警电压3.10V
-  {
-    BAT_Alarm_Vol = 320;
-  }
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Save_BAT_Alarm_Value(void)     //保存电压告警值
-{
-  WriteRom (BAT_ALARM_ADD,&BAT_Alarm_Vol,2);
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Read_Settle_Date(void)         //读取结算日期
-{
-  Settle_Date = *((const unsigned char *)(SETTLEMENT_DATE_ADD));
-  if(Settle_Date == 0)//默认结算日期1号
-  {
-    Settle_Date = 1;
-  }
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Save_Settle_Date(void)         //保存结算日期
-{
-  WriteRom (SETTLEMENT_DATE_ADD,&Settle_Date,1);
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Read_Report_Cycle(void)        //读取上报周期
-{
-  Report_Cycle = *((const unsigned short *)(REPORT_CYCLE_ADDR));
-  if(Report_Cycle == 0) //默认上报周期24小时
-  {
-    Report_Cycle = 1440;
-  }
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Save_Report_Cycle(void)        //保存上报周期
-{
-  WriteRom (REPORT_CYCLE_ADDR,&Report_Cycle,2);
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Read_Meter_Number(void)           //读取表号
-{
-  Meter_Number[0] = *((const unsigned char *)(CJT_188_ADD));
-  Meter_Number[1] = *((const unsigned char *)(CJT_188_ADD+1));
-  Meter_Number[2] = *((const unsigned char *)(CJT_188_ADD+2));
-  Meter_Number[3] = *((const unsigned char *)(CJT_188_ADD+3));
-  Meter_Number[4] = *((const unsigned char *)(CJT_188_ADD+4));
-  Meter_Number[5] = *((const unsigned char *)(CJT_188_ADD+5));
-  Meter_Number[6] = *((const unsigned char *)(CJT_188_ADD+6));
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Save_Meter_Number(void)           //保存表号
-{
-  WriteRom (CJT_188_ADD,Meter_Number,7);
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-void Read_BC95_ErrorRecord(void)           //读取BC95错误记录
+void Read_BC95_ErrorRecord(void)          
 {
   BC95.ErrorRecord = *((const unsigned char *)(BC95_ERROR_RECORD_ADD));
 }
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //保存BC95错误记录
  Input:         //
                 //
  Output:        //
- Return:		    //
+ Return:	//
  Others:        // 
 *********************************************************************************/
-void Save_BC95_ErrorRecord(void)           //保存BC95错误记录
+void Save_BC95_ErrorRecord(void)    
 {
   WriteRom(BC95_ERROR_RECORD_ADD,&BC95.ErrorRecord,1);
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:		    //
- Others:        //
-*********************************************************************************/
-unsigned char Sum_Check(unsigned char *sdata,unsigned short NUM)                //计算和校验
-{
-  unsigned char rdata = 0;
-  unsigned short i = 0;
-  if(NUM>1000)
-    NUM = 10;
-  for(i=0;i<NUM;i++)
-  {
-    rdata += sdata[i];
-  }
-  return rdata;
 }
 
 /*********************************************************************************
  Function:      //
- Description:   //读取历史数据
+ Description:   //读取历史数据存储索引
  Input:         //
                 //
  Output:        //
@@ -399,7 +260,7 @@ unsigned char Sum_Check(unsigned char *sdata,unsigned short NUM)                
 *********************************************************************************/
 void Read_History_Save_Index(void)
 {
-  HistorySaveIndex = *((const unsigned char *)HISTORYL_SAVE_ADDR);
+  HistoryData.SaveIndex = *((const unsigned char *)HISTORYL_SAVE_ADDR);
 }
 /*********************************************************************************
  Function:      //
@@ -414,10 +275,17 @@ unsigned char Read_History_Data(unsigned char* buff)
 {
   unsigned char i = 0,j = 0;
   
-  for(i = HistoryReadIndex;i < 60;i++)
+  if(HistoryData.ReadIndex>= HistoryDataMaxNum)
   {
+    HistoryData.ReadIndex = 0;
+  }
+  
+  i = HistoryData.ReadIndex;
+
+  while(i < HistoryDataMaxNum)
+  { 
     for(j = 0;j < 9;j++)
-    {
+    {    
       buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*9+j));
     }
     if( (buff[4] <= 99)                                 //年有效
@@ -426,20 +294,20 @@ unsigned char Read_History_Data(unsigned char* buff)
               &&(buff[7] <= 23)                         //时有效
                 &&(buff[8] <= 59)  )                    //分有效
     {
-      HistoryReadIndex = i;
+      HistoryData.ReadIndex = i;
       return 1;
     }
-    if(HistoryReadIndex == HistorySaveIndex)
+    
+    if(i == HistoryData.SaveIndex)
     {
       break;
     }
-    HistoryReadIndex++;
-    if(HistoryReadIndex >= 60)
+    i++;
+    if(i >= HistoryDataMaxNum)
     {
-      HistoryReadIndex = 0;
+      i = 0;
     }
   }
-  
   return 0;
 }
 /*********************************************************************************
@@ -453,37 +321,26 @@ unsigned char Read_History_Data(unsigned char* buff)
 *********************************************************************************/
 void Save_History_Data(void)
 {
-//  union flow_union LastMonthFlow;     //上一月结算日累积流量
+  unsigned char j = 0;
   unsigned char buff[9] = {0};
   
- // Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
-  RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
-  RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
+  //若水量与上次相同，则不存存储
+  for(j = 0;j < 4;j++)
+  { 
+    buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + HistoryData.SaveIndex*9+j));
+  }
+  if( (buff[0] == Cal.Water_Data.flow8[0])
+        &&(buff[1] == Cal.Water_Data.flow8[1])
+          &&(buff[2] == Cal.Water_Data.flow8[2])
+            &&(buff[3] == Cal.Water_Data.flow8[3]) )
+  {
+    return;
+  }
   
-//  buff[0] = 1;
-//  buff[1] = Cal.Water_Data.flow8[0];
-//  buff[2] = Cal.Water_Data.flow8[1];
-//  buff[3] = Cal.Water_Data.flow8[2];
-//  buff[4] = Cal.Water_Data.flow8[3];
-//  buff[5] = LastMonthFlow.flow8[0];
-//  buff[6] = LastMonthFlow.flow8[1];
-//  buff[7] = LastMonthFlow.flow8[2];
-//  buff[8] = LastMonthFlow.flow8[3];
-//  buff[9] = RTC_DateStr.RTC_Year;
-//  buff[10] = RTC_DateStr.RTC_Month;
-//  buff[11] = RTC_DateStr.RTC_Date;
-//  buff[12] = RTC_TimeStr.RTC_Hours;
-//  buff[13] = RTC_TimeStr.RTC_Minutes;
-//  
-//  for(i = 0;i < 90;i++)
-//  {
-//    valid = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*14));
-//    if(valid != 1)
-//    {
-//      WriteRom((HISTORYL_DATA_ADDR + i*14),buff,14);
-//      return;
-//    }
-//  }
+  memcpy(buff,0,9);
+  RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
+  RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
+  
   buff[0] = Cal.Water_Data.flow8[0];
   buff[1] = Cal.Water_Data.flow8[1]; 
   buff[2] = Cal.Water_Data.flow8[2];
@@ -494,13 +351,13 @@ void Save_History_Data(void)
   buff[7] = RTC_TimeStr.RTC_Hours;
   buff[8] = RTC_TimeStr.RTC_Minutes;
   
-  HistorySaveIndex++;
-  if(HistorySaveIndex >= 60)
+  HistoryData.SaveIndex++;
+  if(HistoryData.SaveIndex >= HistoryDataMaxNum)
   {
-    HistorySaveIndex = 0;
+    HistoryData.SaveIndex = 0;
   }
-  WriteRom(HISTORYL_SAVE_ADDR,&HistorySaveIndex,1);
-  WriteRom((HISTORYL_DATA_ADDR + HistorySaveIndex*9),buff,9);
+  WriteRom(HISTORYL_SAVE_ADDR,&HistoryData.SaveIndex,1);
+  WriteRom((HISTORYL_DATA_ADDR + HistoryData.SaveIndex*9),buff,9);
 }
 /*********************************************************************************
  Function:      //
@@ -515,6 +372,6 @@ void Clear_History_Data(void)
 {
   unsigned char buff[9] = {0};
   
-  WriteRom((HISTORYL_DATA_ADDR + HistoryReadIndex*9),buff,9);
+  WriteRom((HISTORYL_DATA_ADDR + HistoryData.ReadIndex*9),buff,9);
 }
 /******************************************END********************************************************/

@@ -14,12 +14,9 @@
 /*********************************************************************************
 公共变量定义区
 *********************************************************************************/
-
 /*********************************************************************************
 外部变量声明区
 *********************************************************************************/
-extern RTC_TimeTypeDef   RTC_TimeStr;        //RTC时间结构体
-extern RTC_DateTypeDef   RTC_DateStr;        //RTC日期结构体
 /*********************************************************************************
 私有变量定义区
 *********************************************************************************/ 
@@ -54,10 +51,7 @@ void main(void)
   enableInterrupts();                                       //开总中断
 /////////////////////////////////////////////////////////    
   Read_ACUM_Flow(ADD_FLOW_ADD,&Cal.Water_Data);         //读取当前累积流量
-  Read_BAT_Alarm_Value();                               //读取电压告警值
-  Read_Settle_Date();                                   //读取结算日期
-  Read_Report_Cycle();                                  //读取上报周期
-  Read_Meter_Number();                                  //读取表号
+  Read_Meter_Parameter();                               //读取水表参数
   Read_History_Save_Index();                            //读取历史数据保存索引
   
   BC95.Report_Bit = 1;
@@ -65,23 +59,23 @@ void main(void)
   
   while (1)
   {
-//    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
-//    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
+//    RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
+//    RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
     //设备运行24小时且不在上报状态则复位
-    if( (DeviceRunTime > ((u32)24*60*60))&&(BC95.Start_Process == BC95_POWER_DOWN) )
+    if( (MeterParameter.DeviceRunTiming > ((u32)24*60*60))&&(BC95.Start_Process == BC95_POWER_DOWN) )
     {
       Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
       WWDG->CR = 0x80;  //看门狗复位
     }
     else
     {
-      IWDG_ReloadCounter();//重载计数器
+      IWDG_ReloadCounter();//重载看门狗计数器
     }
     
     Sys_Timer_Process();
     BC95_Process();  
     
-    if(Device_Status == SLEEP_MODE)     //设备进入睡眠状态
+    if(MeterParameter.DeviceStatus == SLEEP)     //设备进入睡眠状态
     {
       Sleep();
     }    
@@ -121,7 +115,7 @@ void Sleep(void)
   {
     Save_History_Data();    //保存本次数据
   }
-  HistoryReadIndex = 0;
+  HistoryData.ReadIndex = 0;
   BC95.Report_Bit = 0;
   BC95.Start_Process = BC95_POWER_DOWN;
   BC95.Run_Time = 0;

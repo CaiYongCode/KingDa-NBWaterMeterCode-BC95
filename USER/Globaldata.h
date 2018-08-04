@@ -5,24 +5,47 @@
 *********************************************************************************/
 #include "stm8l15x.h"
 /*********************************************************************************
+宏定义区
+*********************************************************************************/
+#define HistoryDataMaxNum       200
+/*********************************************************************************
+数据类型定义
+*********************************************************************************/
+enum Device_Status_EN
+{
+ RUN,   //运行
+ SLEEP  //睡眠
+};
+struct Meter_Parameter_EN
+{ 
+  u8 MeterNumber[7];                    //表号
+  u16 AlarmVoltage;                     //电池告警电压
+  u8 SettleDate;                        //结算日期
+  u16 ReportFrequency;                  //上报频率，分
+  u16 SampleFrequency;                  //采样频率, 分
+  u32 ReportTiming;                     //上报计时，秒
+  u32 SampleTiming;                     //采样计时，秒
+  u8 MeasureVoltageTiming;              //测量电压计时，秒
+  u32 DeviceRunTiming;                    //设备运行计时, 秒
+  enum Device_Status_EN DeviceStatus;   //设备状态  
+  signed char Temp;                   //温度
+  u16 Voltage;                          //电压 
+};
+struct History_Data_EN
+{ 
+  u8 ReadIndex; //历史数据读取索引
+  u8 SaveIndex; //历史数据保存索引 
+};
+/*********************************************************************************
 常量定义区
 *********************************************************************************/
 /*********************************************************************************
 公共变量定义区
 *********************************************************************************/
-extern u8 Device_Status;            //设备状态
-extern signed char Temp;                     //设备温度
-extern u16 BAT_Vol;                     //电池实时电压
-extern u16 BAT_Alarm_Vol;           //电池告警电压
-extern u8 Settle_Date;          //结算日期
-extern RTC_TimeTypeDef Settlement_Time;          //日结算时间
-extern u16 Report_Cycle;             //上报周期，时
-extern u32 Report_Cycle_counter;     //上报周期计数，秒
-extern u8 Gather_Cycle_counter;     //采集周期计数，秒
-extern u8 Meter_Number[7];             //表号
-extern u8 HistoryReadIndex; //历史数据读取索引
-extern u8 HistorySaveIndex; //历史数据保存索引
-extern u32 DeviceRunTime;      //设备运行时间
+extern RTC_TimeTypeDef   RTC_TimeStr;        //RTC时间结构体
+extern RTC_DateTypeDef   RTC_DateStr;        //RTC日期结构体
+extern struct Meter_Parameter_EN MeterParameter;
+extern struct History_Data_EN HistoryData;
 /*********************************************************************************
 外部变量声明区
 *********************************************************************************/
@@ -41,6 +64,8 @@ extern u32 DeviceRunTime;      //设备运行时间
 unsigned char Int_to_ASCLL(unsigned char data);
 unsigned char ASCLL_to_Int(unsigned char data);
 unsigned char BCD_to_Int(unsigned char data);
+
+void delay_ms(u16 time);
 /*********************************************************************************
  Function:      //
  Description:   //

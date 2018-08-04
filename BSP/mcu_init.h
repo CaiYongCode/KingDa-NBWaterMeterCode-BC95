@@ -34,6 +34,7 @@ void TIM4_Config(void);
 void ADC_CH1_Config ( void );
 void ADC_CHV_Config(void);
 void Read_Voltage(void);
+void MeasureVoltage (void);
 /********************************************************************************************************/
 #endif
 

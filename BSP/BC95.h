@@ -71,64 +71,65 @@ enum Start_Process_En   //启动流程
   BC95_CONNECT_ERROR,      //启动错误
 };
 
-enum BC95_State_Eum
-{
-  NO_State              = 0x00,                                                 //无结果
-  BC95_OK               = 0X01,                                                 //连接正常
-  BC95_NG               = 0X02,                                                 //连接失败
-  NO_Card               = 0X03                                                  //无卡
-};
+//enum BC95_State_Eum
+//{
+//  NO_State              = 0x00,                                                 //无结果
+//  BC95_OK               = 0X01,                                                 //连接正常
+//  BC95_NG               = 0X02,                                                 //连接失败
+//  NO_Card               = 0X03                                                  //无卡
+//};
 
 
-enum Send_Process_En//发送流程
-{
-  WAIT_CONNECT,//等待连接
-  SEND_READY,//发送等待
-  
-  SEND_AII_PARA,//发送所有参数
-  SEND_HC_FLOW,//发送历史累积流量
-  SEND_VOL_ALARM,//发送电压报警
-  SEND_MAG_ALARM,//发送磁报警  
+//enum Send_Process_En//发送流程
+//{
+//  WAIT_CONNECT,//等待连接
+//  SEND_READY,//发送等待
+//  
+//  SEND_AII_PARA,//发送所有参数
+//  SEND_HC_FLOW,//发送历史累积流量
+//  SEND_VOL_ALARM,//发送电压报警
+//  SEND_MAG_ALARM,//发送磁报警  
+//
+//  SEND_WAIT_OK,//等待发送成功
+//  SEND_ERROR,//发送失败
+//  SEND_FINISH,//发送完成
+//};
 
-  SEND_WAIT_OK,//等待发送成功
-  SEND_ERROR,//发送失败
-  SEND_FINISH,//发送完成
-};
-
-struct Alarm_EN         //发送标志位
-{
-  unsigned char Vol_Alarm:1;    //发送电压报警
-  unsigned char Mag_Alarm:1;   //发送磁报警  
-};
-  
+//struct Alarm_EN         //发送标志位
+//{
+//  unsigned char Vol_Alarm:1;    //发送电压报警
+//  unsigned char Mag_Alarm:1;   //发送磁报警  
+//};
+//  
 struct BC95_Str//BC95 总结构体
 {
-  char R_Buffer[RECV_BUFF_SIZE]; //接收缓冲区
-  char S_Buffer[SEND_BUFF_SIZE]; //发送缓冲区
-  unsigned short Recv_Length; //发送长度
-  unsigned short Send_Length; //发送长度
-//  unsigned char Data_Buffer[RECV_BUFF_SIZE-20];//数据缓冲
-  unsigned short Data_Length;//数据长度
-  unsigned char R_Channel;//接收的信道
-  unsigned char S_Channel;//发送的信道
-  bool Data_Pend;//数据挂起
-  bool Channel_Connect[6];//信道连接标志
-  bool Channel_Connect_ERROR[6];//信道连接失败标志
-  unsigned char Connect_Channel_Num;//连接中的信道
-  enum Start_Process_En Start_Process;//连接进程
-  enum Send_Process_En Send_Process;//发送进程
-  struct Alarm_EN  Alarm;         //告警
-  u8 Report_Bit;                          //发送位
-  struct Error_Connter_Str Err_Conner;//错误计数
-  unsigned char ErrorRecord;    //错误记录
-  unsigned char Rssi;//信号强度
-  bool Incident_Pend;//事件挂起标志
-  enum BC95_State_Eum State;//状态
-  bool ZIPSTATUS_Pend;//用于查询状态
-  unsigned char Reconnect_Times;        //重连次数
-  unsigned short Run_Time;         //运行时间
+  char R_Buffer[RECV_BUFF_SIZE];        //接收缓冲区
+  unsigned short Recv_Length;         //接收长度
+  enum Start_Process_En Start_Process;  //连接进程
+  u8 Report_Bit;                        //发送位
+  struct Error_Connter_Str Err_Conner; //错误计数
+  unsigned char ErrorRecord;          //错误记录
+  unsigned char Rssi;                 //信号强度
+  bool Incident_Pend;                  //事件挂起标志
+
+  unsigned char Reconnect_Times;      //重连次数
+  unsigned short Run_Time;           //运行时间
   unsigned char ICCID[20];
   unsigned char IMEI[15];
+// char S_Buffer[SEND_BUFF_SIZE]; //发送缓冲区
+//  unsigned short Send_Length; //发送长度
+//  unsigned char Data_Buffer[RECV_BUFF_SIZE-20];//数据缓冲
+//  unsigned short Data_Length;//数据长度
+//  unsigned char R_Channel;//接收的信道
+//  unsigned char S_Channel;//发送的信道
+//  bool Data_Pend;//数据挂起
+//  bool Channel_Connect[6];//信道连接标志
+//  bool Channel_Connect_ERROR[6];//信道连接失败标志
+//  unsigned char Connect_Channel_Num;//连接中的信道
+//  enum Send_Process_En Send_Process;//发送进程
+//  struct Alarm_EN  Alarm;         //告警
+//  enum BC95_State_Eum State;//状态
+//  bool ZIPSTATUS_Pend;//用于查询状态
 };
  
 /*********************************************************************************************************
@@ -144,7 +145,6 @@ void BC95_Reset(void);
 void BC95_Process(void);
 void BC95_Data_Send(unsigned char *Data,unsigned short Len);
 
-void ZTE_BC95_PIN_INIT(void);
 void BC95_Open(void);
 void BC95_CLose(void);
 void BC95_Start(void);
@@ -154,16 +154,11 @@ void BC95_Delay_CallBalk(void);
 
 void Recv_Data_Process(void);
 void Send_Data_Process(void);
-void Send_Response(void);
 void ACK(u8 messageId,u8 errcode,u8 mid[4]);
 void Report_All_Parameters(void);
 void Report_HC_Flow(void);
-void Report_Settle_Time(void);
-void Report_Battery_Alarm(void);
-void Report_Meter_Number(void);
-void Report_Valve_Status(void);
-void Report_Magnetic_Alarm(u8 value);
 
+void Report_History_Data(void);
 //void GSM_SET_AT_IP(unsigned short Port,unsigned char *IP,unsigned char Channel);
 //void BC95_PowerUP_CallBalk(void);
 //void GSM_Send_AT_Cmd(unsigned char *GSM_SEND_AT,unsigned short cmd_len);

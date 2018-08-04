@@ -14,11 +14,6 @@
 /*********************************************************************************
 公共变量定义区
 *********************************************************************************/
-TimerData_Struct  Time;
-RTC_TimeTypeDef   RTC_TimeStr;        //RTC时间结构体
-RTC_DateTypeDef   RTC_DateStr;        //RTC日期结构体
-RTC_AlarmTypeDef  RTC_AlarmStr;       //闹钟结构体
-
 
 /*********************************************************************************
 外部变量声明区
@@ -26,7 +21,6 @@ RTC_AlarmTypeDef  RTC_AlarmStr;       //闹钟结构体
 /*********************************************************************************
 私有变量定义区
 *********************************************************************************/ 
-unsigned short Last_Vol;
 /*********************************************************************************
 测试变量定义区
 *********************************************************************************/
@@ -79,8 +73,8 @@ void Rtc_Config(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Set_RTC(void)
-{
+//void Set_RTC(void)
+//{
 //  RTC_TimeTypeDef  RTC_Time;
 //  RTC_DateTypeDef  RTC_Date;
 //  
@@ -95,7 +89,7 @@ void Set_RTC(void)
 //  
 //  RTC_SetDate(RTC_Format_BIN, &RTC_Date);
 //  RTC_SetTime(RTC_Format_BIN, &RTC_Time);
-}
+//}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -143,6 +137,8 @@ void Set_RTC(void)
 *********************************************************************************/
 void Set_Alarm(void) //设置闹钟
 {
+  RTC_AlarmTypeDef  RTC_AlarmStr;       //闹钟结构体
+  
 //  RTC_AlarmStructInit(RTC_Alarm);    //设置闹钟
   RTC_AlarmStr.RTC_AlarmTime.RTC_Hours   = 1;
   RTC_AlarmStr.RTC_AlarmTime.RTC_Minutes = 0;
@@ -167,26 +163,26 @@ void Set_Alarm(void) //设置闹钟
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Close_Alarm(void)
-{
-  RTC_ITConfig(RTC_IT_ALRA, DISABLE);  //关闭闹钟中断
-  RTC_AlarmCmd(DISABLE);    //关闭闹钟
-}
+//void Close_Alarm(void)
+//{
+//  RTC_ITConfig(RTC_IT_ALRA, DISABLE);  //关闭闹钟中断
+//  RTC_AlarmCmd(DISABLE);    //关闭闹钟
+//}
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //闹钟中断
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Alarm_Interrupt (void)                        //闹钟中断
+void Alarm_Interrupt (void)                        
 {
   if(RESET != RTC_GetITStatus(RTC_IT_ALRA))
   {   
-    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
-    if(RTC_DateStr.RTC_Date == Settle_Date)       //结算日保存累积流量
+    RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
+    if(RTC_DateStr.RTC_Date == MeterParameter.SettleDate)       //结算日保存累积流量
     {
       Save_SDCF_Flow(&Cal.Water_Data);
     }
@@ -195,45 +191,55 @@ void Alarm_Interrupt (void)                        //闹钟中断
 }
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //唤醒中断
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Wake_Interrupt (void)                        //唤醒中断
+void Wake_Interrupt (void)                        
 {
   if(RESET != RTC_GetITStatus(RTC_IT_WUT))
   {
-    Device_Status = RUN_MODE;
+    MeterParameter.DeviceStatus = RUN;
     RCC_Configuration();
     
-    //每5秒执行一次电压采集   
-    Gather_Cycle_counter++;
-    if(Gather_Cycle_counter >= 5)
+    //每5秒执行一次电压测量   
+    MeterParameter.MeasureVoltageTiming++;
+    if(MeterParameter.MeasureVoltageTiming >= 5)
     {
-      rtc_interrupt();
-      Gather_Cycle_counter = 0;
+      MeasureVoltage();
+      MeterParameter.MeasureVoltageTiming = 0;
     }
-
-    //周期上报设备参数
-    Report_Cycle_counter++;
-    if( (Report_Cycle_counter/60) >= Report_Cycle )
-    {
     
+    //周期采样数据
+    if(MeterParameter.SampleFrequency > 0)
+    {
+      MeterParameter.SampleTiming++;
+      if( ((MeterParameter.SampleTiming/60) >= MeterParameter.SampleFrequency) )
+      {
+        Save_History_Data();    //保存本次数据
+        MeterParameter.SampleTiming = 0;
+      }
+    }
+    
+    //周期上报设备参数
+    MeterParameter.ReportTiming++;
+    if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
+    {  
       BC95.Report_Bit = 1;
       if(BC95.Start_Process == BC95_POWER_DOWN)
       {
         BC95.Start_Process = BC95_RECONNECT;
       }     
-      Report_Cycle_counter = 0;
+      MeterParameter.ReportTiming = 0;
     }
     else
     {   
       if(BC95.Start_Process == BC95_POWER_DOWN)
       {
-        Device_Status = SLEEP_MODE;
+        MeterParameter.DeviceStatus = SLEEP;
       }
     }
     
@@ -241,51 +247,18 @@ void Wake_Interrupt (void)                        //唤醒中断
     if(BC95.Start_Process != BC95_POWER_DOWN)
     {
       BC95.Run_Time++;
-      if(BC95.Run_Time > 300)
+      if( (BC95.Run_Time/60) >= 5)
       {
-        Device_Status = SLEEP_MODE;
+        MeterParameter.DeviceStatus = SLEEP;
       }
     }
     
-    DeviceRunTime ++;    //设备运行计时
+    MeterParameter.DeviceRunTiming ++;    //设备运行计时
     
     RTC_ClearITPendingBit(RTC_IT_WUT);                        //清除RTC唤醒标志
   }
 }
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-void delay_ms(u16 time)
-{    
-   u16 i=0;  
-   while(time--)
-   {
-      i=16000;  //自己定义
-      while(i--) ;    
-   }
-}
-void rtc_interrupt (void)  //RTC中断处理函数 5s一次
-{
-    //采集电压
-    delay_ms(3);
-    Read_Voltage();
-    
-    if(BAT_Vol < BAT_Alarm_Vol)                                         //检测电池是否欠压
-    {
-      if(Last_Vol >= BAT_Alarm_Vol)                                   //判断是否为第一次欠压
-      {
-        Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);                                  //保存当前水量
-        //报警
-      }
-    }
-    Last_Vol = BAT_Vol;
-}
+
 /*********************************************************************************
  Function:      //
  Description:   //格林威治时间转换成北京时间

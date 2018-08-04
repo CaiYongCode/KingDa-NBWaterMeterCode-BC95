@@ -22,6 +22,7 @@
 /*********************************************************************************
 私有变量定义区
 *********************************************************************************/ 
+unsigned short Last_Vol;
 /*********************************************************************************
 测试变量定义区
 *********************************************************************************/
@@ -40,16 +41,16 @@
  Return:      	//
  Others:        //
 *********************************************************************************/
-void MCU_Config(void)
-{
-  RCC_Configuration();
-  GPIO_Configuration();
-  TIM4_Config();
-  USART2_Configuration();
-  USART3_Configuration();
-  ITC_Config();
-  Pulse_Acquire_Config();
-}
+//void MCU_Config(void)
+//{
+//  RCC_Configuration();
+//  GPIO_Configuration();
+//  TIM4_Config();
+//  USART2_Configuration();
+//  USART3_Configuration();
+//  ITC_Config();
+//  Pulse_Acquire_Config();
+//}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -96,14 +97,14 @@ void GPIO_Configuration(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-void TIM4_Config(void)
-{ 
-  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4 , ENABLE);              //使能定时器4时钟
-  TIM4_TimeBaseInit(TIM4_Prescaler_128 , 125);    //设置定时器4为128分频，向上计数，计数值为125即为1毫秒的计数值
-  TIM4_ITConfig(TIM4_IT_Update , ENABLE);         //使能向上计数溢出中断
-  TIM4_ARRPreloadConfig(ENABLE);                  //使能定时器4自动重载功能    
-  TIM4_Cmd(ENABLE);                               //启动定时器4开始计数
-}
+//void TIM4_Config(void)
+//{ 
+//  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4 , ENABLE);              //使能定时器4时钟
+//  TIM4_TimeBaseInit(TIM4_Prescaler_128 , 125);    //设置定时器4为128分频，向上计数，计数值为125即为1毫秒的计数值
+//  TIM4_ITConfig(TIM4_IT_Update , ENABLE);         //使能向上计数溢出中断
+//  TIM4_ARRPreloadConfig(ENABLE);                  //使能定时器4自动重载功能    
+//  TIM4_Cmd(ENABLE);                               //启动定时器4开始计数
+//}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -164,15 +165,15 @@ void USART2_Configuration ( void )
  Return:	    	//
  Others:        //
 *********************************************************************************/
-void ITC_Config(void)                                                          //中断控制  0最低 3最高  
-{
-    ITC_SetSoftwarePriority(TIM4_UPD_OVF_TRG_IRQn, ITC_PriorityLevel_3);        //定时器4溢出优先级
-
-    ITC_SetSoftwarePriority(TIM2_UPD_OVF_TRG_BRK_USART2_TX_IRQn, ITC_PriorityLevel_2);  //串口2优先级
-    ITC_SetSoftwarePriority(TIM2_CC_USART2_RX_IRQn, ITC_PriorityLevel_2);              //串口2优先级
-    ITC_SetSoftwarePriority(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQn, ITC_PriorityLevel_1);  //串口3优先级
-    ITC_SetSoftwarePriority(TIM3_CC_USART3_RX_IRQn, ITC_PriorityLevel_1);              //串口3优先级
-}
+//void ITC_Config(void)                                                          //中断控制  0最低 3最高  
+//{
+//    ITC_SetSoftwarePriority(TIM4_UPD_OVF_TRG_IRQn, ITC_PriorityLevel_3);        //定时器4溢出优先级
+//
+//    ITC_SetSoftwarePriority(TIM2_UPD_OVF_TRG_BRK_USART2_TX_IRQn, ITC_PriorityLevel_2);  //串口2优先级
+//    ITC_SetSoftwarePriority(TIM2_CC_USART2_RX_IRQn, ITC_PriorityLevel_2);              //串口2优先级
+//    ITC_SetSoftwarePriority(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQn, ITC_PriorityLevel_1);  //串口3优先级
+//    ITC_SetSoftwarePriority(TIM3_CC_USART3_RX_IRQn, ITC_PriorityLevel_1);              //串口3优先级
+//}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -182,16 +183,16 @@ void ITC_Config(void)                                                          /
  Return:      	//
  Others:        //
 *********************************************************************************/
-void ADC_CH1_Config ( void )
-{
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);   //开启ADC时钟
-  ADC_Init (ADC1,ADC_ConversionMode_Continuous, 
-                                          ADC_Resolution_12Bit, ADC_Prescaler_1 );         //断续模式 12位 1分频
-  ADC_ChannelCmd(ADC1,ADC_Channel_1,ENABLE );         //通道选择1
-
-  ADC_SamplingTimeConfig (ADC1,ADC_Group_FastChannels,ADC_SamplingTime_4Cycles);
-  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1,DISABLE);   //关闭ADC时钟 
-}
+//void ADC_CH1_Config ( void )
+//{
+//  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);   //开启ADC时钟
+//  ADC_Init (ADC1,ADC_ConversionMode_Continuous, 
+//                                          ADC_Resolution_12Bit, ADC_Prescaler_1 );         //断续模式 12位 1分频
+//  ADC_ChannelCmd(ADC1,ADC_Channel_1,ENABLE );         //通道选择1
+//
+//  ADC_SamplingTimeConfig (ADC1,ADC_Group_FastChannels,ADC_SamplingTime_4Cycles);
+//  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1,DISABLE);   //关闭ADC时钟 
+//}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -244,18 +245,33 @@ void Read_Voltage(void)
   ADC_Cmd(ADC1, DISABLE);                                       //关闭ADC外围
   CLK_PeripheralClockConfig(CLK_Peripheral_ADC1,DISABLE);       //关闭ADC时钟
   
-  BAT_Vol = (unsigned short)(vdd*100);
+  MeterParameter.Voltage = (unsigned short)(vdd*100);
 }
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //测量电压
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-
+void MeasureVoltage (void)  
+{
+    //采集电压
+    delay_ms(3);
+    Read_Voltage();
+    
+    if(MeterParameter.Voltage < MeterParameter.AlarmVoltage)                                         //检测电池是否欠压
+    {
+      if(Last_Vol >= MeterParameter.AlarmVoltage)                                   //判断是否为第一次欠压
+      {
+        Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);                                  //保存当前水量
+        //报警
+      }
+    }
+    Last_Vol = MeterParameter.Voltage;
+}
 /*********************************************************************************
  Function:      //
  Description:   //

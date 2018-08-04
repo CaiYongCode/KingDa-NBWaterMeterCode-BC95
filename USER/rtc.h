@@ -43,7 +43,6 @@ void Alarm_Interrupt (void);
 void Wake_Interrupt (void);                       //ªΩ–—÷–∂œ
 void Rtc_Config(void);
 void Set_Alarm(void); //…Ë÷√ƒ÷÷”
-void rtc_interrupt (void);
 void GMT_to_BT(unsigned char *str);
 /********************************************************************************************************/
 #endif

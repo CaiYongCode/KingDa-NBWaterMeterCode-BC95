@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=1723071488
+Checksum=-1310440338
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -49,7 +49,9 @@ Fmt1=RTC_DateTypeDef-RTC_Year	4	0
 Fmt2=RTC_TimeTypeDef-RTC_Hours	4	0
 Fmt3=RTC_TimeTypeDef-RTC_Minutes	4	0
 Fmt4=RTC_TimeTypeDef-RTC_Seconds	4	0
-Fmt5=union flow_union-flow32	4	0
+Fmt5=struct Meter_Parameter_EN-MeasureVoltageTiming	3	0
+Fmt6=struct Meter_Parameter_EN-SettleDate	3	0
+Fmt7=union flow_union-flow32	4	0
 [array_types]
 Fmt0=unsigned char[28]	4	0
 Fmt1=unsigned char[4]	4	0
@@ -65,6 +67,13 @@ Fmt5={W}42:run_state	4	0
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Breakpoints]
 Bp0=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.514.9" 0 0 0 0 "" 0 ""
 Bp1=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.601.3" 0 0 0 0 "" 0 ""
@@ -78,16 +87,8 @@ Bp8=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.122.5" 0 0 0
 Bp9=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.231.7" 0 0 0 0 "" 0 ""
 Bp10=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.139.9" 0 0 0 0 "" 0 ""
 Bp11=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.256.7" 0 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.72.7" 1 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\USER\main.c}.46.3" 1 0 0 0 "" 0 ""
-Count=14
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
+Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\BC95.c}.640.9" 1 0 0 0 "" 0 ""
+Count=13
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""
 A1=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\BSP\mcu_init.c" ""

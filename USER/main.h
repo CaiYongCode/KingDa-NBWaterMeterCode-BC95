@@ -26,8 +26,8 @@
 #define  ACCOUNT_FLOW_ADD       (EEPROM_ADD+50)      //结算日流量地址
 #define  HISTORY_FLOW_ADD       (EEPROM_ADD+55)      //历史流量地址
 #define  SETTLEMENT_DATE_ADD    (EEPROM_ADD+110)     //结算日期地址
-#define  SETTLEMENT_TIME_ADD    (EEPROM_ADD+111)     //结算时间地址
-#define  REPORT_CYCLE_ADDR      (EEPROM_ADD+114)     //上报周期
+#define  SAMPLE_FREQUENCY_ADDR  (EEPROM_ADD+111)     //采样频率地址
+#define  REPORT_FREQUENCY_ADDR  (EEPROM_ADD+114)     //上报频率地址
 #define  BAT_ALARM_ADD          (EEPROM_ADD+116)     //电池报警值地址
 #define  BC95_ERROR_RECORD_ADD  (EEPROM_ADD+122)     //BC95联网错误记录地址
 
@@ -63,23 +63,23 @@
 /*********************************************************************************************************
 数据类型定义
 *********************************************************************************************************/
-struct Network_Par_Str
-{
-  unsigned char IP[4];   //连接IP
-  unsigned short Port;   //连接端口
-};
-
-union Network_Par_Uni
-{
-  struct Network_Par_Str Str;
-  unsigned char Byte[6];
-};
-
-struct Up_Date_Str
-{
-  unsigned char Day;
-  unsigned char Hour;
-};
+//struct Network_Par_Str
+//{
+//  unsigned char IP[4];   //连接IP
+//  unsigned short Port;   //连接端口
+//};
+//
+//union Network_Par_Uni
+//{
+//  struct Network_Par_Str Str;
+//  unsigned char Byte[6];
+//};
+//
+//struct Up_Date_Str
+//{
+//  unsigned char Day;
+//  unsigned char Hour;
+//};
 /*********************************************************************************************************
 外部变量声明区
 *********************************************************************************************************/

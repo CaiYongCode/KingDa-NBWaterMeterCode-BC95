@@ -27,20 +27,12 @@
 函数声明区
 *********************************************************************************************************/
 void WriteRom (unsigned short addr, void *pbuff, unsigned char length);
-unsigned char Sum_Check(unsigned char *sdata,unsigned short NUM);                //计算和校验
+void Read_Meter_Parameter(void);
+void Save_Meter_Parameter(void);
 void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow);
 void Save_Add_Flow(u16 addr,union flow_union *Flow);       //存储累积水量
 void Save_SDCF_Flow(union flow_union *Flow);
 enum Hall_Error_EN Read_Cal_Error(void);       
-void Save_Cal_Error(void);       //存储霍尔状态
-void Read_BAT_Alarm_Value(void);     //读取电压告警值
-void Save_BAT_Alarm_Value(void);     //保存电压告警值
-void Read_Settle_Date(void);         //读取结算日期
-void Save_Settle_Date(void);         //保存结算日期
-void Read_Report_Cycle(void);        //读取上报周期
-void Save_Report_Cycle(void);        //保存上报周期
-void Read_Meter_Number(void);           //读取表号
-void Save_Meter_Number(void);           //保存表号
 void Read_BC95_ErrorRecord(void);           //读取BC95错误记录
 void Save_BC95_ErrorRecord(void);           //保存BC95错误记录
 void Read_History_Save_Index(void);

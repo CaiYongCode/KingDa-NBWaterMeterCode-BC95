@@ -86,11 +86,11 @@ signed char Read_Temp(void)
   temp = (signed char)i - 40-1;
   if(temp < 0)
   {
-    Temp = ~(abs(temp)-1);
+    MeterParameter.Temp = ~(abs(temp)-1);
   }
   else
   {
-    Temp = temp;
+    MeterParameter.Temp = temp;
   }
   return temp;
 }

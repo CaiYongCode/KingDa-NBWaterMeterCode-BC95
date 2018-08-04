@@ -124,11 +124,11 @@ void BC95_Process(void)                         //BC95主进程
         
         BC95.Start_Process = BC95_POWER_DOWN;
         BC95_Power_Off();
-        Device_Status = SLEEP_MODE;
+        MeterParameter.DeviceStatus = SLEEP;
       }
       else     //否则重连
       {
-        Device_Status = RUN_MODE;
+        MeterParameter.DeviceStatus = RUN;
         BC95_Power_On();
       }
     }
@@ -170,7 +170,6 @@ void BC95_Process(void)                         //BC95主进程
       break;  
      case CCID:                 //查询CCID
       {
-//        BC95_Data_Send("AT+CIMI\r\n",9); 
         BC95_Data_Send("AT+NCCID\r\n",10); 
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
                      BC95_Start_Timeout_CallBack,0,PROCESS);//建议定时器延时回调
@@ -264,7 +263,7 @@ void BC95_Process(void)                         //BC95主进程
       break;
     case BC95_POWER_DOWN:       //发送接收完成则直接关电
       BC95_Power_Off();
-      Device_Status = SLEEP_MODE;       //睡眠
+      MeterParameter.DeviceStatus = SLEEP;       //睡眠
       break;
     default:
       break;
@@ -346,8 +345,7 @@ void BC95_Process(void)                         //BC95主进程
             BC95.Rssi *=10;
             BC95.Rssi += str[6]-0x30;
           }
-          
-          BC95.Rssi %= 100;
+    
           if(BC95.Rssi < 99)
           {
             BC95.Start_Process = GETCGATT;
@@ -474,22 +472,24 @@ void BC95_Process(void)                         //BC95主进程
         }
         else if(strstr(BC95.R_Buffer,",AAAA0000") != NULL)  //上报全部参数的响应
         {   
-          if(BC95.Report_Bit == 1)
-          {
-            BC95.Report_Bit = 2;
-            HistoryReadIndex =  HistorySaveIndex+1;
-          }
-          else if(BC95.Report_Bit == 2)
-          {  
-            Clear_History_Data();
-          }
+          BC95.Report_Bit = 2;
+          
           BC95.Start_Process = NQMGR;
           BC95.Incident_Pend = TRUE;//标记挂起
           Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
         }
         else if(strstr(BC95.R_Buffer,",AAAA0001") != NULL)     //上报历史流量的响应
         {
-          BC95.Report_Bit = 0;
+          BC95.Report_Bit = 3;
+          HistoryData.ReadIndex =  HistoryData.SaveIndex+1;
+          
+          BC95.Start_Process = NQMGR;
+          BC95.Incident_Pend = TRUE;//标记挂起
+          Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
+        }
+        else if(strstr(BC95.R_Buffer,",AAAA0002") != NULL)     //上报历史数据的响应
+        {
+          Clear_History_Data();
           BC95.Start_Process = NQMGR;
           BC95.Incident_Pend = TRUE;//标记挂起
           Delete_Timer(BC95_Start_Timeout_CallBack);//删除超时回调
@@ -617,35 +617,52 @@ void Recv_Data_Process(void)
         //表号
         valueH = str[7]*0x10+str[8];
         valueL = str[9]*0x10+str[10];
-        Meter_Number[0] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
+        MeterParameter.MeterNumber[0] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         valueH = str[11]*0x10+str[12];
         valueL = str[13]*0x10+str[14];
-        Meter_Number[1] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
+        MeterParameter.MeterNumber[1] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         valueH = str[15]*0x10+str[16];
         valueL = str[17]*0x10+str[18];
-        Meter_Number[2] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
+        MeterParameter.MeterNumber[2] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         valueH = str[19]*0x10+str[20];
         valueL = str[21]*0x10+str[22];
-        Meter_Number[3] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
+        MeterParameter.MeterNumber[3] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         valueH = str[23]*0x10+str[24];
         valueL = str[25]*0x10+str[26];
-        Meter_Number[4] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
+        MeterParameter.MeterNumber[4] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         valueH = str[27]*0x10+str[28];
         valueL = str[29]*0x10+str[30];
-        Meter_Number[5] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
+        MeterParameter.MeterNumber[5] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         valueH = str[31]*0x10+str[32];
         valueL = str[33]*0x10+str[34];
-        Meter_Number[6] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
-        Save_Meter_Number();
+        MeterParameter.MeterNumber[6] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         //结算日期
-        Settle_Date = str[35]*0x10+str[36];   //设置结算日期
-        Save_Settle_Date();       
-        //上报周期
-         Report_Cycle = str[37]*0x1000+str[38]*0x100+str[39]*0x10+str[40]; //设置上报周期
-        Save_Report_Cycle();
+        MeterParameter.SettleDate = str[35]*0x10+str[36];   //设置结算日期    
+        if((MeterParameter.SettleDate == 0)||(MeterParameter.SettleDate > 31))//默认结算日期1号
+        {
+          MeterParameter.SettleDate = 1;
+        }
+        //上报频率
+        MeterParameter.ReportFrequency = str[37]*0x1000+str[38]*0x100+str[39]*0x10+str[40]; //设置上报周期
+        if(MeterParameter.ReportFrequency < 5) //默认上报频率24小时
+        {
+          MeterParameter.ReportFrequency = 1440;
+        }
         //告警电压
-        BAT_Alarm_Vol = str[41]*0x1000+str[42]*0x100+str[43]*0x10+str[44];
-        Save_BAT_Alarm_Value();
+        MeterParameter.AlarmVoltage = str[41]*0x1000+str[42]*0x100+str[43]*0x10+str[44];
+        if( (MeterParameter.AlarmVoltage < 300)||(MeterParameter.AlarmVoltage > 360))        //默认告警电压3.00V
+        {
+          MeterParameter.AlarmVoltage = 300;
+        }
+        //采样频率
+        MeterParameter.SampleFrequency = str[45]*0x1000+str[46]*0x100+str[47]*0x10+str[48];
+        if(MeterParameter.SampleFrequency < 15) //默认采集频率24小时
+        {
+          MeterParameter.SampleFrequency = 1440;
+        }
+  
+        
+        Save_Meter_Parameter(); ///存储水表参数
         
         //0x03响应
         ACK(0x03,0x00,mid);
@@ -719,14 +736,14 @@ void Send_Data_Process(void)
         Report_All_Parameters();
       }
       break;
-    case 2:            //发送历史数据
-      {
-        Report_All_Parameters();
-      }
-      break;
-    case 3:            //发送历史累积流量
+    case 2:            //发送历史累积流量
       {
         Report_HC_Flow();
+      }
+      break;
+    case 3:            //发送历史数据
+      {
+        Report_History_Data();
       }
       break;
     default:
@@ -770,13 +787,11 @@ void ACK(u8 messageId,u8 errcode,u8 mid[4])
 //0000000000000030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030\r\n";
 void Report_All_Parameters(void)
 {
-  uint8_t data[200] = "AT+NMGS=77,0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
+  uint8_t data[200] = "AT+NMGS=79,00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";
   union flow_union LastMonthFlow;     //上一月结算日累积流量
-  union flow_union CurrentFlow;     //当前累积流量
   uint8_t month,date,hour,minute,second;
   unsigned short year = 0;
   uint8_t valueH = 0,valueL = 0;
-  unsigned char buff[14] = {0};
    
   //获取上一月累计流量
   Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
@@ -788,53 +803,26 @@ void Report_All_Parameters(void)
   //获取上次联网错误信息
   Read_BC95_ErrorRecord();
   
-  if(BC95.Report_Bit == 1)      //上传当前数据
-  {
-    CurrentFlow.flow32 = Cal.Water_Data.flow32;
-    //获取时间   
-    RTC_GetDate(RTC_Format_BCD, &RTC_DateStr);
-    RTC_GetTime(RTC_Format_BCD, &RTC_TimeStr);
-    year = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Year)+2000;
-    month = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Month);
-    date = BCD_to_Int((unsigned char)RTC_DateStr.RTC_Date);
-    hour = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Hours);
-    minute = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Minutes);
-    second = BCD_to_Int((unsigned char)RTC_TimeStr.RTC_Seconds);
-  }
-  else if(BC95.Report_Bit == 2) //上传历史数据
-  {
-    
-    if(1 == Read_History_Data(buff))
-    {
-      CurrentFlow.flow8[0] = buff[0];
-      CurrentFlow.flow8[1] = buff[1];
-      CurrentFlow.flow8[2] = buff[2];
-      CurrentFlow.flow8[3] = buff[3];
-      year = BCD_to_Int((unsigned char)buff[4])+2000;
-      month = BCD_to_Int((unsigned char)buff[5]);
-      date = BCD_to_Int((unsigned char)buff[6]);
-      hour = BCD_to_Int((unsigned char)buff[7]);
-      minute = BCD_to_Int((unsigned char)buff[8]);
-      second = 0;
-    }
-    else
-    {
-      BC95.Report_Bit = 3;
-      BC95.Incident_Pend = TRUE;//标记挂起
-      return;
-    }
-  }
+  //获取时间   
+  RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
+  RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
+  year = RTC_DateStr.RTC_Year+2000;
+  month = RTC_DateStr.RTC_Month;
+  date = RTC_DateStr.RTC_Date;
+  hour = RTC_TimeStr.RTC_Hours;
+  minute = RTC_TimeStr.RTC_Minutes;
+  second = RTC_TimeStr.RTC_Seconds;
   
   
   //当前累积流量
-  data[13] = Int_to_ASCLL(CurrentFlow.flow8[0]/0x10);
-  data[14] = Int_to_ASCLL(CurrentFlow.flow8[0]%0x10);
-  data[15] = Int_to_ASCLL(CurrentFlow.flow8[1]/0x10);
-  data[16] = Int_to_ASCLL(CurrentFlow.flow8[1]%0x10);
-  data[17] = Int_to_ASCLL(CurrentFlow.flow8[2]/0x10);
-  data[18] = Int_to_ASCLL(CurrentFlow.flow8[2]%0x10);
-  data[19] = Int_to_ASCLL(CurrentFlow.flow8[3]/0x10);
-  data[20] = Int_to_ASCLL(CurrentFlow.flow8[3]%0x10);
+  data[13] = Int_to_ASCLL(Cal.Water_Data.flow8[0]/0x10);
+  data[14] = Int_to_ASCLL(Cal.Water_Data.flow8[0]%0x10);
+  data[15] = Int_to_ASCLL(Cal.Water_Data.flow8[1]/0x10);
+  data[16] = Int_to_ASCLL(Cal.Water_Data.flow8[1]%0x10);
+  data[17] = Int_to_ASCLL(Cal.Water_Data.flow8[2]/0x10);
+  data[18] = Int_to_ASCLL(Cal.Water_Data.flow8[2]%0x10);
+  data[19] = Int_to_ASCLL(Cal.Water_Data.flow8[3]/0x10);
+  data[20] = Int_to_ASCLL(Cal.Water_Data.flow8[3]%0x10);
 
   //结算日累积流量
   data[21] = Int_to_ASCLL(LastMonthFlow.flow8[0]/0x10);
@@ -847,17 +835,17 @@ void Report_All_Parameters(void)
   data[28] = Int_to_ASCLL(LastMonthFlow.flow8[3]%0x10);
   
   //电池电压
-  data[29] = Int_to_ASCLL(BAT_Vol/0x1000);
-  data[30] = Int_to_ASCLL(BAT_Vol%0x1000/0x100);
-  data[31] = Int_to_ASCLL(BAT_Vol%0x100/0x10);
-  data[32] = Int_to_ASCLL(BAT_Vol%0x10);
+  data[29] = Int_to_ASCLL(MeterParameter.Voltage/0x1000);
+  data[30] = Int_to_ASCLL(MeterParameter.Voltage%0x1000/0x100);
+  data[31] = Int_to_ASCLL(MeterParameter.Voltage%0x100/0x10);
+  data[32] = Int_to_ASCLL(MeterParameter.Voltage%0x10);
   
   //信号强度
   data[33] = Int_to_ASCLL(BC95.Rssi/0x10);
   data[34] = Int_to_ASCLL(BC95.Rssi%0x10);
   //温度 
-  data[35] = Int_to_ASCLL((u8)Temp/0x10);
-  data[36] = Int_to_ASCLL((u8)Temp%0x10);
+  data[35] = Int_to_ASCLL((u8)MeterParameter.Temp/0x10);
+  data[36] = Int_to_ASCLL((u8)MeterParameter.Temp%0x10);
   
   //年
   data[37] = Int_to_ASCLL(year/0x1000);
@@ -880,61 +868,61 @@ void Report_All_Parameters(void)
   data[49] = Int_to_ASCLL(second/0x10);
   data[50] = Int_to_ASCLL(second%0x10);
   //表号
-  valueH = Int_to_ASCLL(Meter_Number[0]/0x10);
-  valueL = Int_to_ASCLL(Meter_Number[0]%0x10);
+  valueH = Int_to_ASCLL(MeterParameter.MeterNumber[0]/0x10);
+  valueL = Int_to_ASCLL(MeterParameter.MeterNumber[0]%0x10);
   data[51] = Int_to_ASCLL(valueH/0x10);
   data[52] = Int_to_ASCLL(valueH%0x10);
   data[53] = Int_to_ASCLL(valueL/0x10);
   data[54] = Int_to_ASCLL(valueL%0x10);
-  valueH = Int_to_ASCLL(Meter_Number[1]/0x10);
-  valueL = Int_to_ASCLL(Meter_Number[1]%0x10);
+  valueH = Int_to_ASCLL(MeterParameter.MeterNumber[1]/0x10);
+  valueL = Int_to_ASCLL(MeterParameter.MeterNumber[1]%0x10);
   data[55] = Int_to_ASCLL(valueH/0x10);
   data[56] = Int_to_ASCLL(valueH%0x10);
   data[57] = Int_to_ASCLL(valueL/0x10);
   data[58] = Int_to_ASCLL(valueL%0x10);
-  valueH = Int_to_ASCLL(Meter_Number[2]/0x10);
-  valueL = Int_to_ASCLL(Meter_Number[2]%0x10);
+  valueH = Int_to_ASCLL(MeterParameter.MeterNumber[2]/0x10);
+  valueL = Int_to_ASCLL(MeterParameter.MeterNumber[2]%0x10);
   data[59] = Int_to_ASCLL(valueH/0x10);
   data[60] = Int_to_ASCLL(valueH%0x10);
   data[61] = Int_to_ASCLL(valueL/0x10);
   data[62] = Int_to_ASCLL(valueL%0x10);
-  valueH = Int_to_ASCLL(Meter_Number[3]/0x10);
-  valueL = Int_to_ASCLL(Meter_Number[3]%0x10);
+  valueH = Int_to_ASCLL(MeterParameter.MeterNumber[3]/0x10);
+  valueL = Int_to_ASCLL(MeterParameter.MeterNumber[3]%0x10);
   data[63] = Int_to_ASCLL(valueH/0x10);
   data[64] = Int_to_ASCLL(valueH%0x10);
   data[65] = Int_to_ASCLL(valueL/0x10);
   data[66] = Int_to_ASCLL(valueL%0x10);
-  valueH = Int_to_ASCLL(Meter_Number[4]/0x10);
-  valueL = Int_to_ASCLL(Meter_Number[4]%0x10);
+  valueH = Int_to_ASCLL(MeterParameter.MeterNumber[4]/0x10);
+  valueL = Int_to_ASCLL(MeterParameter.MeterNumber[4]%0x10);
   data[67] = Int_to_ASCLL(valueH/0x10);
   data[68] = Int_to_ASCLL(valueH%0x10);
   data[69] = Int_to_ASCLL(valueL/0x10);
   data[70] = Int_to_ASCLL(valueL%0x10);
-  valueH = Int_to_ASCLL(Meter_Number[5]/0x10);
-  valueL = Int_to_ASCLL(Meter_Number[5]%0x10);
+  valueH = Int_to_ASCLL(MeterParameter.MeterNumber[5]/0x10);
+  valueL = Int_to_ASCLL(MeterParameter.MeterNumber[5]%0x10);
   data[71] = Int_to_ASCLL(valueH/0x10);
   data[72] = Int_to_ASCLL(valueH%0x10);
   data[73] = Int_to_ASCLL(valueL/0x10);
   data[74] = Int_to_ASCLL(valueL%0x10);
-  valueH = Int_to_ASCLL(Meter_Number[6]/0x10);
-  valueL = Int_to_ASCLL(Meter_Number[6]%0x10);
+  valueH = Int_to_ASCLL(MeterParameter.MeterNumber[6]/0x10);
+  valueL = Int_to_ASCLL(MeterParameter.MeterNumber[6]%0x10);
   data[75] = Int_to_ASCLL(valueH/0x10);
   data[76] = Int_to_ASCLL(valueH%0x10);
   data[77] = Int_to_ASCLL(valueL/0x10);
   data[78] = Int_to_ASCLL(valueL%0x10);
    //结算日期
-  data[79] = Int_to_ASCLL(Settle_Date/0x10);
-  data[80] = Int_to_ASCLL(Settle_Date%0x10);
-  //上报周期
-  data[81] = Int_to_ASCLL(Report_Cycle/0x1000);
-  data[82] = Int_to_ASCLL(Report_Cycle%0x1000/0x100);
-  data[83] = Int_to_ASCLL(Report_Cycle%0x100/0x10);
-  data[84] = Int_to_ASCLL(Report_Cycle%0x10);
+  data[79] = Int_to_ASCLL(MeterParameter.SettleDate/0x10);
+  data[80] = Int_to_ASCLL(MeterParameter.SettleDate%0x10);
+  //上报频率
+  data[81] = Int_to_ASCLL(MeterParameter.ReportFrequency/0x1000);
+  data[82] = Int_to_ASCLL(MeterParameter.ReportFrequency%0x1000/0x100);
+  data[83] = Int_to_ASCLL(MeterParameter.ReportFrequency%0x100/0x10);
+  data[84] = Int_to_ASCLL(MeterParameter.ReportFrequency%0x10);
   //告警电压
-  data[85] = Int_to_ASCLL(BAT_Alarm_Vol/0x1000);
-  data[86] = Int_to_ASCLL(BAT_Alarm_Vol%0x1000/0x100);
-  data[87] = Int_to_ASCLL(BAT_Alarm_Vol%0x100/0x10);
-  data[88] = Int_to_ASCLL(BAT_Alarm_Vol%0x10);
+  data[85] = Int_to_ASCLL(MeterParameter.AlarmVoltage/0x1000);
+  data[86] = Int_to_ASCLL(MeterParameter.AlarmVoltage%0x1000/0x100);
+  data[87] = Int_to_ASCLL(MeterParameter.AlarmVoltage%0x100/0x10);
+  data[88] = Int_to_ASCLL(MeterParameter.AlarmVoltage%0x10);
   //阀门状态
   data[89] = 0x30;
   data[90] = 0x30;
@@ -1014,11 +1002,16 @@ void Report_All_Parameters(void)
   data[161] = Int_to_ASCLL(BC95.ICCID[19]/0x10);
   data[162] = Int_to_ASCLL(BC95.ICCID[19]%0x10);
   
-  //上次联网错误信息
+  //上次联网故障信息
   data[163] = Int_to_ASCLL(BC95.ErrorRecord/0x10);
   data[164] = Int_to_ASCLL(BC95.ErrorRecord%0x10);
+  //采样频率
+  data[165] = Int_to_ASCLL(MeterParameter.SampleFrequency/0x1000);
+  data[166] = Int_to_ASCLL(MeterParameter.SampleFrequency%0x1000/0x100);
+  data[167] = Int_to_ASCLL(MeterParameter.SampleFrequency%0x100/0x10);
+  data[168] = Int_to_ASCLL(MeterParameter.SampleFrequency%0x10);
   
-  BC95_Data_Send(data,167);
+  BC95_Data_Send(data,171);
 }
 /*********************************************************************************
  Function:      //
@@ -1191,5 +1184,62 @@ void Report_HC_Flow(void)
   data[116] = Int_to_ASCLL(flow.flow8[3]%0x10);
   
   BC95_Data_Send(data,119);
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //上报历史数据
+ Input:         //
+                //
+ Output:        //
+ Return:        //
+ Others:        //
+*********************************************************************************/
+void Report_History_Data(void)
+{
+  uint8_t data[64] = "AT+NMGS=12,080000000000000000000000\r\n";
+  unsigned char buff[9] = {0};
+    
+  if(1 == Read_History_Data(buff))
+  {
+  }
+  else
+  {
+    BC95.Report_Bit = 0;
+    BC95.Incident_Pend = TRUE;//标记挂起
+    return;
+  }
+  
+  
+  //当前累积流量
+  data[13] = Int_to_ASCLL(buff[0]/0x10);
+  data[14] = Int_to_ASCLL(buff[0]%0x10);
+  data[15] = Int_to_ASCLL(buff[1]/0x10);
+  data[16] = Int_to_ASCLL(buff[1]%0x10);
+  data[17] = Int_to_ASCLL(buff[2]/0x10);
+  data[18] = Int_to_ASCLL(buff[2]%0x10);
+  data[19] = Int_to_ASCLL(buff[3]/0x10);
+  data[20] = Int_to_ASCLL(buff[3]%0x10);
+  //年
+  data[21] = (buff[4]+2000)/0x1000;
+  data[22] = (buff[4]+2000)%0x1000/0x100;
+  data[23] = (buff[4]+2000)%0x100/0x10;
+  data[24] = (buff[4]+2000)%0x10; 
+  //月
+  data[25] = buff[5]/0x10;
+  data[26] = buff[5]%0x10;
+  //日
+  data[27] = buff[6]/0x10;
+  data[28] = buff[6]%0x10;
+  //时
+  data[29] = buff[7]/0x10;
+  data[30] = buff[7]%0x10;
+  //分
+  data[31] = buff[8]/0x10;
+  data[32] = buff[8]%0x10;
+  //秒
+  data[33] = 0x30;
+  data[34] = 0x30;
+  
+  BC95_Data_Send(data,37);
 }
 /******************************************END********************************************************/
