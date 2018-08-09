@@ -38,7 +38,7 @@ void Save_BC95_ErrorRecord(void);           //±£´æBC95´íÎó¼ÇÂ¼
 void Read_History_Save_Index(void);
 unsigned char Read_History_Data(unsigned char* buff);
 void Save_History_Data(void);
-void Clear_History_Data();
+void Clear_Single_History_Data();
 /********************************************************************************************************/
 #endif
 

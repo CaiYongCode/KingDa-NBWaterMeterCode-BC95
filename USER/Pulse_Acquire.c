@@ -86,11 +86,10 @@ void ExtiD_Interrupt (void)                        //外中断D
       {
         Cal.Error = INTERFERE;
         Cal.ErrorTimes = 0;
-        
+        BC95.Report_Bit = 1;
         if(BC95.Start_Process == BC95_POWER_DOWN)       //第一次出现，立即上报
         {
-          MeterParameter.DeviceStatus = RUN;      
-          BC95.Report_Bit = 1;
+          MeterParameter.DeviceStatus = RUN;                
           BC95.Start_Process = BC95_RECONNECT;
         }
       }
@@ -120,10 +119,10 @@ void ExtiD_Interrupt (void)                        //外中断D
           if(Cal.Error != HALL1) 
           {
             Cal.Error = HALL1;
+            BC95.Report_Bit = 1;
             if(BC95.Start_Process == BC95_POWER_DOWN)
             {
               MeterParameter.DeviceStatus = RUN;      
-              BC95.Report_Bit = 1;
               BC95.Start_Process = BC95_RECONNECT;
             }
           }
@@ -137,10 +136,10 @@ void ExtiD_Interrupt (void)                        //外中断D
           if(Cal.Error != HALL2) 
           {
             Cal.Error = HALL2;
+            BC95.Report_Bit = 1;
             if(BC95.Start_Process == BC95_POWER_DOWN)
             {
               MeterParameter.DeviceStatus = RUN;      
-              BC95.Report_Bit = 1;
               BC95.Start_Process = BC95_RECONNECT;
             }
           }

@@ -25,9 +25,9 @@ struct Meter_Parameter_EN
   u16 SampleFrequency;                  //采样频率, 分
   u32 ReportTiming;                     //上报计时，秒
   u32 SampleTiming;                     //采样计时，秒
-  u8 MeasureVoltageTiming;              //测量电压计时，秒
-  u32 DeviceRunTiming;                    //设备运行计时, 秒
-  enum Device_Status_EN DeviceStatus;   //设备状态  
+  u32 SaveFlowTiming;                    //保存水量计时，秒
+  u32 DeviceRunTiming;                  //设备运行计时, 秒
+  enum Device_Status_EN DeviceStatus;  //设备状态  
   signed char Temp;                   //温度
   u16 Voltage;                          //电压 
 };
@@ -66,6 +66,7 @@ unsigned char ASCLL_to_Int(unsigned char data);
 unsigned char BCD_to_Int(unsigned char data);
 
 void delay_ms(u16 time);
+char* strnstr(char* str1,char* str2,unsigned char len);
 /*********************************************************************************
  Function:      //
  Description:   //

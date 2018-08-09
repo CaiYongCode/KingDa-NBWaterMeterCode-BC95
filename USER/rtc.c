@@ -200,24 +200,27 @@ void Alarm_Interrupt (void)
 *********************************************************************************/
 void Wake_Interrupt (void)                        
 {
+  union flow_union Flow;
+  
   if(RESET != RTC_GetITStatus(RTC_IT_WUT))
-  {
-    MeterParameter.DeviceStatus = RUN;
-    RCC_Configuration();
-    
-    //每5秒执行一次电压测量   
-    MeterParameter.MeasureVoltageTiming++;
-    if(MeterParameter.MeasureVoltageTiming >= 5)
+  {   
+    //每1小时存储一次水量  
+    MeterParameter.SaveFlowTiming++;
+    if( (MeterParameter.SaveFlowTiming/60) >= 60)
     {
-      MeasureVoltage();
-      MeterParameter.MeasureVoltageTiming = 0;
+      Read_ACUM_Flow(ADD_FLOW_ADD,&Flow);                  //读取累积流量
+      if(Cal.Water_Data.flow32 != Flow.flow32)
+      {
+        Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
+      }
+      MeterParameter.SaveFlowTiming = 0;
     }
     
     //周期采样数据
     if(MeterParameter.SampleFrequency > 0)
     {
       MeterParameter.SampleTiming++;
-      if( ((MeterParameter.SampleTiming/60) >= MeterParameter.SampleFrequency) )
+      if( (MeterParameter.SampleTiming/60) >= MeterParameter.SampleFrequency )
       {
         Save_History_Data();    //保存本次数据
         MeterParameter.SampleTiming = 0;
@@ -225,35 +228,30 @@ void Wake_Interrupt (void)
     }
     
     //周期上报设备参数
-    MeterParameter.ReportTiming++;
-    if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
-    {  
-      BC95.Report_Bit = 1;
-      if(BC95.Start_Process == BC95_POWER_DOWN)
-      {
-        BC95.Start_Process = BC95_RECONNECT;
-      }     
-      MeterParameter.ReportTiming = 0;
-    }
-    else
-    {   
-      if(BC95.Start_Process == BC95_POWER_DOWN)
-      {
-        MeterParameter.DeviceStatus = SLEEP;
-      }
-    }
-    
-    //BC95运行超时判定
-    if(BC95.Start_Process != BC95_POWER_DOWN)
+    if(MeterParameter.ReportFrequency > 0)
     {
-      BC95.Run_Time++;
-      if( (BC95.Run_Time/60) >= 5)
+      MeterParameter.ReportTiming++;
+      if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
+      {   
+        BC95.Report_Bit = 1;
+        if(BC95.Start_Process == BC95_POWER_DOWN)
+        {
+          BC95.Start_Process = BC95_RECONNECT;
+          MeterParameter.DeviceStatus = RUN;
+        }     
+        MeterParameter.ReportTiming = 0;
+      }  
+    }
+   
+    //设备运行超时，强制睡眠
+    if(MeterParameter.DeviceStatus == RUN)
+    {
+      MeterParameter.DeviceRunTiming++;    
+      if( (MeterParameter.DeviceRunTiming/60) >= 10)
       {
         MeterParameter.DeviceStatus = SLEEP;
       }
     }
-    
-    MeterParameter.DeviceRunTiming ++;    //设备运行计时
     
     RTC_ClearITPendingBit(RTC_IT_WUT);                        //清除RTC唤醒标志
   }

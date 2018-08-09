@@ -56,22 +56,19 @@ void main(void)
   
   BC95.Report_Bit = 1;
   BC95.Start_Process = BC95_RECONNECT;
-  
+
   while (1)
   {
 //    RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
 //    RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
-    //设备运行24小时且不在上报状态则复位
-    if( (MeterParameter.DeviceRunTiming > ((u32)24*60*60))&&(BC95.Start_Process == BC95_POWER_DOWN) )
-    {
+    //上报失败2次则复位
+    if( BC95.FailTimes >= 2 )
+    { 
       Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
       WWDG->CR = 0x80;  //看门狗复位
     }
-    else
-    {
-      IWDG_ReloadCounter();//重载看门狗计数器
-    }
-    
+
+    IWDG_ReloadCounter();//重载看门狗计数器
     Sys_Timer_Process();
     BC95_Process();  
     
@@ -105,20 +102,16 @@ void Sleep(void)
   GPIO_Init(GPIOE,GPIO_Pin_0,GPIO_Mode_Out_PP_Low_Slow);       //BC95 RI
   GPIO_Init(GPIOE,GPIO_Pin_1,GPIO_Mode_Out_PP_Low_Slow);       //BC95 复位脚
   GPIO_Init(GPIOE,GPIO_Pin_2,GPIO_Mode_Out_PP_Low_Slow);        //BC95 VBAT
-  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //绿灯
-  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //黄灯
+//  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //绿灯
+//  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //黄灯
 
   GPIO_Init(GPIOE, GPIO_Pin_4 , GPIO_Mode_Out_PP_Low_Slow);    //USART2 TXD
   GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_Low_Slow);    //USART3 TXD
   
-  if(BC95.Report_Bit == 1)
-  {
-    Save_History_Data();    //保存本次数据
-  }
   HistoryData.ReadIndex = 0;
   BC95.Report_Bit = 0;
   BC95.Start_Process = BC95_POWER_DOWN;
-  BC95.Run_Time = 0;
+  MeterParameter.DeviceRunTiming = 0;
 
   CLK_HaltConfig(CLK_Halt_FastWakeup,ENABLE);   //快速唤醒后时钟为HSI  
   PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  

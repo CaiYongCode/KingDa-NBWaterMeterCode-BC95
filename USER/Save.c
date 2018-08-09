@@ -114,9 +114,9 @@ void Read_Meter_Parameter(void)
   }
   //读取采样频率
   MeterParameter.SampleFrequency = *((const unsigned short *)(SAMPLE_FREQUENCY_ADDR));
-  if(MeterParameter.SampleFrequency < 15) //默认采集频率24小时
+  if(MeterParameter.SampleFrequency < 15) //默认不采集
   {
-    MeterParameter.SampleFrequency = 1440;
+    MeterParameter.SampleFrequency = 0;
   }
   
 }
@@ -275,11 +275,6 @@ unsigned char Read_History_Data(unsigned char* buff)
 {
   unsigned char i = 0,j = 0;
   
-  if(HistoryData.ReadIndex>= HistoryDataMaxNum)
-  {
-    HistoryData.ReadIndex = 0;
-  }
-  
   i = HistoryData.ReadIndex;
 
   while(i < HistoryDataMaxNum)
@@ -324,7 +319,7 @@ void Save_History_Data(void)
   unsigned char j = 0;
   unsigned char buff[9] = {0};
   
-  //若水量与上次相同，则不存存储
+  //若水量与上次相同，则不存储
   for(j = 0;j < 4;j++)
   { 
     buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + HistoryData.SaveIndex*9+j));
@@ -361,17 +356,32 @@ void Save_History_Data(void)
 }
 /*********************************************************************************
  Function:      //
- Description:   //清除历史数据
+ Description:   //清除单个历史数据
  Input:         //
                 //
  Output:        //
  Return:	//
  Others:        //
 *********************************************************************************/
-void Clear_History_Data(void)
+void Clear_Single_History_Data(void)
 {
   unsigned char buff[9] = {0};
   
   WriteRom((HISTORYL_DATA_ADDR + HistoryData.ReadIndex*9),buff,9);
 }
+///*********************************************************************************
+// Function:      //
+// Description:   //清除全部历史数据
+// Input:         //
+//                //
+// Output:        //
+// Return:	//
+// Others:        //
+//*********************************************************************************/
+//void Clear_Single_History_Data(void)
+//{
+//  unsigned char buff[9] = {0};
+//  
+//  WriteRom((HISTORYL_DATA_ADDR + HistoryData.ReadIndex*9),buff,9);
+//}
 /******************************************END********************************************************/

@@ -36,7 +36,7 @@
 #define UART1_RBUF_NUM            64//接收缓冲区大小宏定义
 
 #define UART2_SBUF_NUM            200//发送缓冲区大小宏定义
-#define UART2_RBUF_NUM            512//接收缓冲区大小宏定义
+#define UART2_RBUF_NUM            256//接收缓冲区大小宏定义
 
 #define UART3_SBUF_NUM            64//发送缓冲区大小宏定义
 #define UART3_RBUF_NUM            64//接收缓冲区大小宏定义

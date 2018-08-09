@@ -148,6 +148,7 @@ ErrorStatus Uart2_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
   {
     Uart2.Send_Busy = FALSE;
   }
+
   if(Uart2.Send_Busy == FALSE)                                  //检测是否忙
   {
   #ifdef Uart2_Half_Duplex                                      //如果是半双工则关闭接收
