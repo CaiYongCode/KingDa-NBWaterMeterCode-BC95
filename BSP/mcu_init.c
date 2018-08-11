@@ -256,22 +256,21 @@ void Read_Voltage(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-void MeasureVoltage (void)  
-{
-    //采集电压
-    delay_ms(3);
-    Read_Voltage();
-    
-    if(MeterParameter.Voltage < MeterParameter.AlarmVoltage)                                         //检测电池是否欠压
-    {
-      if(Last_Vol >= MeterParameter.AlarmVoltage)                                   //判断是否为第一次欠压
-      {
-        Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);                                  //保存当前水量
-        //报警
-      }
-    }
-    Last_Vol = MeterParameter.Voltage;
-}
+//void MeasureVoltage (void)  
+//{
+//    //采集电压
+//    Read_Voltage();
+//    
+//    if(MeterParameter.Voltage < MeterParameter.AlarmVoltage)                                         //检测电池是否欠压
+//    {
+//      if(Last_Vol >= MeterParameter.AlarmVoltage)                                   //判断是否为第一次欠压
+//      {
+//        Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);                                  //保存当前水量
+//        //报警
+//      }
+//    }
+//    Last_Vol = MeterParameter.Voltage;
+//}
 /*********************************************************************************
  Function:      //
  Description:   //

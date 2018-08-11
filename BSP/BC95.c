@@ -799,18 +799,6 @@ void Report_All_Parameters(void)
   unsigned short year = 0;
   uint8_t valueH = 0,valueL = 0;
    
-  //获取上一月累计流量
-  Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
-  //测量电压
-  MeasureVoltage();
-  //测量温度
-  GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_High_Fast);         // 热敏电阻
-  GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_In_FL_No_IT);      // 热敏电阻ADC检测端
-  Read_Temp();
-  GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_Low_Slow); 
-  //获取上次联网错误信息
-  Read_BC95_ErrorRecord();
-  
   //获取时间   
   RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
   RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
@@ -820,7 +808,16 @@ void Report_All_Parameters(void)
   hour = RTC_TimeStr.RTC_Hours;
   minute = RTC_TimeStr.RTC_Minutes;
   second = RTC_TimeStr.RTC_Seconds;
+  //获取上一月累计流量
+  Read_ACUM_Flow(SDCF1_ADDR,&LastMonthFlow);
+  //获取上次联网错误信息
+  Read_BC95_ErrorRecord();
   
+  //测量温度
+  Read_Temp();
+  
+  //测量电压
+  Read_Voltage();
   
   //当前累积流量
   data[13] = Int_to_ASCLL(Cal.Water_Data.flow8[0]/0x10);

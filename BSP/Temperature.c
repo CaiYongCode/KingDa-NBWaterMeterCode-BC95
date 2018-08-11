@@ -60,6 +60,9 @@ signed char Read_Temp(void)
   unsigned char i;
   signed char temp = 0;
    
+  GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_High_Fast);         // 热敏电阻
+  GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_In_FL_No_IT);      // 热敏电阻ADC检测端
+        
   CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);   //开启ADC时钟
   ADC_Init (ADC1,ADC_ConversionMode_Continuous, 
                                           ADC_Resolution_12Bit, ADC_Prescaler_1 );         //断续模式 12位 1分频
