@@ -203,7 +203,12 @@ void Wake_Interrupt (void)
   union flow_union Flow;
   
   if(RESET != RTC_GetITStatus(RTC_IT_WUT))
-  {   
+  { 
+    if(MeterParameter.DeviceStatus != SLEEP)
+    {
+      SysTick_Handler();
+    }
+    
     //每1小时存储一次水量  
     MeterParameter.SaveFlowTiming++;
     if( (MeterParameter.SaveFlowTiming/60) >= 60)
@@ -249,6 +254,7 @@ void Wake_Interrupt (void)
       MeterParameter.DeviceRunTiming++;    
       if( (MeterParameter.DeviceRunTiming/60) >= 10)
       {
+        MCU_DeInit();
         MeterParameter.DeviceStatus = SLEEP;
       }
     }

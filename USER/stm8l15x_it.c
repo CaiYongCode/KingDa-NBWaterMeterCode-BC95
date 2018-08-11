@@ -107,8 +107,6 @@ INTERRUPT_HANDLER(RTC_CSSLSE_IRQHandler,4)
 {
   Wake_Interrupt();//唤醒中断服务函数
   Alarm_Interrupt ();//闹钟中断服务函数
-  
-  SysTick_Handler();
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */

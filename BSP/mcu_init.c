@@ -60,6 +60,29 @@ unsigned short Last_Vol;
  Return:      	//
  Others:        //
 *********************************************************************************/
+void MCU_DeInit(void)
+{
+  USART_DeInit(USART2);                                         //«Â≥˝USART2ºƒ¥Ê∆˜
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART2, DISABLE);    //πÿ±’USART2 ±÷”
+  GPIO_Init(GPIOE, GPIO_Pin_4 , GPIO_Mode_Out_PP_Low_Slow);    //USART2 TXD
+  
+  GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_Low_Slow);         // »»√ÙµÁ◊Ë
+  GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_Out_PP_Low_Slow);         // »»√ÙµÁ◊ËADCºÏ≤‚∂À
+  
+  GPIO_Init(GPIOE,GPIO_Pin_1,GPIO_Mode_Out_PP_Low_Slow);       //BC95 ∏¥ŒªΩ≈
+  GPIO_Init(GPIOE,GPIO_Pin_2,GPIO_Mode_Out_PP_Low_Slow);        //BC95 VBAT
+//  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //¬Ãµ∆
+//  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //ª∆µ∆
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //
+ Input:         //
+                //
+ Output:        //
+ Return:      	//
+ Others:        //
+*********************************************************************************/
 void RCC_Configuration(void)                                                   // ±÷”≥ı ºªØ
 {
 //  CLK_DeInit(); 

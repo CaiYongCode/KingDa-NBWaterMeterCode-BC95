@@ -126,6 +126,7 @@ void BC95_Process(void)                         //BC95主进程
         BC95.FailTimes++;      
         Save_History_Data();    //保存本次数据
 
+        MCU_DeInit();
         MeterParameter.DeviceStatus = SLEEP;
       }
       else     //否则重连
@@ -263,6 +264,8 @@ void BC95_Process(void)                         //BC95主进程
       break;
     case BC95_POWER_DOWN:       //发送接收完成则直接关电
       BC95_Power_Off();
+      
+      MCU_DeInit();
       MeterParameter.DeviceStatus = SLEEP;       //睡眠
       break;
     default:
