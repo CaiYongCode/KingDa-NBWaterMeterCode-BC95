@@ -691,7 +691,7 @@ void Recv_Data_Process(unsigned char* buff)
       {//17,060001 3230313830313031303030303030
         //Ê±¼ä       
         RTC_Date.RTC_Year = str[12]*10+str[14];
-        RTC_Date.RTC_Month = str[2+i+16]*10+str[18];
+        RTC_Date.RTC_Month = str[16]*10+str[18];
         RTC_Date.RTC_Date = str[20]*10+str[22];
         RTC_Date.RTC_WeekDay = RTC_Weekday_Monday;
         
