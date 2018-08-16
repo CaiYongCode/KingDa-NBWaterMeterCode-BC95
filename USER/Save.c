@@ -275,6 +275,10 @@ unsigned char Read_History_Data(unsigned char* buff)
 {
   unsigned char i = 0,j = 0;
   
+  if(HistoryData.ReadIndex >= HistoryDataMaxNum)
+  {
+    HistoryData.ReadIndex = 0;
+  }
   i = HistoryData.ReadIndex;
 
   while(i < HistoryDataMaxNum)
