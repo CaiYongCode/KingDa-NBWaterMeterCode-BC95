@@ -1943,118 +1943,82 @@
   <group>
     <name>BSP</name>
     <file>
-      <name>$PROJ_DIR$\..\BSP\BC95.c</name>
+      <name>$PROJ_DIR$\..\BSP\src\BC95.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\BSP\BC95.h</name>
+      <name>$PROJ_DIR$\..\BSP\src\Pulse_Acquire.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\BSP\mcu_init.c</name>
+      <name>$PROJ_DIR$\..\BSP\src\rtc.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\BSP\mcu_init.h</name>
+      <name>$PROJ_DIR$\..\BSP\src\Temperature.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\BSP\Sys_Timer.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\BSP\Sys_timer.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\BSP\Temperature.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\BSP\Temperature.h</name>
+      <name>$PROJ_DIR$\..\BSP\src\uart.c</name>
     </file>
   </group>
   <group>
-    <name>Lib</name>
+    <name>LIB</name>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_adc.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_adc.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_clk.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_clk.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_exti.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_exti.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_flash.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_flash.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_gpio.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_gpio.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_itc.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_itc.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_iwdg.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_iwdg.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_pwr.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_pwr.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_rst.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_rtc.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_rtc.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_syscfg.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_syscfg.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_usart.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_usart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_wfe.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\src\stm8l15x_wwdg.c</name>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_wwdg.c</name>
     </file>
   </group>
   <group>
     <name>USER</name>
     <file>
-      <name>$PROJ_DIR$\..\USER\Globaldata.c</name>
+      <name>$PROJ_DIR$\..\USER\src\Debug.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\USER\Globaldata.h</name>
+      <name>$PROJ_DIR$\..\USER\src\Globaldata.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\USER\include.h</name>
+      <name>$PROJ_DIR$\..\USER\src\main.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\USER\main.c</name>
+      <name>$PROJ_DIR$\..\USER\src\mcu_init.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\USER\main.h</name>
+      <name>$PROJ_DIR$\..\USER\src\Save.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\USER\Pulse_Acquire.c</name>
+      <name>$PROJ_DIR$\..\USER\src\stm8l15x_it.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\USER\Pulse_Acquire.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\rtc.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\rtc.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\Save.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\save.h</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\stm8l15x_it.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\uart.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\USER\uart.h</name>
+      <name>$PROJ_DIR$\..\USER\src\Sys_Timer.c</name>
     </file>
   </group>
 </project>

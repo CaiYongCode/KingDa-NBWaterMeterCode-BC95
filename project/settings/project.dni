@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-1823255198
+Checksum=-1252309132
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -54,11 +54,12 @@ Fmt6=struct History_Data_EN-ReadIndex	3	0
 Fmt7=struct History_Data_EN-SaveIndex	3	0
 Fmt8=struct Meter_Parameter_EN-SettleDate	3	0
 Fmt9=struct Meter_Parameter_EN-Temp	3	0
-Fmt10=union flow_union-flow32	4	0
+Fmt10=union flow_union-flow32	3	0
 [array_types]
 Fmt0=unsigned char[28]	4	0
 Fmt1=unsigned char[4]	4	0
-Fmt2=unsigned long[7]	4	0
+Fmt2=unsigned char[64]	4	0
+Fmt3=unsigned long[7]	4	0
 [watch_formats]
 Fmt0={W}1:i	4	0
 Fmt1={W}42:RTC_Data	2	0
