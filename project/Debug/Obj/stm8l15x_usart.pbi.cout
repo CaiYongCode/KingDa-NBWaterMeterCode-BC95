@@ -1,22 +1,22 @@
-"F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\src\stm8l15x_usart.c"
+"F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\LIB\src\stm8l15x_usart.c"
 -std=c99
 -ferror-limit=100
 -I
-F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\project\..\BSP
+F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\PROJECT\..\BSP\inc
 -I
-F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\project\..\inc
+F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\PROJECT\..\LIB\inc
 -I
-F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\project\..\USER
+F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\PROJECT\..\USER\inc
 -I
 D:\IAR for STM8\stm8\inc
 -I
 D:\IAR for STM8\stm8\inc\c
 -I
-F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\BSP
+F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\BSP\inc
 -I
-F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\inc
+F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\LIB\inc
 -I
-F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\USER
+F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\USER\inc
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

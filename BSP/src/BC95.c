@@ -645,13 +645,13 @@ void Recv_Data_Process(unsigned char* buff)
         }
         //告警电压
         MeterParameter.AlarmVoltage = str[41]*0x1000+str[42]*0x100+str[43]*0x10+str[44];
-        if( (MeterParameter.AlarmVoltage < 300)||(MeterParameter.AlarmVoltage > 360))        //默认告警电压3.00V
+        if( (MeterParameter.AlarmVoltage < 320)||(MeterParameter.AlarmVoltage > 360))        //默认告警电压3.00V
         {
-          MeterParameter.AlarmVoltage = 300;
+          MeterParameter.AlarmVoltage = 320;
         }
         //采样频率
         MeterParameter.SampleFrequency = str[45]*0x1000+str[46]*0x100+str[47]*0x10+str[48];
-        if(MeterParameter.SampleFrequency < 15) //默认不采集
+        if(MeterParameter.SampleFrequency < 10) //默认不采集
         {
           MeterParameter.SampleFrequency = 0;
         }

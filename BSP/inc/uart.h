@@ -70,7 +70,7 @@ struct Str_Uart3_Data                                                           
 外部变量声明区
 *********************************************************************************************************/
 extern struct Str_Uart2_Data Uart2;
-extern struct Str_Uart3_Data Uart3;
+//extern struct Str_Uart3_Data Uart3;
 /*********************************************************************************************************
 函数声明区
 *********************************************************************************************************/
@@ -79,10 +79,10 @@ unsigned short Uart2_Receive(unsigned char *R_buff);
 void USART2_IRQHandler(void);
 void USART2_TX_IRQHandler(void);
 
-ErrorStatus Uart3_Send(unsigned char *Send_Data,unsigned short Send_Lenght);
-unsigned short Uart3_Receive(unsigned char *R_buff);
-void USART3_IRQHandler(void);
-void USART3_TX_IRQHandler(void);
+//ErrorStatus Uart3_Send(unsigned char *Send_Data,unsigned short Send_Lenght);
+//unsigned short Uart3_Receive(unsigned char *R_buff);
+//void USART3_IRQHandler(void);
+//void USART3_TX_IRQHandler(void);
 /********************************************************************************************************/
 #endif
 

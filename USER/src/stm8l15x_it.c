@@ -325,7 +325,7 @@ INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQHandler,21)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-  USART3_TX_IRQHandler();
+//  USART3_TX_IRQHandler();
 }
 /**
   * @brief Timer3 Capture/Compare /USART3 RX Interrupt routine.
@@ -337,7 +337,7 @@ INTERRUPT_HANDLER(TIM3_CC_USART3_RX_IRQHandler,22)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-  USART3_IRQHandler();
+ // USART3_IRQHandler();
 }
 /**
   * @brief TIM1 Update/Overflow/Trigger/Commutation Interrupt routine.

@@ -43,7 +43,6 @@ void main(void)
   disableInterrupts();                                      //关总中断
   RCC_Configuration();
   GPIO_Configuration();
-  USART3_Configuration();
   Rtc_Config();
   Set_Alarm();
   Pulse_Acquire_Config();
@@ -65,7 +64,8 @@ void main(void)
 //    RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
     
     IWDG_ReloadCounter();//重载看门狗计数器
-    
+
+    Magnetic_Interference_Detection();  //磁干扰检测
     //上报失败2次则复位
     if( BC95.FailTimes >= 2 )
     { 
@@ -81,7 +81,6 @@ void main(void)
     {
       Sys_Timer_Process();
       BC95_Process(); 
-      Debug_Process();
     }
   }
 }

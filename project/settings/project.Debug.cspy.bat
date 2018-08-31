@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"D:\IAR for STM8\common\bin\cspybat" -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.general.xcl" --backend -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.driver.xcl" 
+"D:\IAR for STM8\common\bin\cspybat" -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\PROJECT\settings\project.Debug.general.xcl" --backend -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\PROJECT\settings\project.Debug.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"D:\IAR for STM8\common\bin\cspybat" -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.general.xcl" "--debug_file=%~1" --backend -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\project\settings\project.Debug.driver.xcl" 
+"D:\IAR for STM8\common\bin\cspybat" -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\PROJECT\settings\project.Debug.general.xcl" "--debug_file=%~1" --backend -f "F:\0中科君达\0项目\NB水表\软件\NB-IOT程序V1.0\PROJECT\settings\project.Debug.driver.xcl" 
 
 @echo off 
 :end

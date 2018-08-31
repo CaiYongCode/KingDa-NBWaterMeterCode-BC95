@@ -1650,9 +1650,6 @@
   <group>
     <name>USER</name>
     <file>
-      <name>$PROJ_DIR$\..\USER\src\Debug.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\USER\src\Globaldata.c</name>
     </file>
     <file>

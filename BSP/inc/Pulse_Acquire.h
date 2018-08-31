@@ -55,6 +55,7 @@ extern NEAR  struct Get_Cal_Str Cal;
 void Pulse_Acquire_Config(void);
 void ExtiD_Interrupt (void);                        //Õ‚÷–∂œD
 void Exti0_Interrupt (void);
+void Magnetic_Interference_Detection(void);
 /********************************************************************************************************/
 #endif
 

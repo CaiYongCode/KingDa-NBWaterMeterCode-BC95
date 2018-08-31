@@ -8,7 +8,6 @@
 文件包含区
 *********************************************************************************/
 #include "include.h"
-#include "Globaldata.h"
 /*********************************************************************************
 常量定义区
 *********************************************************************************/
@@ -61,10 +60,6 @@
 *********************************************************************************/
 void MCU_DeInit(void)
 { 
-  if(Debug.Status != 0)
-  {
-    return;
-  }
   USART_DeInit(USART2);                                         //清除USART2寄存器
   CLK_PeripheralClockConfig(CLK_Peripheral_USART2, DISABLE);    //关闭USART2时钟
   GPIO_Init(GPIOE, GPIO_Pin_4 , GPIO_Mode_Out_PP_Low_Slow);    //USART2 TXD
@@ -78,8 +73,7 @@ void MCU_DeInit(void)
   
   GPIO_Init(GPIOE,GPIO_Pin_1,GPIO_Mode_Out_PP_Low_Slow);       //BC95 复位脚
   GPIO_Init(GPIOE,GPIO_Pin_2,GPIO_Mode_Out_PP_Low_Slow);        //BC95 VBAT
-//  GPIO_Init(GPIOD,GPIO_Pin_6,GPIO_Mode_Out_PP_Low_Slow);        //绿灯
-//  GPIO_Init(GPIOD,GPIO_Pin_7,GPIO_Mode_Out_PP_Low_Slow);        //黄灯
+
   
   MeterParameter.DeviceStatus = SLEEP;
 }
