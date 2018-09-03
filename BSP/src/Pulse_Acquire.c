@@ -91,9 +91,9 @@ void ExtiD_Interrupt (void)                        //外中断D
       Cal.ErrorTimes++;
       if(Cal.ErrorTimes >= 3)
       {
-        if(Cal.Error != HALL1) 
+        if(Cal.Error != HALL2) 
         {
-          Cal.Error = HALL1;
+          Cal.Error = HALL2;
           BC95.Report_Bit = 1;
           if(BC95.Start_Process == BC95_POWER_DOWN)
           {
@@ -108,9 +108,9 @@ void ExtiD_Interrupt (void)                        //外中断D
       Cal.ErrorTimes++;
       if(Cal.ErrorTimes >= 3)
       {
-        if(Cal.Error != HALL2) 
+        if(Cal.Error != HALL1) 
         {
-          Cal.Error = HALL2;
+          Cal.Error = HALL1;
           BC95.Report_Bit = 1;
           if(BC95.Start_Process == BC95_POWER_DOWN)
           {

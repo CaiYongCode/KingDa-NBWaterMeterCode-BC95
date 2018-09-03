@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V2.20.1.176 for STM8                     31/Aug/2018  09:02:55
+# IAR ELF Linker V2.20.1.176 for STM8                     03/Sep/2018  10:01:08
 # Copyright 2010-2015 IAR Systems AB.
 #
 #    Output file  =  
@@ -548,10 +548,10 @@ BC95_Delay_CallBack     0x00d16d    0x5  Code  Gb  BC95.o [1]
 BC95_Power_Off          0x00d106    0x9  Code  Gb  BC95.o [1]
 BC95_Power_On           0x00c7bc   0x42  Code  Gb  BC95.o [1]
 BC95_Process            0x0099e7  0x64c  Code  Gb  BC95.o [1]
+BC95_Recv_Timeout_CallBack
+                        0x00cbde   0x25  Code  Gb  BC95.o [1]
 BC95_Reset              0x00ccf8   0x1e  Code  Gb  BC95.o [1]
 BC95_Start              0x00cfaf    0xd  Code  Gb  BC95.o [1]
-BC95_Start_Timeout_CallBack
-                        0x00cbde   0x25  Code  Gb  BC95.o [1]
 Bcd2ToByte              0x00cd88   0x1b  Code  Lc  stm8l15x_rtc.o [1]
 ByteToBcd2              0x00cc9a   0x20  Code  Lc  stm8l15x_rtc.o [1]
 CLK_GetClockFreq        0x00bc4a   0x93  Code  Gb  stm8l15x_clk.o [1]

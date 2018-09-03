@@ -47,7 +47,9 @@ struct Str_Uart2_Data                                                           
 {
   unsigned char R_Buffer[UART2_RBUF_NUM];                                     //定义接收缓冲
   unsigned char S_Buffer[UART2_SBUF_NUM];                                     //发送缓冲区
-  bool Send_Busy;                                                              //发送忙标志
+  bool Send_Busy;                          
+  
+  //发送忙标志
   bool Receive_Busy;                                                           //接收忙标志
   unsigned short Send_Length;                                                 //发送数据长度
   unsigned short Sent_Length;                                                 //已发送的数据长度
@@ -55,17 +57,17 @@ struct Str_Uart2_Data                                                           
   bool Receive_Pend;                                                           //串口接收挂起标志
 };
 
-struct Str_Uart3_Data                                                           //用于串口的寄存器的结构体
-{
-  unsigned char R_Buffer[UART3_RBUF_NUM];                                     //定义接收缓冲
-  unsigned char S_Buffer[UART3_SBUF_NUM];                                     //发送缓冲区
-  bool Send_Busy;                                                              //发送忙标志
-  bool Receive_Busy;                                                           //接收忙标志
-  unsigned short Send_Length;                                                 //发送数据长度
-  unsigned short Sent_Length;                                                 //已发送的数据长度
-  unsigned short Receive_Length;                                              //接收数据长度
-  bool Receive_Pend;                                                           //串口接收挂起标志
-};
+//struct Str_Uart3_Data                                                           //用于串口的寄存器的结构体
+//{
+//  unsigned char R_Buffer[UART3_RBUF_NUM];                                     //定义接收缓冲
+//  unsigned char S_Buffer[UART3_SBUF_NUM];                                     //发送缓冲区
+//  bool Send_Busy;                                                              //发送忙标志
+//  bool Receive_Busy;                                                           //接收忙标志
+//  unsigned short Send_Length;                                                 //发送数据长度
+//  unsigned short Sent_Length;                                                 //已发送的数据长度
+//  unsigned short Receive_Length;                                              //接收数据长度
+//  bool Receive_Pend;                                                           //串口接收挂起标志
+//};
 /*********************************************************************************************************
 外部变量声明区
 *********************************************************************************************************/

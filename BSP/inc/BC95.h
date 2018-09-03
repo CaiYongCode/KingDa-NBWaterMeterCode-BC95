@@ -91,7 +91,6 @@ void BC95_Process(void);
 void BC95_Data_Send(unsigned char *Data,unsigned short Len);
 
 void BC95_Start(void);
-void BC95_Start_Timeout_CallBack(void);
 void BC95_Recv_Timeout_CallBack(void);
 void BC95_Delay_CallBack(void);
 
