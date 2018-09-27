@@ -350,7 +350,7 @@ void GMT_to_BT(unsigned char *str)
   }
   
   RTC_DateStr.RTC_Year = year;
-  RTC_DateStr.RTC_Month = month;
+  RTC_DateStr.RTC_Month = (RTC_Month_TypeDef)month;
   RTC_DateStr.RTC_Date = day;
   RTC_DateStr.RTC_WeekDay = RTC_Weekday_Monday;
   

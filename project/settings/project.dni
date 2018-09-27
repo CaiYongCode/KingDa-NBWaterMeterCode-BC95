@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-116892391
+Checksum=1776823194
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -73,6 +73,13 @@ Fmt7={W}42:run_state	4	0
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Breakpoints]
 Bp0=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.514.9" 0 0 0 0 "" 0 ""
 Bp1=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.601.3" 0 0 0 0 "" 0 ""
@@ -88,15 +95,7 @@ Bp10=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.139.9" 0 0 
 Bp11=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.256.7" 0 0 0 0 "" 0 ""
 Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\src\Pulse_Acquire.c}.91.7" 1 0 0 0 "" 0 ""
 Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\src\Pulse_Acquire.c}.108.7" 1 0 0 0 "" 0 ""
-Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\src\Pulse_Acquire.c}.162.5" 1 0 0 0 "" 0 ""
-Count=15
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
+Count=14
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""
 A1=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\BSP\mcu_init.c" ""

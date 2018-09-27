@@ -89,8 +89,8 @@ unsigned char BCD_to_Int(unsigned char data)
 *********************************************************************************/
 char* strnstr(char* str1,char* str2,unsigned char len)
 {
-  unsigned char len1 = 0;
-  unsigned char len2 = 0;
+  unsigned short len1 = 0;
+  unsigned short len2 = 0;
   
   len1 = strlen(str1);
   len2 = strlen(str2);

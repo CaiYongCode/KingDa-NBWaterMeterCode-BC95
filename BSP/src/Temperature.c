@@ -54,7 +54,7 @@ const unsigned short Temp_Table[166] =  //温度参数表
  Return:      	//
  Others:        //
 *********************************************************************************/
-signed char Read_Temp(void)
+void Read_Temp(void)
 {
   unsigned short ADC_Data = 0;
   unsigned char i;
@@ -76,9 +76,9 @@ signed char Read_Temp(void)
   ADC_SoftwareStartConv (ADC1);                             //ADC开始转换
   while(RESET == ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC));    //检测ADC是否转换结束
   ADC_ClearFlag (ADC1,ADC_FLAG_EOC );                       //清除转换结束标志
+  ADC_Data =  ADC_GetConversionValue(ADC1);                 //获取ADC值
   ADC_ChannelCmd(ADC1,ADC_Channel_1,DISABLE);//关闭通道
   ADC_Cmd(ADC1, DISABLE);                                   //关闭ADC外围
-  ADC_Data =  ADC_GetConversionValue(ADC1);                 //获取ADC值
   CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);   //关闭ADC时钟
   for(i=0;i<166;i++)
   {
@@ -95,7 +95,6 @@ signed char Read_Temp(void)
   {
     MeterParameter.Temp = temp;
   }
-  return temp;
 }
 /*********************************************************************************
  Function:      //

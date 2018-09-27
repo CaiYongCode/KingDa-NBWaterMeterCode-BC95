@@ -72,7 +72,6 @@ struct BC95_Str//BC95 总结构体
 
   unsigned char Reconnect_Times;      //重连次数
   unsigned char FailTimes;            //失败次数
- // unsigned short Run_Time;           //运行时间
   unsigned char ICCID[20];
   unsigned char IMEI[15];
 };

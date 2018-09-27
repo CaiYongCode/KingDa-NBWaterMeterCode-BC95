@@ -14,15 +14,16 @@
 /*********************************************************************************************************
 宏定义区
 *********************************************************************************************************/
-#define  SOFTWARE_VERSION       10                 //软件版本V1.0
-
+//#define  APP_VERSION       "NB_APP_V1.0"                 //软件版本V1.0
+#define  APP_VALID          0xAA                        //APP应用程序有效
 //用户代码的起始地址
-#define APP_START_ADDR     ((uint32_t)0xF000)
+#define APP_START_ADDR     ((uint32_t)0xD000)
 
-#define  EEPROM_ADD                             0x00001000           //EEPROM 初始地址设置
+#define  EEPROM_ADD                             0x00001000              //EEPROM 初始地址设置
 #define  INTERRUPT_VECTOR_ADD                   (EEPROM_ADD)             //中断向量表存储地址
-#define  BLD_VERSION_ADD                        (EEPROM_ADD+128)         //引导程序软件版本地址
-#define  APP_VERSION_ADD                        (EEPROM_ADD+128+12)      //应用程序软件版本地址
+#define  APP_VERSION_ADD                        (EEPROM_ADD+128)        //应用程序软件版本地址
+#define  APP_VALID_ADD                          (EEPROM_ADD+128+12)      //应用程序有效标志地址
+#define  Upgrade_Process_ADD                    (EEPROM_ADD+128+23)      //升级进程地址
 #define  UPGRADE_VERSION_ADD                    (EEPROM_ADD+128+24)      //升级程序软件版本地址
 #define  UPGRADE_PACKAGE_SINGLE_SIZE            (EEPROM_ADD+128+36)      //升级包大小
 #define  UPGRADE_PACKAGE_TOTAL_NUMBER           (EEPROM_ADD+128+38)      //升级包总数
