@@ -94,11 +94,10 @@ void ExtiD_Interrupt (void)                        //外中断D
         if(Cal.Error != HALL2) 
         {
           Cal.Error = HALL2;
-          BC95.Report_Bit = 1;
           if(BC95.Start_Process == BC95_POWER_DOWN)
           {
             MeterParameter.DeviceStatus = RUN;      
-            BC95.Start_Process = BC95_RECONNECT;
+            BC95_Power_On();
           }
         }
       }
@@ -111,11 +110,10 @@ void ExtiD_Interrupt (void)                        //外中断D
         if(Cal.Error != HALL1) 
         {
           Cal.Error = HALL1;
-          BC95.Report_Bit = 1;
           if(BC95.Start_Process == BC95_POWER_DOWN)
           {
             MeterParameter.DeviceStatus = RUN;      
-            BC95.Start_Process = BC95_RECONNECT;
+            BC95_Power_On();
           }
         }
       }
@@ -137,11 +135,10 @@ void Exti0_Interrupt (void)                        //外中断F
 {
   if(RESET == Weak_Up)
   {
-    BC95.Report_Bit= 1;
     if(BC95.Start_Process == BC95_POWER_DOWN)
     {
       MeterParameter.DeviceStatus = RUN;  
-      BC95.Start_Process = BC95_RECONNECT;    
+      BC95_Power_On();   
     }
   }
   EXTI_ClearITPendingBit (EXTI_IT_Pin0);            //清中断标志位
@@ -163,11 +160,10 @@ void Magnetic_Interference_Detection(void)
     {
       Cal.Error = INTERFERE;
       Cal.ErrorTimes = 0;
-      BC95.Report_Bit = 1;
       if(BC95.Start_Process == BC95_POWER_DOWN)       //第一次出现，立即上报
       {
         MeterParameter.DeviceStatus = RUN;                
-        BC95.Start_Process = BC95_RECONNECT;
+        BC95_Power_On();
       }
     }
   } 

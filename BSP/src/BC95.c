@@ -39,17 +39,10 @@ void BC95_Power_On(void)        //BC95上电
   RCC_Configuration();
   USART2_Configuration();       //初始化串口2
   
-  Uart2.Sent_Length = 0;                                //清空串口2发送长度
-  Uart2.Receive_Length = 0;                             //清空串口2接收长度
-  Uart2.Send_Busy = FALSE;                              //清空串口2发送忙标志  
-  Uart2.Receive_Busy = FALSE;                           //清空串口2接收忙
-  Uart2.Receive_Pend = FALSE;                           //清空串口2挂起
-  
-  
   GPIO_SetBits(GPIOE,GPIO_Pin_2);       //VBAT拉高        3.1-4.2V，典型值3.6V
   GPIO_SetBits(GPIOE,GPIO_Pin_1);      //复位脚拉低
   
-  BC95.Start_Process = BC95_POWER_UP; 
+  BC95.Report_Bit = 1;
   
   Create_Timer(ONCE,1,
                      BC95_Reset,0,PROCESS); 
@@ -80,22 +73,27 @@ void BC95_Reset(void)
 {
   GPIO_ResetBits(GPIOE,GPIO_Pin_1);     //复位脚拉高
   
-  Create_Timer(ONCE,30,
+  Create_Timer(ONCE,5,
                      BC95_Start,0,PROCESS); 
 }
-
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   ////TPB21启动
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void BC95_Start(void)        //BC95复位
+void BC95_Start(void)        
 {
-  BC95.Start_Process = AT; //指向下一个流程
+  Uart2.Sent_Length = 0;                                //清空串口2发送长度
+  Uart2.Receive_Length = 0;                             //清空串口2接收长度
+  Uart2.Send_Busy = FALSE;                              //清空串口2发送忙标志  
+  Uart2.Receive_Busy = FALSE;                           //清空串口2接收忙
+  Uart2.Receive_Pend = FALSE;                           //清空串口2挂起
+  
+  BC95.Start_Process = NRB; //指向下一个流程
   BC95.Incident_Pend = TRUE; //事件标志挂起
   BC95.Err_Conner.Connect = SEND_ERROR_NUM;     //连接超时次数
 }
@@ -131,7 +129,7 @@ void BC95_Process(void)                         //BC95主进程
       else     //否则重连
       {
         MeterParameter.DeviceStatus = RUN;
-        BC95_Power_On();
+        BC95_Start();
       }
     }
   }
@@ -141,6 +139,13 @@ void BC95_Process(void)                         //BC95主进程
     BC95.Incident_Pend = FALSE; //清除事件挂起
     switch(BC95.Start_Process)
     {
+    case NRB:                  //重启
+      {
+        BC95_Data_Send("AT+NRB\r\n",8);
+        Create_Timer(ONCE,10,
+                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+      }
+      break;
     case AT:                  //同步波特率
       {
         BC95_Data_Send("AT\r\n",4);
@@ -242,28 +247,11 @@ void BC95_Process(void)                         //BC95主进程
         }
       }
       break;
-//    case NQMGR:                 //查询消息接收缓存
-//      {
-//        BC95_Data_Send("AT+NQMGR\r\n",10);
-//        Create_Timer(ONCE,5,
-//                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-//      }
-//      break;
-//    case NMGR:                 //接收消息
-//      {
-//        BC95_Data_Send("AT+NMGR\r\n",9);
-//        Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
-//                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-//      }
-//      break;
     case BC95_CONNECT_ERROR:      //连接失败
-      BC95_Power_Off();
       BC95.Start_Process = BC95_RECONNECT;
       BC95.Reconnect_Times++;
       break;
-    case BC95_POWER_DOWN:       //发送接收完成则直接关电
-      BC95_Power_Off();
-      
+    case BC95_POWER_DOWN:       //发送接收完成则直接睡眠  
       MCU_DeInit(); 
       break;
     default:
@@ -277,6 +265,17 @@ void BC95_Process(void)                         //BC95主进程
 
     switch(BC95.Start_Process)
     {
+    case NRB:                  //重启
+      {
+        if(strstr(BC95.R_Buffer,"REBOOT_CAUSE_APPLICATION_AT") != NULL)
+        {
+          BC95.Start_Process = AT;
+          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          Create_Timer(ONCE,20,
+                       BC95_Delay_CallBack,0,PROCESS); 
+        }
+      }
+      break;
     case AT:            //同步波特率
       {
         if(strstr(BC95.R_Buffer,"OK") != NULL)
@@ -504,7 +503,7 @@ void BC95_Process(void)                         //BC95主进程
 *********************************************************************************/
 void BC95_Data_Send(unsigned char *Data,unsigned short Len)
 {    
- // memset(Uart2.R_Buffer,'\0',RECV_BUFF_SIZE);//清接收缓冲区
+  memset(Uart2.R_Buffer,'\0',RECV_BUFF_SIZE);//清接收缓冲区
   Uart2_Send((unsigned char*)Data,Len);
 }
 
@@ -546,20 +545,6 @@ void BC95_Delay_CallBack(void)
 {
   BC95.Incident_Pend = TRUE;//标记挂起
 }
-/*********************************************************************************
- Function:      //
- Description:   //BC95断电回调函数
- Input:         //
-                //
- Output:        //
- Return:        //
- Others:        //
-*********************************************************************************/
-//void BC95_PowerDown_CallBalk(void)
-//{
-//  BC95.Incident_Pend = TRUE;//标记挂起
-//  BC95.Start_Process = BC95_POWER_DOWN;
-//}
 /*********************************************************************************
  Function:      //
  Description:   //接收消息进程
@@ -790,8 +775,6 @@ void ACK(u8 messageId,u8 errcode,u8 mid[4])
  Return:        //
  Others:        //
 *********************************************************************************/
-//uint8_t data[320] = "AT+NMGS=147,00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\
-//0000000000000030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030\r\n";
 void Report_All_Parameters(void)
 {
   uint8_t data[200] = "AT+NMGS=79,00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\r\n";

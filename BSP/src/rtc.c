@@ -238,11 +238,10 @@ void Wake_Interrupt (void)
       MeterParameter.ReportTiming++;
       if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
       {   
-        BC95.Report_Bit = 1;
         if(BC95.Start_Process == BC95_POWER_DOWN)
         {
           MeterParameter.DeviceStatus = RUN;
-          BC95.Start_Process = BC95_RECONNECT;
+          BC95_Power_On();
         }     
         MeterParameter.ReportTiming = 0;
       }  

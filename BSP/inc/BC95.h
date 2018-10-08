@@ -29,9 +29,9 @@ struct Error_Connter_Str
 
 enum Start_Process_En   //启动流程
 {
-  BC95_RECONNECT,        //重连
   BC95_POWER_DOWN,      //掉电
   BC95_POWER_UP,        //上电
+  BC95_RECONNECT,       //重连
   
   NRB,                  //重启
   AT,                   //同步波特率

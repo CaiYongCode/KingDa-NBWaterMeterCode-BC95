@@ -54,8 +54,7 @@ void main(void)
   Read_Meter_Parameter();                               //读取水表参数
   Read_History_Save_Index();                            //读取历史数据保存索引
   
-  BC95.Report_Bit = 1;
-  BC95.Start_Process = BC95_RECONNECT;
+  BC95_Power_On();
 
   
   while (1)
@@ -103,7 +102,7 @@ void Sleep(void)
 
 //  CLK_HaltConfig(CLK_Halt_FastWakeup,ENABLE);   //快速唤醒后时钟为HSI  
 //  PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
-  PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          //开启后内部参考电压获取值变小
+  PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          
 //  CLK_HSICmd(DISABLE);                          //关闭内部高速时钟
 
   halt();
