@@ -240,11 +240,7 @@ void BC95_Process(void)                         //BC95主进程
       break;
     case NMGS:                 //发送消息     
       {     
-        if(1 == Send_Data_Process())   //有消息发送
-        {   
-          Create_Timer(ONCE,5,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-        }
+        Send_Data_Process();   //有消息发送
       }
       break;
     case BC95_CONNECT_ERROR:      //连接失败
@@ -444,15 +440,15 @@ void BC95_Process(void)                         //BC95主进程
           {   
             BC95.Report_Bit = 2;
              
-            Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+            Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调 
             Create_Timer(ONCE,1,
                      BC95_Delay_CallBack,0,PROCESS); 
           }
           else if(strnstr(str1,"+NNMI:4,AAAA0001",16) != NULL)     //上报历史流量的响应
           {
             BC95.Report_Bit = 3;
-            HistoryData.ReadIndex =  HistoryData.SaveIndex+1;
-
+            HistoryData.ReadIndex = HistoryData.SaveIndex+1;
+            
             Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
             Create_Timer(ONCE,1,
                      BC95_Delay_CallBack,0,PROCESS); 
@@ -460,10 +456,9 @@ void BC95_Process(void)                         //BC95主进程
           else if(strnstr(str1,"+NNMI:4,AAAA0002",16) != NULL)     //上报历史数据的响应
           {
             Clear_Single_History_Data();
-
+            BC95.Incident_Pend = TRUE;//标记挂起
+            
             Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-            Create_Timer(ONCE,1,
-                     BC95_Delay_CallBack,0,PROCESS); 
           }
           else if(strnstr(str1,"+NNMI:24,02",16) != NULL)     //设置基础参数命令
           {
@@ -643,6 +638,9 @@ void Recv_Data_Process(unsigned char* buff)
         
         Save_Meter_Parameter(); ///存储水表参数
         
+        MeterParameter.SampleTiming = 0;
+        MeterParameter.ReportTiming = 0;
+        
         //0x03响应
         ACK(0x03,0x00,mid);
       }
@@ -701,7 +699,7 @@ void Recv_Data_Process(unsigned char* buff)
  Return:        //
  Others:        //
 *********************************************************************************/
-unsigned char Send_Data_Process(void)
+void Send_Data_Process(void)
 { 
   unsigned char SendFlag = 0;
   
@@ -712,25 +710,32 @@ unsigned char Send_Data_Process(void)
         BC95.FailTimes = 0;
         BC95.Incident_Pend = TRUE;//标记挂起
         BC95.Start_Process = BC95_POWER_DOWN;
-        SendFlag = 0;
       }
       break;
     case 1:            //发送全部参数
       {
         Report_All_Parameters();
-        SendFlag = 1;
+        Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
+                     BC95_Recv_Timeout_CallBack,0,PROCESS);
       }
       break;
     case 2:            //发送历史累积流量
       {
         Report_HC_Flow();
-        SendFlag = 1;
+        Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
+                     BC95_Recv_Timeout_CallBack,0,PROCESS);
       }
       break;
     case 3:            //发送历史数据
       {
         SendFlag = Report_History_Data();
-        if(SendFlag == 0)
+        
+        if(SendFlag != 0)
+        {
+          Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
+                       BC95_Recv_Timeout_CallBack,0,PROCESS);
+        }
+        else
         {
           BC95.Report_Bit = 0;
           BC95.Incident_Pend = TRUE;
@@ -740,7 +745,6 @@ unsigned char Send_Data_Process(void)
     default:
       break;
   }
-  return SendFlag;
 }
 /*********************************************************************************
  Function:      //

@@ -94,7 +94,7 @@ void BC95_Recv_Timeout_CallBack(void);
 void BC95_Delay_CallBack(void);
 
 void Recv_Data_Process(unsigned char* buff);
-unsigned char Send_Data_Process(void);
+void Send_Data_Process(void);
 void ACK(u8 messageId,u8 errcode,u8 mid[4]);
 void Report_All_Parameters(void);
 void Report_HC_Flow(void);

@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=1238413212
+Checksum=-18160893
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -54,11 +54,12 @@ Fmt6=struct BC95_Str-FailTimes	3	0
 Fmt7=struct BC95_Str-Reconnect_Times	3	0
 Fmt8=struct BC95_Str-Report_Bit	3	0
 Fmt9=struct BC95_Str-Rssi	3	0
-Fmt10=struct History_Data_EN-ReadIndex	3	0
-Fmt11=struct History_Data_EN-SaveIndex	3	0
-Fmt12=struct Meter_Parameter_EN-SettleDate	3	0
-Fmt13=struct Meter_Parameter_EN-Temp	3	0
-Fmt14=union flow_union-flow32	3	0
+Fmt10=struct Get_Cal_Str-ErrorTimes	3	0
+Fmt11=struct History_Data_EN-ReadIndex	3	0
+Fmt12=struct History_Data_EN-SaveIndex	3	0
+Fmt13=struct Meter_Parameter_EN-SettleDate	3	0
+Fmt14=struct Meter_Parameter_EN-Temp	3	0
+Fmt15=union flow_union-flow32	3	0
 [array_types]
 Fmt0=unsigned char[28]	4	0
 Fmt1=unsigned char[4]	4	0
@@ -97,8 +98,7 @@ Bp8=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.122.5" 0 0 0
 Bp9=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.231.7" 0 0 0 0 "" 0 ""
 Bp10=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.139.9" 0 0 0 0 "" 0 ""
 Bp11=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.256.7" 0 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\src\BC95.c}.132.9" 1 0 0 0 "" 0 ""
-Count=13
+Count=12
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""
 A1=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\BSP\mcu_init.c" ""
