@@ -55,8 +55,7 @@ void main(void)
   Read_History_Save_Index();                            //读取历史数据保存索引
   
   BC95_Power_On();
-
-  
+        
   while (1)
   {
 //    RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
@@ -100,10 +99,10 @@ void Sleep(void)
   BC95.Start_Process = BC95_POWER_DOWN;
   MeterParameter.DeviceRunTiming = 0;
 
-//  CLK_HaltConfig(CLK_Halt_FastWakeup,ENABLE);   //快速唤醒后时钟为HSI  
-//  PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
+  CLK_HaltConfig(CLK_Halt_FastWakeup,ENABLE);   //快速唤醒后时钟为HSI  
+  PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
   PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          
-//  CLK_HSICmd(DISABLE);                          //关闭内部高速时钟
+  CLK_HSICmd(DISABLE);                          //关闭内部高速时钟
 
   halt();
 }

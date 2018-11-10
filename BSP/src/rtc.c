@@ -57,8 +57,8 @@ void Rtc_Config(void)
   RTC_WakeUpCmd(ENABLE);                                    //自动唤醒使能
   
   RTC_InitStr.RTC_HourFormat = RTC_HourFormat_24;  //设置24小时制
-  RTC_InitStr.RTC_AsynchPrediv = 127;     //127*256 = 32768 周期1Hz
-  RTC_InitStr.RTC_SynchPrediv = 255;
+  RTC_InitStr.RTC_AsynchPrediv = 127;     //异步分频器 128分频
+  RTC_InitStr.RTC_SynchPrediv = 255;      //同步分频器 256分频
   RTC_Init(&RTC_InitStr);
   
   ITC_SetSoftwarePriority(RTC_CSSLSE_IRQn, ITC_PriorityLevel_2);   //优先级
@@ -201,6 +201,7 @@ void Alarm_Interrupt (void)
 void Wake_Interrupt (void)                        
 {
   union flow_union Flow;
+  RTC_TimeTypeDef Time;
   
   if(RESET != RTC_GetITStatus(RTC_IT_WUT))
   { 
@@ -231,22 +232,44 @@ void Wake_Interrupt (void)
         MeterParameter.SampleTiming = 0;
       }
     }
-    
     //周期上报设备参数
-    if(MeterParameter.ReportFrequency > 0)
+    if( (MeterParameter.FirstReportHour == 0)&&(MeterParameter.FirstReportMinute == 0) )
+    {      
+      if(MeterParameter.ReportFrequency > 0)
+      {
+        MeterParameter.ReportTiming++;
+        if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
+        {   
+          MeterParameter.ReportRandTiming = rand()%59+1;
+            
+          MeterParameter.ReportTiming = 0;
+        }  
+      }
+    }
+    else
     {
-      MeterParameter.ReportTiming++;
-      if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
-      {   
+      RTC_GetTime(RTC_Format_BIN, &Time);
+      if( (Time.RTC_Hours == MeterParameter.FirstReportHour)&&(Time.RTC_Minutes == MeterParameter.FirstReportMinute) )
+      {
+        MeterParameter.FirstReportHour = 0;
+        MeterParameter.FirstReportMinute = 0;
+        MeterParameter.ReportTiming = 0;
+        
+        MeterParameter.ReportRandTiming = rand()%59+1; 
+      }
+    }
+    if(MeterParameter.ReportRandTiming > 0)
+    {
+      MeterParameter.ReportRandTiming--;
+      if(MeterParameter.ReportRandTiming == 0)
+      {
         if(BC95.Start_Process == BC95_POWER_DOWN)
         {
           MeterParameter.DeviceStatus = RUN;
           BC95_Power_On();
-        }     
-        MeterParameter.ReportTiming = 0;
-      }  
+        }  
+      }
     }
-   
     //设备运行超时，强制睡眠
     if(MeterParameter.DeviceStatus == RUN)
     {

@@ -37,6 +37,7 @@
 #define  BAT_ALARM_ADD                          (EEPROM_ADD+128+58)     //电池报警值地址
 #define  BC95_ERROR_RECORD_ADD                  (EEPROM_ADD+128+60)     //BC95联网错误记录地址
 #define  HALL_ERROR_ADD                         (EEPROM_ADD+128+61)      //霍尔状态
+#define  FIRST_REPORT_ADDR                      (EEPROM_ADD+128+62)      //首发时间
 
 #define  SDCF1_ADDR                             (EEPROM_ADD+128+65)      //上1月结算日流量地址
 #define  SDCF2_ADDR                             (EEPROM_ADD+128+69)      //上2月结算日流量地址

@@ -36,7 +36,7 @@ struct BC95_Str BC95;            //BC95 用的寄存器
 *********************************************************************************/
 void BC95_Power_On(void)        //BC95上电
 {
-  RCC_Configuration();
+//  RCC_Configuration();
   USART2_Configuration();       //初始化串口2
   
   GPIO_SetBits(GPIOE,GPIO_Pin_2);       //VBAT拉高        3.1-4.2V，典型值3.6V
@@ -219,7 +219,9 @@ void BC95_Process(void)                         //BC95主进程
       break;
     case SETNCDP:                 //设置CDP服务器 
       {
-        BC95_Data_Send("AT+NCDP=180.101.147.115,5683\r\n",30);   
+        
+//        BC95_Data_Send("AT+NCDP=117.60.157.137,5683\r\n",29);   //正式平台
+        BC95_Data_Send("AT+NCDP=180.101.147.115,5683\r\n",30);  //测试平台
         Create_Timer(ONCE,BC95_R_TIMEROUT_TIME,
                      BC95_Recv_Timeout_CallBack,0,PROCESS); 
       }
@@ -266,6 +268,7 @@ void BC95_Process(void)                         //BC95主进程
         if(strstr(BC95.R_Buffer,"REBOOT_CAUSE_APPLICATION_AT") != NULL)
         {
           BC95.Start_Process = AT;
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
           Create_Timer(ONCE,20,
                        BC95_Delay_CallBack,0,PROCESS); 
@@ -278,6 +281,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = GETNBAND;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }
       }
@@ -288,6 +292,7 @@ void BC95_Process(void)                         //BC95主进程
         {
           BC95.Start_Process = GETCFUN;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }
       }
@@ -298,6 +303,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = CGSN;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }
       } 
@@ -310,6 +316,7 @@ void BC95_Process(void)                         //BC95主进程
           memcpy(BC95.IMEI,&str[6],15);
           BC95.Start_Process = CCID;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }
       }
@@ -322,6 +329,7 @@ void BC95_Process(void)                         //BC95主进程
           memcpy(BC95.ICCID,&str[7],20);
           BC95.Start_Process = CSQ;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }
       }
@@ -346,6 +354,7 @@ void BC95_Process(void)                         //BC95主进程
           {
             BC95.Start_Process = GETCGATT;
             BC95.Incident_Pend = TRUE;//标记挂起
+            BC95.Err_Conner.Connect = SEND_ERROR_NUM;
             Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
           }
         }
@@ -357,6 +366,7 @@ void BC95_Process(void)                         //BC95主进程
         {        
           BC95.Start_Process = CEREG;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }       
       }
@@ -367,6 +377,7 @@ void BC95_Process(void)                         //BC95主进程
         {        
           BC95.Start_Process = CCLK;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }
       }
@@ -380,6 +391,7 @@ void BC95_Process(void)                         //BC95主进程
         }
         BC95.Start_Process = GETNCDP;
         BC95.Incident_Pend = TRUE;//标记挂起
+        BC95.Err_Conner.Connect = SEND_ERROR_NUM;
         Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
       }
       break;   
@@ -389,6 +401,7 @@ void BC95_Process(void)                         //BC95主进程
         {        
           BC95.Start_Process = NSMI;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }
         else
@@ -415,6 +428,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = NNMI;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }  
       }
@@ -425,6 +439,7 @@ void BC95_Process(void)                         //BC95主进程
         {         
           BC95.Start_Process = NMGS;
           BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.Err_Conner.Connect = SEND_ERROR_NUM;
           Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
         }  
       }
@@ -439,7 +454,7 @@ void BC95_Process(void)                         //BC95主进程
           if(strnstr(str1,"+NNMI:4,AAAA0000",16) != NULL)  //上报全部参数的响应
           {   
             BC95.Report_Bit = 2;
-             
+            BC95.Err_Conner.Connect = SEND_ERROR_NUM; 
             Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调 
             Create_Timer(ONCE,1,
                      BC95_Delay_CallBack,0,PROCESS); 
@@ -448,7 +463,7 @@ void BC95_Process(void)                         //BC95主进程
           {
             BC95.Report_Bit = 3;
             HistoryData.ReadIndex = HistoryData.SaveIndex+1;
-            
+            BC95.Err_Conner.Connect = SEND_ERROR_NUM;
             Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
             Create_Timer(ONCE,1,
                      BC95_Delay_CallBack,0,PROCESS); 
@@ -457,7 +472,7 @@ void BC95_Process(void)                         //BC95主进程
           {
             Clear_Single_History_Data();
             BC95.Incident_Pend = TRUE;//标记挂起
-            
+            BC95.Err_Conner.Connect = SEND_ERROR_NUM;
             Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
           }
           else if(strnstr(str1,"+NNMI:24,02",16) != NULL)     //设置基础参数命令
@@ -469,6 +484,10 @@ void BC95_Process(void)                         //BC95主进程
             Recv_Data_Process((unsigned char*)str1);
           }
           else if(strnstr(str1,"+NNMI:17,06",16) != NULL)     //校时命令
+          {
+            Recv_Data_Process((unsigned char*)str1);
+          } 
+          else if(strnstr(str1,"+NNMI:9,09",16) != NULL)     //设置首发时间、上传间隔、采集间隔
           {
             Recv_Data_Process((unsigned char*)str1);
           } 
@@ -613,28 +632,15 @@ void Recv_Data_Process(unsigned char* buff)
         MeterParameter.MeterNumber[6] = ASCLL_to_Int(valueH)*0x10+ASCLL_to_Int(valueL);
         //结算日期
         MeterParameter.SettleDate = str[35]*0x10+str[36];   //设置结算日期    
-        if((MeterParameter.SettleDate == 0)||(MeterParameter.SettleDate > 31))//默认结算日期1号
-        {
-          MeterParameter.SettleDate = 1;
-        }
+
         //上报频率
         MeterParameter.ReportFrequency = str[37]*0x1000+str[38]*0x100+str[39]*0x10+str[40]; //设置上报周期
-        if(MeterParameter.ReportFrequency < 5) //默认上报频率24小时
-        {
-          MeterParameter.ReportFrequency = 1440;
-        }
+
         //告警电压
         MeterParameter.AlarmVoltage = str[41]*0x1000+str[42]*0x100+str[43]*0x10+str[44];
-        if( (MeterParameter.AlarmVoltage < 320)||(MeterParameter.AlarmVoltage > 360))        //默认告警电压3.00V
-        {
-          MeterParameter.AlarmVoltage = 320;
-        }
+ 
         //采样频率
         MeterParameter.SampleFrequency = str[45]*0x1000+str[46]*0x100+str[47]*0x10+str[48];
-        if(MeterParameter.SampleFrequency < 10) //默认不采集
-        {
-          MeterParameter.SampleFrequency = 0;
-        }
         
         Save_Meter_Parameter(); ///存储水表参数
         
@@ -684,6 +690,15 @@ void Recv_Data_Process(unsigned char* buff)
         RTC_SetTime(RTC_Format_BIN, &RTC_Time);
         //0x05响应
         ACK(0x07,0x00,mid);
+      } 
+      break;
+    case 0x09:           //设置首发时间、上传间隔、采集间隔
+      {
+        MeterParameter.FirstReportHour = str[7]*0x10+str[8];
+        MeterParameter.FirstReportMinute = str[9]*0x10+str[10];
+        Save_Meter_Parameter(); ///存储水表参数
+        //0x0A响应
+        ACK(0x0A,0x00,mid);
       } 
       break;
     default:

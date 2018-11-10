@@ -96,10 +96,11 @@ void Read_Meter_Parameter(void)
   MeterParameter.MeterNumber[6] = *((const unsigned char *)(CJT_188_ADD+6));
   //读取告警电压
   MeterParameter.AlarmVoltage = *((const unsigned short *)(BAT_ALARM_ADD));
-  if( (MeterParameter.AlarmVoltage < 320)||(MeterParameter.AlarmVoltage > 360))        //默认告警电压3.20V
+  if(MeterParameter.AlarmVoltage == 0)
   {
     MeterParameter.AlarmVoltage = 320;
   }
+
   //读取结算日
   MeterParameter.SettleDate = *((const unsigned char *)(SETTLE_DATE_ADD));
   if((MeterParameter.SettleDate == 0)||(MeterParameter.SettleDate > 31))//默认结算日期1号
@@ -108,16 +109,18 @@ void Read_Meter_Parameter(void)
   }
   //读取上报频率
   MeterParameter.ReportFrequency = *((const unsigned short *)(REPORT_FREQUENCY_ADDR));
-  if(MeterParameter.ReportFrequency < 5) //默认上报频率24小时
+  if(MeterParameter.ReportFrequency == 0)
   {
     MeterParameter.ReportFrequency = 1440;
   }
+
   //读取采样频率
   MeterParameter.SampleFrequency = *((const unsigned short *)(SAMPLE_FREQUENCY_ADDR));
-  if(MeterParameter.SampleFrequency < 10) //默认不采集
-  {
-    MeterParameter.SampleFrequency = 0;
-  }
+  
+  //读取首发时间
+  MeterParameter.FirstReportHour = *((const unsigned char *)(FIRST_REPORT_ADDR));
+  MeterParameter.FirstReportMinute = *((const unsigned char *)(FIRST_REPORT_ADDR+1));
+  
   
 }
 /*********************************************************************************
@@ -132,15 +135,18 @@ void Read_Meter_Parameter(void)
 void Save_Meter_Parameter(void)
 {
   //存储表号
-  WriteRom (CJT_188_ADD,MeterParameter.MeterNumber,7);
+  WriteRom(CJT_188_ADD,MeterParameter.MeterNumber,7);
   //存储电压告警值
-  WriteRom (BAT_ALARM_ADD,&MeterParameter.AlarmVoltage,2);
+  WriteRom(BAT_ALARM_ADD,&MeterParameter.AlarmVoltage,2);
   //存储结算日期
   WriteRom (SETTLE_DATE_ADD,&MeterParameter.SettleDate,1);
   //存储上报频率
-  WriteRom (REPORT_FREQUENCY_ADDR,&MeterParameter.ReportFrequency,2);
+  WriteRom(REPORT_FREQUENCY_ADDR,&MeterParameter.ReportFrequency,2);
   //存储采样频率
-  WriteRom (SAMPLE_FREQUENCY_ADDR,&MeterParameter.SampleFrequency,2);
+  WriteRom(SAMPLE_FREQUENCY_ADDR,&MeterParameter.SampleFrequency,2);
+  //存储首发时间
+  WriteRom(FIRST_REPORT_ADDR,&MeterParameter.FirstReportHour,1);
+  WriteRom((FIRST_REPORT_ADDR+1),&MeterParameter.FirstReportMinute,1);
 }
 
 /*********************************************************************************

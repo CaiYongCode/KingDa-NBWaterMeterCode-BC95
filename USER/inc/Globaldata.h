@@ -26,9 +26,12 @@ struct Meter_Parameter_EN
   u8 SettleDate;                        //结算日期
   u16 ReportFrequency;                  //上报频率，分
   u16 SampleFrequency;                  //采样频率, 分
+  u8 FirstReportHour;                   //首次上报时位
+  u8 FirstReportMinute;                 //首次上报分位
+  u8 ReportRandTiming;                  //上报随机计时，秒
   u32 ReportTiming;                     //上报计时，秒
   u32 SampleTiming;                     //采样计时，秒
-  u32 SaveFlowTiming;                    //保存水量计时，秒
+  u32 SaveFlowTiming;                   //保存水量计时，秒
   u32 DeviceRunTiming;                  //设备运行计时, 秒
   enum Device_Status_EN DeviceStatus;  //设备状态  
   signed char Temp;                   //温度
