@@ -29,12 +29,12 @@
 void WriteRom (unsigned short addr, void *pbuff, unsigned char length);
 void Read_Meter_Parameter(void);
 void Save_Meter_Parameter(void);
+void Read_Error_Record(void);
+void Save_Error_Record(void);
 void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow);
 void Save_Add_Flow(u16 addr,union flow_union *Flow);       //存储累积水量
 void Save_SDCF_Flow(union flow_union *Flow);
 enum Hall_Error_EN Read_Cal_Error(void);       
-void Read_BC95_ErrorRecord(void);           //读取BC95错误记录
-void Save_BC95_ErrorRecord(void);           //保存BC95错误记录
 void Read_History_Save_Index(void);
 unsigned char Read_History_Data(unsigned char* buff);
 void Save_History_Data(void);

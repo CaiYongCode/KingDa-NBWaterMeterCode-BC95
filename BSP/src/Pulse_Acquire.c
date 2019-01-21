@@ -135,6 +135,8 @@ void Exti0_Interrupt (void)                        //外中断F
 {
   if(RESET == Weak_Up)
   {
+//    USART3_Configuration();
+    Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
     if(BC95.Start_Process == BC95_POWER_DOWN)
     {
       MeterParameter.DeviceStatus = RUN;  

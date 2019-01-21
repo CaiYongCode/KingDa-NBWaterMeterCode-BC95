@@ -12,8 +12,13 @@
 *********************************************************************************/
 struct Debug_EN
 {
-  u8 Status;
+  bool Status;
   u8 SendData;
+};
+enum MessageID{
+  MessageID0,
+  MessageID1,
+  MessageID2
 };
 /*********************************************************************************
 常量定义区
@@ -40,6 +45,6 @@ extern struct Debug_EN Debug;
 void Debug_Process(void);
 void Debug_ACK_Busy(unsigned char cmd);
 void Debug_ACK_OK(unsigned char cmd);
-void Send_Debug_Data(void);
+void Send_Meter_Info(void);
 #endif
 /******************************************END********************************************************/

@@ -29,7 +29,7 @@ void MCU_DeInit(void);
 void RCC_Configuration(void);
 void GPIO_Configuration(void);
 void USART2_Configuration ( void );
-//void USART3_Configuration ( void );
+void USART3_Configuration ( void );
 //void ITC_Config(void);
 //void TIM4_Config(void);
 //void ADC_CH1_Config ( void );

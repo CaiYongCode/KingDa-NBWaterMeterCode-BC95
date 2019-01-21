@@ -9,24 +9,12 @@
 *********************************************************************************************************/
 #define         RECV_BUFF_SIZE               256//接收缓冲区大小
 #define         SEND_BUFF_SIZE               128//发送缓冲区大小
-#define         CONNECT_ERROR_NUM            3  //连接错误次数
-#define         SEND_ERROR_NUM               3  //发送错误次数
-
-#define         BC95_POWER_UP_TIME           5//BC95上电时间 单位ms
-#define         BC95_R_TIMEROUT_TIME         5 //接收超时 单位ms
-
-#define         BC95_S_TIMEROUT_TIME         6000 //发送数据超时 单位ms
+#define         BC95_TIMEROUT_NUM            10  //超时次数
+#define         BC95_TIMEROUT_TIME           2 //超时时间 单位s
 
 /*********************************************************************************************************
 数据类型定义
 *********************************************************************************************************/
-struct Error_Connter_Str
-{
-  unsigned char Send;
-  unsigned char Connect;
-};
- 
-
 enum Start_Process_En   //启动流程
 {
   BC95_POWER_DOWN,      //掉电
@@ -35,28 +23,21 @@ enum Start_Process_En   //启动流程
   
   NRB,                  //重启
   AT,                   //同步波特率
-  GETNBAND,             //查询频段
-  SETNBAND,             //设置频段
-  GETCFUN,              //查询电话功能
-  SETCFUN,              //设置电话功能
-  CIMI,                 //查询IMSI
-  CGSN,                 //查询IMEI  
-  CCID,                //查询CCID
+  CMEE,                 //报告移动终端错误
+  CGSN,                 //查询IMEI 
+  CCID,                 //查询CCID
+  CFUN,                 //查询全功能
+  NBAND,                //查询频段
   CSQ,                  //查询信号强度
-  GETCGDCONT,           //查询APN
-  SETCGDCONT,           //设置APN  
-  GETCGATT,             //查询网络激活状态
-  SETCGATT,             //激活网络
+  CGATT,                //查询入网
   CEREG,                //查询网络注册状态
+  CSCON,                //查询信令连接状态
   CCLK,                 //查询实时时间
-  GETNCDP,              //查询CDP服务器
-  SETNCDP,              //设置CDP服务器
+  NCDP,                 //设置CDP服务器
   NSMI,                 //设置发送消息指示
   NNMI,                 //设置接收消息指示
   NMGS,                 //发送消息
-  NQMGR,                //查询消息接收
-  NMGR,                 //接收消息
-  BC95_CONNECT_ERROR,      //启动错误
+  BC95_CONNECT_ERROR,   //启动错误
 };
   
 struct BC95_Str//BC95 总结构体
@@ -65,15 +46,16 @@ struct BC95_Str//BC95 总结构体
   unsigned short Recv_Length;         //接收长度
   enum Start_Process_En Start_Process;  //连接进程
   u8 Report_Bit;                        //发送位
-  struct Error_Connter_Str Err_Conner; //错误计数
-  unsigned char ErrorRecord;          //错误记录
+  unsigned char TimeoutNum;         //超时计数
   unsigned char Rssi;                 //信号强度
   bool Incident_Pend;                  //事件挂起标志
-
+  unsigned char IPOpt;                //IP选项
   unsigned char Reconnect_Times;      //重连次数
   unsigned char FailTimes;            //失败次数
   unsigned char ICCID[20];
   unsigned char IMEI[15];
+  unsigned char ErrorStep;        //故障步骤
+  unsigned char ErrorCode;        //故障代码
 };
  
 /*********************************************************************************************************

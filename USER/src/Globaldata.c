@@ -113,11 +113,21 @@ char* strnstr(char* str1,char* str2,unsigned char len)
 
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   ////计算和校验
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
+unsigned char Check_Sum8(unsigned char *data,unsigned short length)                
+{
+  unsigned char CheckSum = 0;
+  unsigned short i = 0;
 
+  for(i=0;i<length;i++)
+  {
+    CheckSum += data[i];
+  }
+  return CheckSum;
+}

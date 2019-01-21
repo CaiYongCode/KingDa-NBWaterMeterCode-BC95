@@ -95,11 +95,11 @@ void Read_Meter_Parameter(void)
   MeterParameter.MeterNumber[5] = *((const unsigned char *)(CJT_188_ADD+5));
   MeterParameter.MeterNumber[6] = *((const unsigned char *)(CJT_188_ADD+6));
   //读取告警电压
-  MeterParameter.AlarmVoltage = *((const unsigned short *)(BAT_ALARM_ADD));
-  if(MeterParameter.AlarmVoltage == 0)
-  {
-    MeterParameter.AlarmVoltage = 320;
-  }
+//  MeterParameter.AlarmVoltage = *((const unsigned short *)(BAT_ALARM_ADD));
+//  if(MeterParameter.AlarmVoltage == 0)
+//  {
+//    MeterParameter.AlarmVoltage = 320;
+//  }
 
   //读取结算日
   MeterParameter.SettleDate = *((const unsigned char *)(SETTLE_DATE_ADD));
@@ -136,8 +136,8 @@ void Save_Meter_Parameter(void)
 {
   //存储表号
   WriteRom(CJT_188_ADD,MeterParameter.MeterNumber,7);
-  //存储电压告警值
-  WriteRom(BAT_ALARM_ADD,&MeterParameter.AlarmVoltage,2);
+//  //存储电压告警值
+//  WriteRom(BAT_ALARM_ADD,&MeterParameter.AlarmVoltage,2);
   //存储结算日期
   WriteRom (SETTLE_DATE_ADD,&MeterParameter.SettleDate,1);
   //存储上报频率
@@ -148,7 +148,36 @@ void Save_Meter_Parameter(void)
   WriteRom(FIRST_REPORT_ADDR,&MeterParameter.FirstReportHour,1);
   WriteRom((FIRST_REPORT_ADDR+1),&MeterParameter.FirstReportMinute,1);
 }
-
+/*********************************************************************************
+ Function:      //
+ Description:   //读取联网错误记录
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Read_Error_Record(void)
+{
+  BC95.ErrorStep = *((const unsigned char *)(BC95_ERROR_RECORD_ADD));
+  BC95.ErrorCode = *((const unsigned char *)(BC95_ERROR_RECORD_ADD+1));
+  
+  
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //存储联网错误记录
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Save_Error_Record(void)
+{
+  WriteRom(BC95_ERROR_RECORD_ADD,&BC95.ErrorStep,1);
+  WriteRom((BC95_ERROR_RECORD_ADD+1),&BC95.ErrorCode,1);
+}
 /*********************************************************************************
  Function:      //
  Description:   //读取累积水量
@@ -228,33 +257,6 @@ void Save_SDCF_Flow(union flow_union *Flow)
   
   WriteRom (SDCF1_ADDR,Flow->flow8,4);      //写累积流量
 }
-/*********************************************************************************
- Function:      //
- Description:   //读取BC95错误记录
- Input:         //
-                //
- Output:        //
- Return:	//
- Others:        //
-*********************************************************************************/
-void Read_BC95_ErrorRecord(void)          
-{
-  BC95.ErrorRecord = *((const unsigned char *)(BC95_ERROR_RECORD_ADD));
-}
-/*********************************************************************************
- Function:      //
- Description:   //保存BC95错误记录
- Input:         //
-                //
- Output:        //
- Return:	//
- Others:        // 
-*********************************************************************************/
-void Save_BC95_ErrorRecord(void)    
-{
-  WriteRom(BC95_ERROR_RECORD_ADD,&BC95.ErrorRecord,1);
-}
-
 /*********************************************************************************
  Function:      //
  Description:   //读取历史数据存储索引

@@ -35,63 +35,45 @@ struct Debug_EN Debug;
 *********************************************************************************/
 void Debug_Process(void)
 {
-  unsigned char cmd = 0;
-
-  if( (BC95.Start_Process == BC95_POWER_DOWN)
-        &&(Debug.Status == 1)
-         &&(Debug.SendData == 0) )
-  {
-    Debug.SendData = 1;
-    Send_Debug_Data();
-  }
+  unsigned char MsgID = 0;
+  unsigned char MsgLen = 0;
   
   if(Uart3.Receive_Pend == TRUE)//判断有数据
   { 
     Uart3_Receive(Uart3.R_Buffer);
     
-    if( (Uart3.R_Buffer[0] == 0xAB)&&(Uart3.R_Buffer[1] == 0xAB) )
+    if( (Uart3.R_Buffer[0] == 0xFE)&&(Uart3.R_Buffer[1] == 0xFE)&&(Uart3.R_Buffer[2] == 0xA5) )
     {
-      cmd = Uart3.R_Buffer[2];
-      switch(cmd)
+      MsgLen = Uart3.R_Buffer[3]*0x100+Uart3.R_Buffer[4];
+      if(  Uart3.R_Buffer[5+MsgLen] == Check_Sum8(&Uart3.R_Buffer[5],MsgLen) )
       {
-        case 0x01:
-          {
-            Debug.Status = 1;
-            Debug_ACK_OK(cmd);
-          }
-          break;
-        case 0x02:      //读取数据
-          {
-            if(BC95.Start_Process != BC95_POWER_DOWN)
+        Debug.Status = TRUE;
+        MsgID = Uart3.R_Buffer[5];
+        switch(MsgID)
+        {
+          case MessageID0:
             {
-              Debug_ACK_Busy(cmd);
             }
-            else
+            break;
+          case MessageID1:      //读取数据
             {
-              Send_Debug_Data();
+              Send_Meter_Info();
             }
-          }
-          break;
-        case 0x03:      //校表
-          {
-            Cal.Water_Data.flow8[0] = Uart3.R_Buffer[4];
-            Cal.Water_Data.flow8[1] = Uart3.R_Buffer[5];
-            Cal.Water_Data.flow8[2] = Uart3.R_Buffer[6];
-            Cal.Water_Data.flow8[3] = Uart3.R_Buffer[7];
-            Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);
-            
-            Debug_ACK_OK(cmd);
-          }
-          break;
-        case 0x04:      //调试结束
-          {
-            Debug.Status = 0;
-            Create_Timer(ONCE,2,MCU_DeInit,0,PROCESS); 
-            Debug_ACK_OK(cmd);
-          }
-          break;
-        default:
-          break;
+            break;
+          case MessageID2:      //校表
+            {
+              Cal.Water_Data.flow8[0] = Uart3.R_Buffer[6];
+              Cal.Water_Data.flow8[1] = Uart3.R_Buffer[7];
+              Cal.Water_Data.flow8[2] = Uart3.R_Buffer[8];
+              Cal.Water_Data.flow8[3] = Uart3.R_Buffer[9];
+              Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);
+              
+              Send_Meter_Info();
+            }
+            break;
+          default:
+            break;
+        }
       }
       
     }
@@ -106,93 +88,53 @@ void Debug_Process(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Debug_ACK_Busy(unsigned char cmd)
-{
-  unsigned char data[4] = {0};
-
-  data[0] = 0xBA;
-  data[1] = 0xBA;
-  data[2] = cmd;
-  data[3] = 0x00;
-  
-  Uart3_Send(data,4);
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-void Debug_ACK_OK(unsigned char cmd)
-{
-  unsigned char data[4] = {0};
-
-  data[0] = 0xBA;
-  data[1] = 0xBA;
-  data[2] = cmd;
-  data[3] = 0x01;
-  
-  Uart3_Send(data,4);
-}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-void Send_Debug_Data(void)
+void Send_Meter_Info(void)
 {
   unsigned char data[24] = {0};
-   
+  unsigned char sum = 0;
+  
   //获取时间   
   RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
   RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
-
-  //获取上次联网错误信息
-  Read_BC95_ErrorRecord();
+  //测量温度
+  Read_Temp();
+  //测量电压
+  Read_Voltage();
   
-  data[0] = 0xBA;
-  data[1] = 0xBA;
-  data[2] = 0x02;
-  data[3] = 0x01;
+  data[0] = 0xFE;
+  data[1] = 0xFE;
+  data[2] = 0x5A;
+  data[3] = 0;
+  data[4] = 14;
+  data[5] = MessageID1;
   
   //当前累积流量
-  data[4] = Cal.Water_Data.flow8[0];
-  data[5] = Cal.Water_Data.flow8[1];
-  data[6] = Cal.Water_Data.flow8[2];
-  data[7] = Cal.Water_Data.flow8[3];
+  data[6] = Cal.Water_Data.flow8[0];
+  data[7] = Cal.Water_Data.flow8[1];
+  data[8] = Cal.Water_Data.flow8[2];
+  data[9] = Cal.Water_Data.flow8[3];
   //电池电压
-  data[8] = MeterParameter.Voltage/0x100;
-  data[9] = MeterParameter.Voltage%0x100;
+  data[10] = MeterParameter.Voltage/0x100;
+  data[11] = MeterParameter.Voltage%0x100;
   //温度 
-  data[10] = (u8)MeterParameter.Temp;
+  data[12] = (u8)MeterParameter.Temp;
   //年
-  data[11] = (RTC_DateStr.RTC_Year+2000)/0x100;
-  data[12] = (RTC_DateStr.RTC_Year+2000)%0x100;
+  data[13] = RTC_DateStr.RTC_Year;
   //月
-  data[13] = RTC_DateStr.RTC_Month;
+  data[14] = RTC_DateStr.RTC_Month;
   //日
-  data[14] = RTC_DateStr.RTC_Date;
+  data[15] = RTC_DateStr.RTC_Date;
   //时
-  data[15] = RTC_TimeStr.RTC_Hours;
+  data[16] = RTC_TimeStr.RTC_Hours;
   //分
-  data[16] = RTC_TimeStr.RTC_Minutes;
+  data[17] = RTC_TimeStr.RTC_Minutes;
   //秒
-  data[17] = RTC_TimeStr.RTC_Seconds;
-  //霍尔状态
-  data[18] = Cal.Error;
-   //信号强度
-  data[19] = BC95.Rssi;
-  //上次联网故障信息
-  data[20] = BC95.ErrorRecord;
+  data[18] = RTC_TimeStr.RTC_Seconds;
   
-  Uart3_Send(data,21);
+  sum = Check_Sum8(&data[5],14);
+  data[19] = sum;
+  
+  Uart3_Send(data,20);
 }
 /*********************************************************************************
  Function:      //

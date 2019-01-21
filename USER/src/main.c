@@ -54,12 +54,14 @@ void main(void)
   Read_Meter_Parameter();                               //读取水表参数
   Read_History_Save_Index();                            //读取历史数据保存索引
   
-  BC95_Power_On();
-        
+//  BC95_Power_On();
+  MCU_DeInit();
+  
   while (1)
   {
 //    RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
 //    RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
+    
     
     IWDG_ReloadCounter();//重载看门狗计数器
 

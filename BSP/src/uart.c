@@ -178,6 +178,23 @@ unsigned short Uart2_Receive(unsigned char *R_buff)
  Input:         //
                 //
  Output:        //
+ Return:		    //
+ Others:        //
+*********************************************************************************/
+void Free_Uart2(void)
+{
+  Uart2.Send_Length = 0;                                //清空串口2发送长度
+  Uart2.Sent_Length = 0;                             //清空串口2接收长度
+  Uart2.Send_Busy = FALSE;                              //清空串口2发送忙标志  
+  Uart2.Receive_Busy = FALSE;                           //清空串口2接收忙
+  Uart2.Receive_Pend = FALSE;                           //清空串口2挂起
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //
+ Input:         //
+                //
+ Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/

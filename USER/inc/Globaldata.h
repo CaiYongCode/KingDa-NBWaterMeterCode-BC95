@@ -74,6 +74,7 @@ unsigned char Int_to_ASCLL(unsigned char data);
 unsigned char ASCLL_to_Int(unsigned char data);
 unsigned char BCD_to_Int(unsigned char data);
 char* strnstr(char* str1,char* str2,unsigned char len);
+unsigned char Check_Sum8(unsigned char *data,unsigned short length);
 /*********************************************************************************/
 #endif
 /******************************************END********************************************************/

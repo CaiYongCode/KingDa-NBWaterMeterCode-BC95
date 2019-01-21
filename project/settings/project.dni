@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=1596776862
+Checksum=-752058898
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -49,27 +49,29 @@ Fmt1=RTC_DateTypeDef-RTC_Year	4	0
 Fmt2=RTC_TimeTypeDef-RTC_Hours	4	0
 Fmt3=RTC_TimeTypeDef-RTC_Minutes	4	0
 Fmt4=RTC_TimeTypeDef-RTC_Seconds	4	0
-Fmt5=struct BC95_Str-ErrorRecord	3	0
-Fmt6=struct BC95_Str-FailTimes	3	0
-Fmt7=struct BC95_Str-Reconnect_Times	3	0
-Fmt8=struct BC95_Str-Report_Bit	3	0
-Fmt9=struct BC95_Str-Rssi	3	0
-Fmt10=struct Error_Connter_Str-Connect	3	0
-Fmt11=struct Error_Connter_Str-Send	3	0
-Fmt12=struct Get_Cal_Str-ErrorTimes	3	0
-Fmt13=struct History_Data_EN-ReadIndex	3	0
-Fmt14=struct History_Data_EN-SaveIndex	3	0
-Fmt15=struct Meter_Parameter_EN-FirstReportHour	3	0
-Fmt16=struct Meter_Parameter_EN-FirstReportMinute	3	0
-Fmt17=struct Meter_Parameter_EN-ReportRandTiming	3	0
-Fmt18=struct Meter_Parameter_EN-SettleDate	3	0
-Fmt19=struct Meter_Parameter_EN-Temp	3	0
-Fmt20=union flow_union-flow32	3	0
+Fmt5=struct BC95_Str-ErrorCode	3	0
+Fmt6=struct BC95_Str-ErrorStep	3	0
+Fmt7=struct BC95_Str-FailTimes	3	0
+Fmt8=struct BC95_Str-IPOpt	3	0
+Fmt9=struct BC95_Str-Reconnect_Times	3	0
+Fmt10=struct BC95_Str-Report_Bit	3	0
+Fmt11=struct BC95_Str-Rssi	3	0
+Fmt12=struct BC95_Str-TimeoutNum	3	0
+Fmt13=struct Get_Cal_Str-ErrorTimes	3	0
+Fmt14=struct History_Data_EN-ReadIndex	3	0
+Fmt15=struct History_Data_EN-SaveIndex	3	0
+Fmt16=struct Meter_Parameter_EN-FirstReportHour	3	0
+Fmt17=struct Meter_Parameter_EN-FirstReportMinute	3	0
+Fmt18=struct Meter_Parameter_EN-ReportRandTiming	3	0
+Fmt19=struct Meter_Parameter_EN-SettleDate	3	0
+Fmt20=struct Meter_Parameter_EN-Temp	3	0
+Fmt21=union flow_union-flow32	3	0
 [array_types]
-Fmt0=unsigned char[28]	4	0
-Fmt1=unsigned char[4]	4	0
-Fmt2=unsigned char[64]	4	0
-Fmt3=unsigned long[7]	4	0
+Fmt0=u8[7]	4	0
+Fmt1=unsigned char[28]	4	0
+Fmt2=unsigned char[4]	4	0
+Fmt3=unsigned char[64]	4	0
+Fmt4=unsigned long[7]	4	0
 [watch_formats]
 Fmt0={W}1:i	4	0
 Fmt1={W}42:RTC_Data	2	0
@@ -83,6 +85,8 @@ Fmt7={W}42:run_state	4	0
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
+[Breakpoints]
+Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -90,22 +94,6 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[Breakpoints]
-Bp0=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.514.9" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.601.3" 0 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.46.7" 0 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.515.9" 0 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.499.9" 0 0 0 0 "" 0 ""
-Bp5=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.61.3" 0 0 0 0 "" 0 ""
-Bp6=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.270.12" 0 0 0 0 "" 0 ""
-Bp7=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.251.3" 0 0 0 0 "" 0 ""
-Bp8=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.122.5" 0 0 0 0 "" 0 ""
-Bp9=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.231.7" 0 0 0 0 "" 0 ""
-Bp10=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.139.9" 0 0 0 0 "" 0 ""
-Bp11=_ "STD_CODE" "{C:\Users\ADMINI~1\AppData\Local\Temp\RarSFX1\ew}.256.7" 0 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\src\BC95.c}.748.9" 1 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\BSP\src\Pulse_Acquire.c}.138.5" 1 0 0 0 "" 0 ""
-Count=14
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""
 A1=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\BSP\mcu_init.c" ""
