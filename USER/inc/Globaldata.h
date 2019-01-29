@@ -7,7 +7,8 @@
 /*********************************************************************************
 宏定义区
 *********************************************************************************/
-#define HistoryDataMaxNum       180
+#define HistoryDataMaxNum       200
+#define HistoryDataSize         9
 //#define ADC1_DR_ADDRESS                         ((uint16_t)0x5344)
 //#define ADC1_SAMPLE_BUFFER_SIZE                 ((uint8_t) 0x02)
 //#define ADC1_SAMPLE_BUFFER_ADDRESS              ((uint16_t)(&ADC1SampleBuffer))
@@ -37,11 +38,13 @@ struct Meter_Parameter_EN
   signed char Temp;                   //温度
   u16 Voltage;                          //电压 
 };
-struct History_Data_EN
+
+typedef struct 
 { 
-  u8 ReadIndex; //历史数据读取索引
-  u8 SaveIndex; //历史数据保存索引 
-};
+  u8 Front;     //头
+  u8 Rear;      //尾
+  u8 Total;     //总数
+}History_Data_TypeDef;
 /*********************************************************************************
 常量定义区
 *********************************************************************************/
@@ -51,8 +54,7 @@ struct History_Data_EN
 extern RTC_TimeTypeDef   RTC_TimeStr;        //RTC时间结构体
 extern RTC_DateTypeDef   RTC_DateStr;        //RTC日期结构体
 extern struct Meter_Parameter_EN MeterParameter;
-extern struct History_Data_EN HistoryData;
-//extern unsigned short ADC1SampleBuffer[ADC1_SAMPLE_BUFFER_SIZE];
+extern History_Data_TypeDef HistoryData;
 /*********************************************************************************
 外部变量声明区
 *********************************************************************************/

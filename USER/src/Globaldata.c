@@ -11,8 +11,7 @@
 RTC_TimeTypeDef   RTC_TimeStr;        //RTC时间结构体
 RTC_DateTypeDef   RTC_DateStr;        //RTC日期结构体
 struct Meter_Parameter_EN MeterParameter;
-struct History_Data_EN HistoryData;
-//unsigned short ADC1SampleBuffer[ADC1_SAMPLE_BUFFER_SIZE];
+History_Data_TypeDef HistoryData;
 /*********************************************************************************
 外部变量声明区
 *********************************************************************************/

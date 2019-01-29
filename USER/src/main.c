@@ -52,26 +52,16 @@ void main(void)
 /////////////////////////////////////////////////////////    
   Read_ACUM_Flow(ADD_FLOW_ADD,&Cal.Water_Data);         //读取当前累积流量
   Read_Meter_Parameter();                               //读取水表参数
-  Read_History_Save_Index();                            //读取历史数据保存索引
   
 //  BC95_Power_On();
-  MCU_DeInit();
+  MeterParameter.DeviceStatus = SLEEP;
   
   while (1)
   {
-//    RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
-//    RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
-    
-    
+   
     IWDG_ReloadCounter();//重载看门狗计数器
 
     Magnetic_Interference_Detection();  //磁干扰检测
-    //上报失败2次则复位
-    if( BC95.FailTimes >= 2 )
-    { 
-      Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
-      WWDG->CR = 0x80;  //看门狗复位
-    }
     
     if(MeterParameter.DeviceStatus == SLEEP)     //设备进入睡眠状态
     {
@@ -96,12 +86,8 @@ void main(void)
 *********************************************************************************/
 void Sleep(void)
 {  
-  HistoryData.ReadIndex = 0;
-  BC95.Report_Bit = 0;
-  BC95.Start_Process = BC95_POWER_DOWN;
   MeterParameter.DeviceRunTiming = 0;
 
-  CLK_HaltConfig(CLK_Halt_FastWakeup,ENABLE);   //快速唤醒后时钟为HSI  
   PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
   PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          
   CLK_HSICmd(DISABLE);                          //关闭内部高速时钟

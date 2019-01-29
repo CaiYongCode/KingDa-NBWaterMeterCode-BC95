@@ -29,16 +29,11 @@
 void WriteRom (unsigned short addr, void *pbuff, unsigned char length);
 void Read_Meter_Parameter(void);
 void Save_Meter_Parameter(void);
-void Read_Error_Record(void);
-void Save_Error_Record(void);
 void Read_ACUM_Flow(unsigned short addr,union flow_union *Flow);
 void Save_Add_Flow(u16 addr,union flow_union *Flow);       //´æ´¢ÀÛ»ýË®Á¿
-void Save_SDCF_Flow(union flow_union *Flow);
-enum Hall_Error_EN Read_Cal_Error(void);       
-void Read_History_Save_Index(void);
-unsigned char Read_History_Data(unsigned char* buff);
+void Save_SDCF_Flow(union flow_union *Flow);  
+void Read_History_Data(unsigned char* buff);
 void Save_History_Data(void);
-void Clear_Single_History_Data();
 /********************************************************************************************************/
 #endif
 

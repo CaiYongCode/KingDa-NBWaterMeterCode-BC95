@@ -200,7 +200,6 @@ void Alarm_Interrupt (void)
 *********************************************************************************/
 void Wake_Interrupt (void)                        
 {
-  union flow_union Flow;
   RTC_TimeTypeDef Time;
   
   if(RESET != RTC_GetITStatus(RTC_IT_WUT))
@@ -208,18 +207,6 @@ void Wake_Interrupt (void)
     if(MeterParameter.DeviceStatus != SLEEP)
     {
       SysTick_Handler();
-    }
-    
-    //每1小时存储一次水量  
-    MeterParameter.SaveFlowTiming++;
-    if( (MeterParameter.SaveFlowTiming/60) >= 60)
-    {
-      Read_ACUM_Flow(ADD_FLOW_ADD,&Flow);                  //读取累积流量
-      if(Cal.Water_Data.flow32 != Flow.flow32)
-      {
-        Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
-      }
-      MeterParameter.SaveFlowTiming = 0;
     }
     
     //周期采样数据
@@ -266,6 +253,7 @@ void Wake_Interrupt (void)
         if(BC95.Start_Process == BC95_POWER_DOWN)
         {
           MeterParameter.DeviceStatus = RUN;
+          Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
           BC95_Power_On();
         }  
       }
@@ -274,9 +262,9 @@ void Wake_Interrupt (void)
     if(MeterParameter.DeviceStatus == RUN)
     {
       MeterParameter.DeviceRunTiming++;    
-      if( (MeterParameter.DeviceRunTiming/60) >= 10)
+      if( (MeterParameter.DeviceRunTiming/60) >= 5)
       {
-         MCU_DeInit();
+         BC95_Power_Off();
       }
     }
     

@@ -26,6 +26,7 @@ enum Start_Process_En   //启动流程
   CMEE,                 //报告移动终端错误
   CGSN,                 //查询IMEI 
   CCID,                 //查询CCID
+  NCDP,                 //设置CDP服务器
   CFUN,                 //查询全功能
   NBAND,                //查询频段
   CSQ,                  //查询信号强度
@@ -33,11 +34,10 @@ enum Start_Process_En   //启动流程
   CEREG,                //查询网络注册状态
   CSCON,                //查询信令连接状态
   CCLK,                 //查询实时时间
-  NCDP,                 //设置CDP服务器
   NSMI,                 //设置发送消息指示
   NNMI,                 //设置接收消息指示
   NMGS,                 //发送消息
-  BC95_CONNECT_ERROR,   //启动错误
+  NMSTATUS,             //查询消息注册状态
 };
   
 struct BC95_Str//BC95 总结构体

@@ -89,7 +89,7 @@ void ExtiD_Interrupt (void)                        //外中断D
     else if(Cal.Cal_State == CAL1 && RESET == Cai1) //第1个霍尔触发 且 上次状态为第1个霍尔触发
     {
       Cal.ErrorTimes++;
-      if(Cal.ErrorTimes >= 3)
+      if(Cal.ErrorTimes >= 5)
       {
         if(Cal.Error != HALL2) 
         {
@@ -105,7 +105,7 @@ void ExtiD_Interrupt (void)                        //外中断D
     else if(Cal.Cal_State == CAL2 && RESET == Cai2) //第2个霍尔触发 且 上次状态为第2个霍尔触发
     {
       Cal.ErrorTimes++;
-      if(Cal.ErrorTimes >= 3)
+      if(Cal.ErrorTimes >= 5)
       {
         if(Cal.Error != HALL1) 
         {
@@ -135,7 +135,6 @@ void Exti0_Interrupt (void)                        //外中断F
 {
   if(RESET == Weak_Up)
   {
-//    USART3_Configuration();
     Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
     if(BC95.Start_Process == BC95_POWER_DOWN)
     {

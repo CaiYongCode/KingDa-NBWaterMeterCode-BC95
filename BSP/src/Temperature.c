@@ -80,6 +80,10 @@ void Read_Temp(void)
   ADC_ChannelCmd(ADC1,ADC_Channel_1,DISABLE);//关闭通道
   ADC_Cmd(ADC1, DISABLE);                                   //关闭ADC外围
   CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, DISABLE);   //关闭ADC时钟
+  
+  GPIO_Init(GPIOA, GPIO_Pin_4,  GPIO_Mode_Out_PP_Low_Slow);         // 热敏电阻
+  GPIO_Init(GPIOA, GPIO_Pin_5,  GPIO_Mode_Out_PP_Low_Slow);         // 热敏电阻ADC检测端
+  
   for(i=0;i<166;i++)
   {
     if(Temp_Table[i] <= ADC_Data)

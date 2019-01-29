@@ -121,7 +121,10 @@ void Read_Meter_Parameter(void)
   MeterParameter.FirstReportHour = *((const unsigned char *)(FIRST_REPORT_ADDR));
   MeterParameter.FirstReportMinute = *((const unsigned char *)(FIRST_REPORT_ADDR+1));
   
-  
+  //读取历史数据首、尾、总数
+  HistoryData.Front = *((const unsigned char *)(HISTORY_DATA_FRONT_ADDR));
+  HistoryData.Rear = *((const unsigned char *)(HISTORY_DATA_REAR_ADDR));
+  HistoryData.Total = *((const unsigned char *)(HISTORY_DATA_TOTAL_ADDR));
 }
 /*********************************************************************************
  Function:      //
@@ -147,36 +150,6 @@ void Save_Meter_Parameter(void)
   //存储首发时间
   WriteRom(FIRST_REPORT_ADDR,&MeterParameter.FirstReportHour,1);
   WriteRom((FIRST_REPORT_ADDR+1),&MeterParameter.FirstReportMinute,1);
-}
-/*********************************************************************************
- Function:      //
- Description:   //读取联网错误记录
- Input:         //
-                //
- Output:        //
- Return:	//
- Others:        //
-*********************************************************************************/
-void Read_Error_Record(void)
-{
-  BC95.ErrorStep = *((const unsigned char *)(BC95_ERROR_RECORD_ADD));
-  BC95.ErrorCode = *((const unsigned char *)(BC95_ERROR_RECORD_ADD+1));
-  
-  
-}
-/*********************************************************************************
- Function:      //
- Description:   //存储联网错误记录
- Input:         //
-                //
- Output:        //
- Return:	//
- Others:        //
-*********************************************************************************/
-void Save_Error_Record(void)
-{
-  WriteRom(BC95_ERROR_RECORD_ADD,&BC95.ErrorStep,1);
-  WriteRom((BC95_ERROR_RECORD_ADD+1),&BC95.ErrorCode,1);
 }
 /*********************************************************************************
  Function:      //
@@ -259,19 +232,6 @@ void Save_SDCF_Flow(union flow_union *Flow)
 }
 /*********************************************************************************
  Function:      //
- Description:   //读取历史数据存储索引
- Input:         //
-                //
- Output:        //
- Return:	//
- Others:        //
-*********************************************************************************/
-void Read_History_Save_Index(void)
-{
-  HistoryData.SaveIndex = *((const unsigned char *)HISTORYL_SAVE_ADDR);
-}
-/*********************************************************************************
- Function:      //
  Description:   //读取历史数据
  Input:         //
                 //
@@ -279,43 +239,16 @@ void Read_History_Save_Index(void)
  Return:	//
  Others:        //
 *********************************************************************************/
-unsigned char Read_History_Data(unsigned char* buff)
+void Read_History_Data(unsigned char* buff)
 {
-  unsigned char i = 0,j = 0;
+  unsigned char j = 0;
+  uint16_t addr = 0;
   
-  if(HistoryData.ReadIndex >= HistoryDataMaxNum)
-  {
-    HistoryData.ReadIndex = 0;
+  addr = HISTORY_DATA_START_ADDR + HistoryData.Front*HistoryDataSize;
+  for(j = 0;j < 9;j++)
+  {    
+    buff[j] = *((const unsigned char *)(addr+j));
   }
-  i = HistoryData.ReadIndex;
-
-  while(i < HistoryDataMaxNum)
-  { 
-    for(j = 0;j < 9;j++)
-    {    
-      buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + i*9+j));
-    }
-    if( (buff[4] <= 99)                                 //年有效
-          &&(1 <= buff[5])&&(buff[5] <= 12)             //月有效
-            &&(1 <= buff[6])&&(buff[6] <= 31)           //日有效
-              &&(buff[7] <= 23)                         //时有效
-                &&(buff[8] <= 59)  )                    //分有效
-    {
-      HistoryData.ReadIndex = i;
-      return 1;
-    }
-    
-    if(i == HistoryData.SaveIndex)
-    {
-      break;
-    }
-    i++;
-    if(i >= HistoryDataMaxNum)
-    {
-      i = 0;
-    }
-  }
-  return 0;
 }
 /*********************************************************************************
  Function:      //
@@ -328,23 +261,9 @@ unsigned char Read_History_Data(unsigned char* buff)
 *********************************************************************************/
 void Save_History_Data(void)
 {
-  unsigned char j = 0;
+  uint32_t addr = 0;
   unsigned char buff[9] = {0};
-  
-  //若水量与上次相同，则不存储
-  for(j = 0;j < 4;j++)
-  { 
-    buff[j] = *((const unsigned char *)(HISTORYL_DATA_ADDR + HistoryData.SaveIndex*9+j));
-  }
-  if( (buff[0] == Cal.Water_Data.flow8[0])
-        &&(buff[1] == Cal.Water_Data.flow8[1])
-          &&(buff[2] == Cal.Water_Data.flow8[2])
-            &&(buff[3] == Cal.Water_Data.flow8[3]) )
-  {
-    return;
-  }
-  
-  memcpy(buff,0,9);
+ 
   RTC_GetDate(RTC_Format_BIN, &RTC_DateStr);
   RTC_GetTime(RTC_Format_BIN, &RTC_TimeStr);
   
@@ -356,30 +275,20 @@ void Save_History_Data(void)
   buff[5] = RTC_DateStr.RTC_Month;
   buff[6] = RTC_DateStr.RTC_Date;
   buff[7] = RTC_TimeStr.RTC_Hours;
-  buff[8] = RTC_TimeStr.RTC_Minutes;
+  buff[8] = RTC_TimeStr.RTC_Minutes; 
   
-  HistoryData.SaveIndex++;
-  if(HistoryData.SaveIndex >= HistoryDataMaxNum)
+  addr = HISTORY_DATA_START_ADDR + HistoryData.Rear*HistoryDataSize;
+  WriteRom(addr,buff,9);
+
+  HistoryData.Total++;
+  HistoryData.Rear = (HistoryData.Rear+1)%HistoryDataMaxNum;
+  if(HistoryData.Rear == HistoryData.Front)
   {
-    HistoryData.SaveIndex = 0;
+    HistoryData.Front = (HistoryData.Front+1)%HistoryDataMaxNum;
   }
-  WriteRom(HISTORYL_SAVE_ADDR,&HistoryData.SaveIndex,1);
-  WriteRom((HISTORYL_DATA_ADDR + HistoryData.SaveIndex*9),buff,9);
-}
-/*********************************************************************************
- Function:      //
- Description:   //清除单个历史数据
- Input:         //
-                //
- Output:        //
- Return:	//
- Others:        //
-*********************************************************************************/
-void Clear_Single_History_Data(void)
-{
-  unsigned char buff[9] = {0};
-  
-  WriteRom((HISTORYL_DATA_ADDR + HistoryData.ReadIndex*9),buff,9);
+  WriteRom(HISTORY_DATA_FRONT_ADDR,&HistoryData.Front,1);
+  WriteRom(HISTORY_DATA_REAR_ADDR,&HistoryData.Rear,1);
+  WriteRom(HISTORY_DATA_TOTAL_ADDR,&HistoryData.Total,1);
 }
 /*********************************************************************************
  Function:      //
