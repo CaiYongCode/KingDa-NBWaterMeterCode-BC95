@@ -25,10 +25,8 @@
 #define  SETTLE_DATE_ADD                        (EEPROM_ADDR+13)     //结算日期地址
 #define  SAMPLE_FREQUENCY_ADDR                  (EEPROM_ADDR+14)     //采样频率地址
 #define  REPORT_FREQUENCY_ADDR                  (EEPROM_ADDR+16)     //上报频率地址
-//#define  BAT_ALARM_ADD                          (EEPROM_ADD+58)     //电池报警值地址
-#define  BC95_ERROR_RECORD_ADD                  (EEPROM_ADDR+18)     //BC95联网错误记录地址
-#define  HALL_ERROR_ADD                         (EEPROM_ADDR+21)      //霍尔状态
-#define  FIRST_REPORT_ADDR                      (EEPROM_ADDR+22)      //首发时间
+#define  FIRST_REPORT_ADDR                      (EEPROM_ADDR+18)     //首发时间
+#define  BC95_ERROR_RECORD_ADD                  (EEPROM_ADDR+22)     //BC95联网错误记录地址
 
 #define  SDCF1_ADDR                             (EEPROM_ADDR+25)      //上1月结算日流量地址
 #define  SDCF2_ADDR                             (EEPROM_ADDR+29)      //上2月结算日流量地址

@@ -15,47 +15,50 @@
 /*********************************************************************************************************
 数据类型定义
 *********************************************************************************************************/
-enum Start_Process_En   //启动流程
+enum StartProcess_En   //启动流程
 {
+  IDLE,                 //空闲
   BC95_POWER_DOWN,      //掉电
-  BC95_POWER_UP,        //上电
   BC95_RECONNECT,       //重连
   
   NRB,                  //重启
-  AT,                   //同步波特率
   CMEE,                 //报告移动终端错误
+  CFUN0,                //开启最小功能
+  NCSEARFCN,            //清除先验频点
+  CFUN1,                //开启全功能
   CGSN,                 //查询IMEI 
   CCID,                 //查询CCID
+  NCONFIG,              //设置手动入网
   NCDP,                 //设置CDP服务器
-  CFUN,                 //查询全功能
-  NBAND,                //查询频段
+  EDRX,                 //关闭模组eDRX功能
+  NSMI1,                //设置发送消息指示
+  NNMI0,                //设置接收消息指示
+  CGATT1,               //触发网络附着
   CSQ,                  //查询信号强度
-  CGATT,                //查询入网
+  NUESTATS,             //查询模块状态
+  CGATT,                //查询网络附着
   CEREG,                //查询网络注册状态
-  CSCON,                //查询信令连接状态
   CCLK,                 //查询实时时间
-  NSMI,                 //设置发送消息指示
-  NNMI,                 //设置接收消息指示
+  NNMI1,                //设置接收消息指示
   NMGS,                 //发送消息
-  NMSTATUS,             //查询消息注册状态
 };
   
 struct BC95_Str//BC95 总结构体
 {
-  char R_Buffer[RECV_BUFF_SIZE];        //接收缓冲区
-  unsigned short Recv_Length;         //接收长度
-  enum Start_Process_En Start_Process;  //连接进程
-  u8 Report_Bit;                        //发送位
+  uint8_t RxBuffer[RECV_BUFF_SIZE];        //接收缓冲区
+  unsigned short RxLength;         //接收长度
+  enum StartProcess_En StartProcess;  //连接进程
+  u8 ReportBit;                        //发送位
   unsigned char TimeoutNum;         //超时计数
   unsigned char Rssi;                 //信号强度
-  bool Incident_Pend;                  //事件挂起标志
+  bool IncidentPend;                  //事件挂起标志
   unsigned char IPOpt;                //IP选项
-  unsigned char Reconnect_Times;      //重连次数
+  unsigned char ReconnectTimes;      //重连次数
   unsigned char FailTimes;            //失败次数
   unsigned char ICCID[20];
   unsigned char IMEI[15];
   unsigned char ErrorStep;        //故障步骤
-  unsigned char ErrorCode;        //故障代码
+  unsigned short ErrorCode;        //故障代码
 };
  
 /*********************************************************************************************************
@@ -71,8 +74,7 @@ void BC95_Reset(void);
 void BC95_Process(void);
 void BC95_Data_Send(unsigned char *Data,unsigned short Len);
 
-void BC95_Start(void);
-void BC95_Recv_Timeout_CallBack(void);
+void BC95_Timeout_CallBack(void);
 void BC95_Delay_CallBack(void);
 
 void Recv_Data_Process(unsigned char* buff);

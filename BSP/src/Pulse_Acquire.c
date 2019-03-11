@@ -93,12 +93,8 @@ void ExtiD_Interrupt (void)                        //外中断D
       {
         if(Cal.Error != HALL2) 
         {
-          Cal.Error = HALL2;
-          if(BC95.Start_Process == BC95_POWER_DOWN)
-          {
-            MeterParameter.DeviceStatus = RUN;      
-            BC95_Power_On();
-          }
+          Cal.Error = HALL2;     
+          BC95_Power_On();
         }
       }
     }
@@ -109,12 +105,8 @@ void ExtiD_Interrupt (void)                        //外中断D
       {
         if(Cal.Error != HALL1) 
         {
-          Cal.Error = HALL1;
-          if(BC95.Start_Process == BC95_POWER_DOWN)
-          {
-            MeterParameter.DeviceStatus = RUN;      
-            BC95_Power_On();
-          }
+          Cal.Error = HALL1; 
+          BC95_Power_On();
         }
       }
     }
@@ -135,14 +127,13 @@ void Exti0_Interrupt (void)                        //外中断F
 {
   if(RESET == Weak_Up)
   {
-    Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
-    if(BC95.Start_Process == BC95_POWER_DOWN)
+    if(BC95.StartProcess == IDLE)
     {
-      MeterParameter.DeviceStatus = RUN;  
-      BC95_Power_On();   
+      Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量 
+      BC95_Power_On(); 
     }
   }
-  EXTI_ClearITPendingBit (EXTI_IT_Pin0);            //清中断标志位
+  EXTI_ClearITPendingBit(EXTI_IT_Pin0);            //清中断标志位
 }
 /*********************************************************************************
  Function:      //
@@ -157,15 +148,11 @@ void Magnetic_Interference_Detection(void)
 {
   if( (RESET == Cai1)&&(RESET == Cai2) )       //强磁干扰
   {
-    if(Cal.Error != INTERFERE) 
+    if(Cal.Error != INTERFERE)                 //第一次出现，立即上报
     {
       Cal.Error = INTERFERE;
-      Cal.ErrorTimes = 0;
-      if(BC95.Start_Process == BC95_POWER_DOWN)       //第一次出现，立即上报
-      {
-        MeterParameter.DeviceStatus = RUN;                
-        BC95_Power_On();
-      }
+      Cal.ErrorTimes = 0;            
+      BC95_Power_On();
     }
   } 
 }

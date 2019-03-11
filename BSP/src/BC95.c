@@ -34,19 +34,18 @@ struct BC95_Str BC95;            //BC95 用的寄存器
  Return:      	//
  Others:        //
 *********************************************************************************/
-void BC95_Power_On(void)        //BC95上电
+void BC95_Power_On(void)        
 {
   MeterParameter.DeviceStatus = RUN;
-  
-  USART2_Configuration();       //初始化串口2
-  
+  USART2_Configuration();               //初始化串口2
+   
   GPIO_SetBits(GPIOE,GPIO_Pin_2);       //VBAT拉高        3.1-4.2V，典型值3.6V
-  GPIO_SetBits(GPIOE,GPIO_Pin_1);      //复位脚拉低
+  GPIO_SetBits(GPIOE,GPIO_Pin_1);       //复位脚拉低
   
-  BC95.Report_Bit = 1;
+  BC95.ReportBit = 1;
   
   Create_Timer(ONCE,1,
-                     BC95_Reset,0,PROCESS); 
+               BC95_Reset,0,PROCESS); 
 }
 /*********************************************************************************
  Function:      //
@@ -61,9 +60,10 @@ void BC95_Power_Off(void)        //BC95断电
 {
   GPIO_ResetBits(GPIOE,GPIO_Pin_2); 
   
-  BC95.Report_Bit = 0;
-  BC95.Start_Process = BC95_POWER_DOWN;
-  BC95.Incident_Pend = FALSE; //清除事件挂起
+  BC95.ReconnectTimes = 0; 
+  BC95.ReportBit = 0;
+  BC95.StartProcess = IDLE;
+  BC95.IncidentPend = FALSE; //清除事件挂起
   
   Free_Uart2();
   USART_DeInit(USART2);
@@ -85,152 +85,162 @@ void BC95_Power_Off(void)        //BC95断电
 void BC95_Reset(void)
 {
   GPIO_ResetBits(GPIOE,GPIO_Pin_1);     //复位脚拉高
-  
-//  Create_Timer(ONCE,5,
-//               BC95_Start,0,PROCESS); 
-  BC95_Start();
-}
-/*********************************************************************************
- Function:      //
- Description:   //BC95启动
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-void BC95_Start(void)        
-{  
-  BC95.Start_Process = NRB; //指向下一个流程
-  BC95.Incident_Pend = TRUE; //事件标志挂起
+   
+  BC95.StartProcess = NRB; //指向下一个流程
   BC95.TimeoutNum = 0;   
 }
-
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   ////BC95主进程
  Input:         //
                 //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void BC95_Process(void)                         //BC95主进程
+void BC95_Process(void)                         
 {
   char *str = NULL;
   char *str1 = NULL;
   char *str2 = NULL;
-
-  if(BC95.Incident_Pend != FALSE) //检测是否有事件挂起
+  
+  if(BC95.IncidentPend != FALSE) //检测是否有事件挂起
   {
-    BC95.Incident_Pend = FALSE; //清除事件挂起
-    switch(BC95.Start_Process)
+    BC95.IncidentPend = FALSE; //清除事件挂起
+    switch(BC95.StartProcess)
     {
-    case NRB:                  //重启
+    case NRB:                   //重启
       {
         BC95_Data_Send("AT+NRB\r\n",8);
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+                     BC95_Timeout_CallBack,0,PROCESS); 
       }
       break;
-    case AT:                  //同步波特率
+    case CMEE:                  //报告移动终端错误
       {
-        BC95_Data_Send("AT\r\n",4);
+        BC95_Data_Send("AT+CMEE=1\r\n",11);         
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS);
-      }
-      break;
-    case CMEE:               //报告移动终端错误
-      {
-        BC95_Data_Send("AT+CMEE=1\r\n",11);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+                     BC95_Timeout_CallBack,0,PROCESS); 
       } 
       break;
-    case CGSN:                //查询IMEI      
+    case CFUN0:                 //开启最小功能
+      {
+        BC95_Data_Send("AT+CFUN=0\r\n",11);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      } 
+      break;
+    case NCSEARFCN:             //清除先验频点
+      {
+        BC95_Data_Send("AT+NCSEARFCN\r\n",14);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      } 
+      break;
+    case CFUN1:                 //开启全功能
+      {
+        BC95_Data_Send("AT+CFUN=1\r\n",11);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      } 
+      break;
+    case CGSN:                  //查询IMEI      
       {
         BC95_Data_Send("AT+CGSN=1\r\n",11);
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+                     BC95_Timeout_CallBack,0,PROCESS); 
       }
       break;  
-     case CCID:               //查询CCID
+    case CCID:                  //查询CCID
       {
         BC95_Data_Send("AT+NCCID\r\n",10); 
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+                     BC95_Timeout_CallBack,0,PROCESS); 
       }
       break; 
-    case NCDP:                //设置CDP服务器 
+    case NCONFIG:               //设置手动入网
       {
-        BC95_Data_Send("AT+NCDP=180.101.147.115,5683\r\n",30);    //测试平台
-
-//        BC95_Data_Send("AT+NCDP=117.60.157.137,5683\r\n",29);      //正式平台
+        BC95_Data_Send("AT+NCONFIG=AUTOCONNECT,FALSE\r\n",30); 
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+                     BC95_Timeout_CallBack,0,PROCESS); 
       }
-      break; 
-    case CFUN:               //查询全功能
-      {
-        BC95_Data_Send("AT+CFUN?\r\n",10);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-      } 
       break;
-    case NBAND:               //查询频段
+    case NCDP:                  //设置CDP服务器 
+      {
+//        BC95_Data_Send("AT+NCDP=180.101.147.115,5683\r\n",30);    //测试平台
+        BC95_Data_Send("AT+NCDP=117.60.157.137,5683\r\n",29);      //正式平台
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      }
+      break; 
+    case EDRX:                  //关闭模组eDRX功能
       {        
-        BC95_Data_Send("AT+NBAND?\r\n",11);
+        BC95_Data_Send("AT+CEDRXS=0,5\r\n",15);
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS);
+                     BC95_Timeout_CallBack,0,PROCESS);
       }
       break;
-    case CSQ:                 //查询信号强度
-      {
-        BC95_Data_Send("AT+CSQ\r\n",8);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-      } 
-      break;  
-    case CGATT:               //查询入网  
-      {
-        BC95_Data_Send("AT+CGATT?\r\n",11);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-      }
-      break;
-    case CEREG:                //查询网络注册状态     
-      {
-        BC95_Data_Send("AT+CEREG?\r\n",11);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-      }
-      break;  
-    case CSCON:                 //查询信令连接状态
-      {
-        BC95_Data_Send("AT+CSCON?\r\n",11);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS);
-      }
-      break; 
-    case CCLK:                //查询实时时间 
-      {
-        BC95_Data_Send("AT+CCLK?\r\n",10);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
-      }
-      break;
-    case NSMI:                 //设置发送消息指示
+    case NSMI1:                 //设置发送消息指示
       {
         BC95_Data_Send("AT+NSMI=1\r\n",11);
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+                     BC95_Timeout_CallBack,0,PROCESS);
       }
       break;
-    case NNMI:                 //设置接收消息指示
+    case NNMI0:                 //禁止新消息指示 
+      {
+        BC95_Data_Send("AT+NNMI=0\r\n",11);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS);
+      }
+      break;
+    case CGATT1:                //触发网络附着  
+      {
+        BC95_Data_Send("AT+CGATT=1\r\n",12);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      }
+      break;
+    case CSQ:                   //查询信号强度
+      {
+        BC95_Data_Send("AT+CSQ\r\n",8);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      } 
+      break; 
+    case NUESTATS:              //查询模块状态
+      {
+        BC95_Data_Send("AT+NUESTATS\r\n",13);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      } 
+      break;
+    case CGATT:                 //查询网络附着 
+      {
+        BC95_Data_Send("AT+CGATT?\r\n",11);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      }
+      break;
+    case CEREG:                 //查询网络注册状态     
+      {
+        BC95_Data_Send("AT+CEREG?\r\n",11);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      }
+      break;  
+    case CCLK:                  //查询实时时间 
+      {
+        BC95_Data_Send("AT+CCLK?\r\n",10);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS); 
+      }
+      break;
+    case NNMI1:                 //设置接收消息指示
       {
         BC95_Data_Send("AT+NNMI=1\r\n",11);
         Create_Timer(ONCE,BC95_TIMEROUT_TIME,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS); 
+                     BC95_Timeout_CallBack,0,PROCESS); 
       }
       break;
     case NMGS:                 //发送消息     
@@ -240,24 +250,29 @@ void BC95_Process(void)                         //BC95主进程
       break;
     case BC95_RECONNECT:      //连接失败
       {
-        BC95.Reconnect_Times++;
-        if(BC95.Reconnect_Times >= 2)  //重连超次数则睡眠
-        {
-          BC95.Reconnect_Times = 0;   
+        BC95.ReconnectTimes++;
+        if(BC95.ReconnectTimes >= 3)  //重连超次数则睡眠
+        {  
           Save_History_Data();    //保存本次数据
-          BC95_Power_Off(); 
+          Save_BC95_Error_Record();     //保存故障记录
+          BC95.StartProcess = BC95_POWER_DOWN; //指向下一个流程
+          BC95.IncidentPend = TRUE; //事件标志挂起
         }
-        else     //否则重连
+        else                            //否则重连
         {
-          BC95.Start_Process = NRB; //指向下一个流程
-          BC95.Incident_Pend = TRUE; //事件标志挂起
+          BC95.StartProcess = NRB; //指向下一个流程
+          BC95.IncidentPend = TRUE; //事件标志挂起
           BC95.TimeoutNum = 0;  
           Free_Uart2();
         }
       }
       break;
-    case BC95_POWER_DOWN:       //发送接收完成则直接睡眠 
-      BC95_Power_Off();       
+    case BC95_POWER_DOWN:       //断电
+      {
+        BC95_Data_Send("AT+CFUN=0\r\n",11);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS);       
+      }
       break;
     default:
       break;
@@ -265,131 +280,217 @@ void BC95_Process(void)                         //BC95主进程
   }
   if(Uart2.Receive_Pend != FALSE)//判断有数据
   {
-    memset(BC95.R_Buffer,'\0',RECV_BUFF_SIZE);//清缓存
-    BC95.Recv_Length = Uart2_Receive((unsigned char *)BC95.R_Buffer);//接收数据
+    memset(BC95.RxBuffer,'\0',RECV_BUFF_SIZE);//清缓存
+    BC95.RxLength = Uart2_Receive((unsigned char *)BC95.RxBuffer);//接收数据
+    /*获取错误码*/
+    str = strstr((const char *)BC95.RxBuffer,"ERROR:");
+    if(str != NULL)
+    {
+      BC95.ErrorStep = BC95.StartProcess;
+      BC95.ErrorCode = 0;
+      if( (str[7] >= '0') && (str[7] <= '9') )
+      {
+        BC95.ErrorCode += str[7]-0x30;
+      }
+      if( (str[8] >= '0') && (str[8] <= '9') )
+      {
+        BC95.ErrorCode *=10;
+        BC95.ErrorCode += str[8]-0x30;
+      }
+      if( (str[9] >= '0') && (str[9] <= '9') )
+      {
+        BC95.ErrorCode *=10;
+        BC95.ErrorCode += str[9]-0x30;
+      }
+    }
     
-//    str = strstr(BC95.R_Buffer,"ERROR");
-//    if(str != NULL)
+//    /*固件升级*/
+//    if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
 //    {
-//      BC95.ErrorStep = BC95.Start_Process;
-//      BC95.ErrorCode = 0;
-//      if( (str[6] >= '0') && (str[6] <= '9') )
-//      {
-//        BC95.ErrorCode += str[5]-0x30;
-//      }
-//      if( (str[7] >= '0') && (str[7] <= '9') )
-//      {
-//        BC95.ErrorCode *=10;
-//        BC95.ErrorCode += str[7]-0x30;
-//      }
-//      if( (str[8] >= '0') && (str[8] <= '9') )
-//      {
-//        BC95.ErrorCode *=10;
-//        BC95.ErrorCode += str[8]-0x30;
-//      }
+//      
 //    }
     
-    switch(BC95.Start_Process)
+    str1 = strstr((const char *)BC95.RxBuffer,"+NNMI:"); 
+    //处理消息粘包
+    while(str1 != NULL)
+    { 
+      str2 = strstr(str1+6,"+NNMI:"); 
+
+      Recv_Data_Process((unsigned char*)str1);
+      str1 = str2;
+    }
+        
+    switch(BC95.StartProcess)
     {
     case NRB:                  //重启
       {
-//        if(strstr(BC95.R_Buffer,"REBOOT_CAUSE_APPLICATION_AT") != NULL)
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
         {
-          BC95.Start_Process = AT;
-          BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.StartProcess = CMEE;
+          BC95.IncidentPend = TRUE;//标记挂起
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调 
-        }
-      }
-      break;
-    case AT:            //同步波特率
-      {
-        if(strstr(BC95.R_Buffer,"OK") != NULL)
-        {         
-          BC95.Start_Process = CMEE;
-          BC95.Incident_Pend = TRUE;//标记挂起
-          BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-        }
-        else
-        {
-          BC95.ErrorStep = AT;
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调 
         }
       }
       break;
     case CMEE:                 //报告移动终端错误
       {
-        if(strstr(BC95.R_Buffer,"OK") != NULL)
-        {         
-          BC95.Start_Process = CGSN;
-          BC95.Incident_Pend = TRUE;//标记挂起
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          if(BC95.ReconnectTimes == 0)  //正常流程
+          {
+            BC95.StartProcess = CFUN1;
+          }
+          else                          //重连流程
+          {
+            BC95.StartProcess = CFUN0;
+          }
+          BC95.IncidentPend = TRUE;//标记挂起
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }
+      } 
+      break;
+    case CFUN0:               //开启最小功能
+      {
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = NCSEARFCN;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        }  
+      } 
+      break;
+    case NCSEARFCN:               //清除先验频点
+      {
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = CFUN1;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        } 
+      } 
+      break;
+    case CFUN1:               //开启全功能
+      {
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = CGSN;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        } 
       } 
       break;
     case CGSN:                //查询IMEI
       {
-        str = strstr(BC95.R_Buffer,"+CGSN");
+        str = strstr((const char *)BC95.RxBuffer,"+CGSN");
         if( str != NULL)
         {
           memcpy(BC95.IMEI,&str[6],15);
-          BC95.Start_Process = CCID;
-          BC95.Incident_Pend = TRUE;//标记挂起
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          BC95.StartProcess = CCID;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }
       }
       break;
     case CCID:                //查询CCID
       {
-        str = strstr(BC95.R_Buffer,"+NCCID");
+        str = strstr((const char *)BC95.RxBuffer,"+NCCID");
         if( str != NULL)
         {
           memcpy(BC95.ICCID,&str[7],20);
-          BC95.Start_Process = NCDP;
-          BC95.Incident_Pend = TRUE;//标记挂起
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          BC95.StartProcess = NCONFIG;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }
       }
       break;  
-    case NCDP:                 //设置CDP服务器 
+    case NCONFIG:               //设置手动入网
       {
-        if(strstr(BC95.R_Buffer,"OK") != NULL)
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
         {         
-          BC95.Start_Process = CFUN;
-          BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.StartProcess = NCDP;
+          BC95.IncidentPend = TRUE;//标记挂起
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-        }
-      }
-      break;  
-    case CFUN:               //查询全功能
-      {
-        if(strstr(BC95.R_Buffer,"+CFUN:1") != NULL)
-        {         
-          BC95.Start_Process = NBAND;
-          BC95.Incident_Pend = TRUE;//标记挂起
-          BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-        }
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        } 
       }
       break;
-    case NBAND:               //查询频段
-      {       
-        if(strstr(BC95.R_Buffer,"+NBAND:5") != NULL)    //支持频段5
-        {
-          BC95.Start_Process = CSQ;
-          BC95.Incident_Pend = TRUE;//标记挂起
+    case NCDP:                 //设置CDP服务器 
+      {
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {     
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          BC95.StartProcess = EDRX;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }
       }
-      break;   
-    case CSQ:           //查询信号强度
+      break;  
+    case EDRX:               //关闭模组eDRX功能
+      {        
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {         
+          BC95.StartProcess = NSMI1;
+          BC95.IncidentPend = TRUE;//标记挂起
+          BC95.TimeoutNum = 0;
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        } 
+      }
+      break;
+    case NSMI1:                 //设置发送消息指示
       {
-        str = strstr(BC95.R_Buffer,"+CSQ");
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = NNMI0;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        }  
+      }
+      break;
+    case NNMI0:                 //禁止新消息指示 
+      {
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = CGATT1;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        }  
+      }
+      break;
+    case CGATT1:               //触发网络附着  
+      {
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = CSQ;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        } 
+      }
+      break;
+    case CSQ:                 //查询信号强度
+      {
+        str = strstr((const char *)BC95.RxBuffer,"+CSQ");
         if( str != NULL)
         {
           BC95.Rssi =0;//保存信号强度
@@ -403,145 +504,132 @@ void BC95_Process(void)                         //BC95主进程
             BC95.Rssi += str[6]-0x30;
           }
     
-          if(BC95.Rssi < 99)
+          if(BC95.Rssi <= 31)
           {
-            BC95.Start_Process = CGATT;
-            BC95.Incident_Pend = TRUE;//标记挂起
+            BC95.ErrorStep = 0;
+            BC95.ErrorCode = 0;
             BC95.TimeoutNum = 0;
-            Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+            BC95.StartProcess = NUESTATS;
+            BC95.IncidentPend = TRUE;//标记挂起
+            Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
           }
+        } 
+      } 
+      break; 
+    case NUESTATS:                 //查询模块状态
+      {
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = CGATT;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        }  
+      } 
+      break;
+    case CGATT:               //查询网络附着 
+      {
+        if( strstr((const char *)BC95.RxBuffer,"+CGATT:1") != NULL)
+        {  
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.StartProcess = CEREG;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }
       }
       break;
-    case CGATT:              //查询入网
+    case CEREG:                //查询网络注册状态     
       {
-        if( strstr(BC95.R_Buffer,"+CGATT:1") != NULL)
-        {        
-          BC95.Start_Process = CEREG;
-          BC95.Incident_Pend = TRUE;//标记挂起
+        if( strstr((const char *)BC95.RxBuffer,"+CEREG:0,1") != NULL )//已注册
+        {   
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-        }       
-      }
-      break;
-    case CEREG:       //查询网络注册状态
-      {
-        if( strstr(BC95.R_Buffer,"+CEREG:0,1") != NULL )//已注册
-        {        
-          BC95.Start_Process = CSCON;
-          BC95.Incident_Pend = TRUE;//标记挂起
-          BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          BC95.StartProcess = CCLK;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }
       }
-      break;
-    case CSCON:       //查询信令连接状态
+      break;  
+    case CCLK:                //查询实时时间 
       {
-        if( strstr(BC95.R_Buffer,"+CSCON:0,1") != NULL )//已连接
-        {        
-          BC95.Start_Process = CCLK;
-          BC95.Incident_Pend = TRUE;//标记挂起
-          BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-        }
-      }
-      break;
-    case CCLK:       //查询实时时间
-      {
-        str = strstr(BC95.R_Buffer,"+CCLK:");
+        str = strstr((const char *)BC95.RxBuffer,"+CCLK:");
         if( str != NULL)
         {  
           GMT_to_BT((unsigned char*)str);
           
-          BC95.Start_Process = NSMI;
-          BC95.Incident_Pend = TRUE;//标记挂起
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-        }  
-      }
-      break; 
-    case NSMI:                 //设置发送消息指示
-      {
-        if(strstr(BC95.R_Buffer,"OK") != NULL)
-        {         
-          BC95.Start_Process = NNMI;
-          BC95.Incident_Pend = TRUE;//标记挂起
-          BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          BC95.StartProcess = NNMI1;
+          BC95.IncidentPend = TRUE;//标记挂起                //已联网
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }  
       }
       break;
-    case  NNMI:                 //设置接收消息指示 
+    case NNMI1:                 //设置接收消息指示 
       {
-        if(strstr(BC95.R_Buffer,"OK") != NULL)
-        {         
-          BC95.Start_Process = NMGS;
-          BC95.Incident_Pend = TRUE;//标记挂起
+        if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        { 
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.StartProcess = NMGS;
+          BC95.IncidentPend = TRUE;//标记挂起
           BC95.TimeoutNum = 0;
-          Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }  
       }
       break;
     case NMGS:        //发送消息
       {  
-        str1 = strstr(BC95.R_Buffer,"+NNMI:"); 
-        //处理消息粘包
-        while(str1 != NULL)
-        { 
-          str2 = strstr(str1+6,"+NNMI:"); 
-          if(strnstr(str1,"+NNMI:4,AAAA0000",16) != NULL)  //上报全部参数的响应
-          {  
-            BC95.TimeoutNum = 0;
-            BC95.Report_Bit = 2; 
-            BC95.Incident_Pend = TRUE;//标记挂起
-            Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调 
-          }
-          else if(strnstr(str1,"+NNMI:4,AAAA0001",16) != NULL)     //上报历史流量的响应
+        if(strstr((const char *)BC95.RxBuffer,"+NSMI:SENT") != NULL)
+        {
+          if( BC95.ReportBit == 3)
           {
-            BC95.TimeoutNum = 0;
-            BC95.Report_Bit = 3;
-            BC95.Incident_Pend = TRUE;//标记挂起
-            Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-          }
-          else if(strnstr(str1,"+NNMI:4,AAAA0002",16) != NULL)     //上报历史数据的响应
-          {
-            HistoryData.Total--;
+            if(HistoryData.Total > 0)
+            {
+              HistoryData.Total--;
+            }
             HistoryData.Front = (HistoryData.Front+1)%HistoryDataMaxNum;
             WriteRom(HISTORY_DATA_FRONT_ADDR,&HistoryData.Front,1);
             WriteRom(HISTORY_DATA_TOTAL_ADDR,&HistoryData.Total,1);
+          }
+          else
+          {
+            BC95.ReportBit++;
+          }
           
-            BC95.TimeoutNum = 0;
-            BC95.Incident_Pend = TRUE;//标记挂起
-            Delete_Timer(BC95_Recv_Timeout_CallBack);//删除超时回调
-          }
-          else if(strnstr(str1,"+NNMI:24,02",16) != NULL)     //设置基础参数命令
-          {
-            Recv_Data_Process((unsigned char*)str1);
-          }
-          else if(strnstr(str1,"+NNMI:8,04",16) != NULL)     //校表命令
-          {
-            Recv_Data_Process((unsigned char*)str1);
-          }
-          else if(strnstr(str1,"+NNMI:17,06",16) != NULL)     //校时命令
-          {
-            Recv_Data_Process((unsigned char*)str1);
-          } 
-          else if(strnstr(str1,"+NNMI:9,09",16) != NULL)     //设置首发时间、上传间隔、采集间隔
-          {
-            Recv_Data_Process((unsigned char*)str1);
-          } 
-
-          str1 = str2;
+          BC95.ErrorStep = 0;
+          BC95.ErrorCode = 0;
+          BC95.TimeoutNum = 0;
+          BC95.IncidentPend = TRUE;//标记挂起
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调 
         }
       }
       break; 
+    case BC95_RECONNECT:      //重连
+      {
+      }
+      break;
+    case BC95_POWER_DOWN:       //断电
+      {
+       if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
+        {   
+          BC95_Power_Off();
+          Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
+        }        
+      }
+      break;
     default:
       break;
     }
   }
   
 }
-   
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -566,15 +654,19 @@ void BC95_Data_Send(unsigned char *Data,unsigned short Len)
  Return:        //
  Others:        //
 *********************************************************************************/
-void BC95_Recv_Timeout_CallBack(void)//启动超时重发
+void BC95_Timeout_CallBack(void)//启动超时重发
 {
   unsigned char TimeoutNum = 0;
   
   BC95.TimeoutNum++;
   
-  if( BC95.Start_Process == NMGS )
+  if( BC95.StartProcess == NMGS )
   {
-    TimeoutNum = 2;
+    TimeoutNum = 3;
+  }
+  else if( BC95.StartProcess == CGATT )
+  {
+    TimeoutNum = 15;
   }
   else
   {
@@ -582,13 +674,12 @@ void BC95_Recv_Timeout_CallBack(void)//启动超时重发
   }
   if(BC95.TimeoutNum < TimeoutNum)//判断超时是否超次数
   {
-    BC95.Incident_Pend = TRUE;  
+    BC95.IncidentPend = TRUE;  
   }
   else
   { 
-    BC95.ErrorStep = BC95.Start_Process;
-    BC95.Start_Process = BC95_RECONNECT;//启动错误
-    BC95.Incident_Pend = TRUE;
+    BC95.StartProcess = BC95_RECONNECT;//启动错误
+    BC95.IncidentPend = TRUE;
     BC95.TimeoutNum = 0;
   }
 }
@@ -603,7 +694,7 @@ void BC95_Recv_Timeout_CallBack(void)//启动超时重发
 *********************************************************************************/
 void BC95_Delay_CallBack(void)
 {
-  BC95.Incident_Pend = TRUE;//标记挂起
+  BC95.IncidentPend = TRUE;//标记挂起
 }
 /*********************************************************************************
  Function:      //
@@ -620,7 +711,7 @@ void Recv_Data_Process(unsigned char* buff)
   u8 month = 0;
   u8 MessageID = 0;
   u16 DataLength = 0;
-  u8 mid[4] = {0};           //命令序列号
+//  u8 mid[4] = {0};           //命令序列号
   u8 valueH = 0,valueL = 0;
   RTC_TimeTypeDef  RTC_Time;
   RTC_DateTypeDef  RTC_Date;
@@ -645,10 +736,10 @@ void Recv_Data_Process(unsigned char* buff)
   
   
   MessageID = str[1]*16+str[2];
-  mid[0] = str[3];
-  mid[1] = str[4];
-  mid[2] = str[5];
-  mid[3] = str[6];
+//  mid[0] = str[3];
+//  mid[1] = str[4];
+//  mid[2] = str[5];
+//  mid[3] = str[6];
   
   switch(MessageID)
   {
@@ -694,7 +785,7 @@ void Recv_Data_Process(unsigned char* buff)
         MeterParameter.ReportTiming = 0;
         
         //0x03响应
-        ACK(0x03,0x00,mid);
+//        ACK(0x03,0x00,mid);
       }
       break;
     case 0x04:           //校准水量
@@ -717,7 +808,7 @@ void Recv_Data_Process(unsigned char* buff)
           Save_Add_Flow(SDCF1_ADDR+4*(month-1),&Flow);
         }
         //0x05响应
-        ACK(0x05,0x00,mid);
+//        ACK(0x05,0x00,mid);
       } 
       break;
     case 0x06:           //校准时间
@@ -735,16 +826,24 @@ void Recv_Data_Process(unsigned char* buff)
         RTC_SetDate(RTC_Format_BIN, &RTC_Date);
         RTC_SetTime(RTC_Format_BIN, &RTC_Time);
         //0x05响应
-        ACK(0x07,0x00,mid);
+//        ACK(0x07,0x00,mid);
       } 
       break;
-    case 0x09:           //设置首发时间、上传间隔、采集间隔
+    case 0x09:           //设置离散上报起始时间、离散上报时长
       {
-        MeterParameter.FirstReportHour = str[7]*0x10+str[8];
-        MeterParameter.FirstReportMinute = str[9]*0x10+str[10];
+        MeterParameter.DRStartTimeHour = str[7]*0x10+str[8];
+        MeterParameter.DRStartTimeMinute = str[9]*0x10+str[10];
+        MeterParameter.DRDuration = str[11]*0x1000+str[12]*0x100+str[13]*0x10+str[14];
         Save_Meter_Parameter(); ///存储水表参数
+        if(MeterParameter.DRDuration > 0)
+        {
+          MeterParameter.DRValid = TRUE;
+          MeterParameter.ReportRandTime = 0;
+          MeterParameter.ReportRandTiming = 0;
+        }
+        
         //0x0A响应
-        ACK(0x0A,0x00,mid);
+//        ACK(0x0A,0x00,mid);
       } 
       break;
     default:
@@ -762,20 +861,20 @@ void Recv_Data_Process(unsigned char* buff)
 *********************************************************************************/
 void Send_Data_Process(void)
 {  
-  switch(BC95.Report_Bit)
+  switch(BC95.ReportBit)
   {
     case 1:            //发送全部参数
       {
         Report_All_Parameters();
-        Create_Timer(ONCE,5,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS);
       }
       break;
     case 2:            //发送历史累积流量
       {
         Report_HC_Flow();
-        Create_Timer(ONCE,5,
-                     BC95_Recv_Timeout_CallBack,0,PROCESS);
+        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                     BC95_Timeout_CallBack,0,PROCESS);
       }
       break;
     case 3:            //发送历史数据
@@ -783,22 +882,24 @@ void Send_Data_Process(void)
         if(HistoryData.Total > 0)
         {
           Report_History_Data();
-          Create_Timer(ONCE,5,
-                       BC95_Recv_Timeout_CallBack,0,PROCESS);
+          Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+                       BC95_Timeout_CallBack,0,PROCESS);
         }
         else
         {
-          BC95.Report_Bit++;
-          BC95.Incident_Pend = TRUE;
+          Clear_History_Data_Info();
+          BC95.ReportBit++;
+          BC95.IncidentPend = TRUE;
         }
       }
       break;
     default:
       {
-        BC95.Report_Bit = 0;
+        BC95.ReportBit = 0;
         BC95.FailTimes = 0;
-        Create_Timer(ONCE,5,
-                     BC95_Power_Off,0,PROCESS);
+        BC95.StartProcess = BC95_POWER_DOWN;
+        Create_Timer(ONCE,5,                            //等待5s关机
+                     BC95_Delay_CallBack,0,PROCESS);
       }
       break;
   }
@@ -1051,8 +1152,9 @@ void Report_All_Parameters(void)
   data[162] = Int_to_ASCLL(BC95.ICCID[19]%0x10);
   
   //上次联网故障信息
-  data[163] = Int_to_ASCLL(BC95.ErrorStep/0x10);
-  data[164] = Int_to_ASCLL(BC95.ErrorStep%0x10);
+  valueH = *((const unsigned char *)(BC95_ERROR_RECORD_ADD));
+  data[163] = Int_to_ASCLL(valueH/0x10);
+  data[164] = Int_to_ASCLL(valueH%0x10);
   //采样频率
   data[165] = Int_to_ASCLL(MeterParameter.SampleFrequency/0x1000);
   data[166] = Int_to_ASCLL(MeterParameter.SampleFrequency%0x1000/0x100);

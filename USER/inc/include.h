@@ -29,15 +29,12 @@
 #include "save.h"
 #include "rtc.h"
 #include "uart.h"
-#include "protocol.h"
-#include "CJT-188-2004.h"
 #include "BC95.h"
 #include "Sys_timer.h" 
 #include "string.h"
 #include "Globaldata.h"
 #include "Temperature.h"
 #include "stdlib.h"
-#include "Debug.h"
 /*********************************************************************************************************
 ºê¶¨ÒåÇø
 *********************************************************************************************************/

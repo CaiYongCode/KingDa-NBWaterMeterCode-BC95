@@ -201,6 +201,7 @@ void Alarm_Interrupt (void)
 void Wake_Interrupt (void)                        
 {
   RTC_TimeTypeDef Time;
+  uint16_t randnum = 0;
   
   if(RESET != RTC_GetITStatus(RTC_IT_WUT))
   { 
@@ -209,7 +210,7 @@ void Wake_Interrupt (void)
       SysTick_Handler();
     }
     
-    //周期采样数据
+    /*周期采样数据*/
     if(MeterParameter.SampleFrequency > 0)
     {
       MeterParameter.SampleTiming++;
@@ -219,55 +220,46 @@ void Wake_Interrupt (void)
         MeterParameter.SampleTiming = 0;
       }
     }
-    //周期上报设备参数
-    if( (MeterParameter.FirstReportHour == 0)&&(MeterParameter.FirstReportMinute == 0) )
+    /*离散上报时间无效，则按出厂时间上报，否则按照设定离散上报*/
+    if(MeterParameter.DRValid == FALSE)
     {      
       if(MeterParameter.ReportFrequency > 0)
       {
         MeterParameter.ReportTiming++;
         if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
-        {   
-          MeterParameter.ReportRandTiming = rand()%59+1;
-            
+        {               
           MeterParameter.ReportTiming = 0;
-        }  
-      }
-    }
-    else
-    {
-      RTC_GetTime(RTC_Format_BIN, &Time);
-      if( (Time.RTC_Hours == MeterParameter.FirstReportHour)&&(Time.RTC_Minutes == MeterParameter.FirstReportMinute) )
-      {
-        MeterParameter.FirstReportHour = 0;
-        MeterParameter.FirstReportMinute = 0;
-        MeterParameter.ReportTiming = 0;
-        
-        MeterParameter.ReportRandTiming = rand()%59+1; 
-      }
-    }
-    if(MeterParameter.ReportRandTiming > 0)
-    {
-      MeterParameter.ReportRandTiming--;
-      if(MeterParameter.ReportRandTiming == 0)
-      {
-        if(BC95.Start_Process == BC95_POWER_DOWN)
-        {
-          MeterParameter.DeviceStatus = RUN;
           Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
           BC95_Power_On();
         }  
       }
     }
-    //设备运行超时，强制睡眠
-    if(MeterParameter.DeviceStatus == RUN)
+    else
     {
-      MeterParameter.DeviceRunTiming++;    
-      if( (MeterParameter.DeviceRunTiming/60) >= 5)
+      if(MeterParameter.ReportRandTime == 0)
       {
-         BC95_Power_Off();
+        RTC_GetTime(RTC_Format_BIN, &Time);
+        if( (Time.RTC_Hours == MeterParameter.DRStartTimeHour)&&(Time.RTC_Minutes == MeterParameter.DRStartTimeMinute) )
+        {
+          randnum = BC95.IMEI[13]*0x100+BC95.IMEI[14];
+          MeterParameter.ReportRandTime = randnum%(MeterParameter.DRDuration*60)+1; 
+        }
+      }
+      else
+      {
+        MeterParameter.ReportRandTiming++;
+        if(MeterParameter.ReportRandTiming >= MeterParameter.ReportRandTime)
+        {
+          MeterParameter.DRValid = FALSE;
+          MeterParameter.ReportRandTime = 0;
+          MeterParameter.ReportRandTiming = 0;
+          MeterParameter.ReportTiming = 0;
+          Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
+          BC95_Power_On();
+        }
       }
     }
-    
+   
     RTC_ClearITPendingBit(RTC_IT_WUT);                        //清除RTC唤醒标志
   }
 }

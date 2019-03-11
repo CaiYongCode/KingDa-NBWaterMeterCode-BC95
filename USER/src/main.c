@@ -46,14 +46,14 @@ void main(void)
   Rtc_Config();
   Set_Alarm();
   Pulse_Acquire_Config();
-  
-  IWDG_INIT(); 
+  IWDG_INIT();  
   enableInterrupts();                                       //开总中断
 /////////////////////////////////////////////////////////    
   Read_ACUM_Flow(ADD_FLOW_ADD,&Cal.Water_Data);         //读取当前累积流量
   Read_Meter_Parameter();                               //读取水表参数
-  
+
 //  BC95_Power_On();
+  
   MeterParameter.DeviceStatus = SLEEP;
   
   while (1)
@@ -86,8 +86,6 @@ void main(void)
 *********************************************************************************/
 void Sleep(void)
 {  
-  MeterParameter.DeviceRunTiming = 0;
-
   PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
   PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          
   CLK_HSICmd(DISABLE);                          //关闭内部高速时钟

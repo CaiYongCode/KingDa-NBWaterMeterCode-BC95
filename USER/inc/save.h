@@ -34,6 +34,9 @@ void Save_Add_Flow(u16 addr,union flow_union *Flow);       //´æ´¢ÀÛ»ýË®Á¿
 void Save_SDCF_Flow(union flow_union *Flow);  
 void Read_History_Data(unsigned char* buff);
 void Save_History_Data(void);
+void Clear_History_Data_Info(void);
+void Read_BC95_Error_Record(void);
+void Save_BC95_Error_Record(void);
 /********************************************************************************************************/
 #endif
 

@@ -118,8 +118,15 @@ void Read_Meter_Parameter(void)
   MeterParameter.SampleFrequency = *((const unsigned short *)(SAMPLE_FREQUENCY_ADDR));
   
   //读取首发时间
-  MeterParameter.FirstReportHour = *((const unsigned char *)(FIRST_REPORT_ADDR));
-  MeterParameter.FirstReportMinute = *((const unsigned char *)(FIRST_REPORT_ADDR+1));
+  MeterParameter.DRStartTimeHour = *((const unsigned char *)(FIRST_REPORT_ADDR));
+  MeterParameter.DRStartTimeMinute = *((const unsigned char *)(FIRST_REPORT_ADDR+1));
+  MeterParameter.DRDuration = *((const unsigned short *)(FIRST_REPORT_ADDR+2));
+  if(MeterParameter.DRDuration > 0)
+  {
+    MeterParameter.DRValid = TRUE;
+    MeterParameter.ReportRandTime = 0;
+    MeterParameter.ReportRandTiming = 0;
+  }
   
   //读取历史数据首、尾、总数
   HistoryData.Front = *((const unsigned char *)(HISTORY_DATA_FRONT_ADDR));
@@ -148,8 +155,9 @@ void Save_Meter_Parameter(void)
   //存储采样频率
   WriteRom(SAMPLE_FREQUENCY_ADDR,&MeterParameter.SampleFrequency,2);
   //存储首发时间
-  WriteRom(FIRST_REPORT_ADDR,&MeterParameter.FirstReportHour,1);
-  WriteRom((FIRST_REPORT_ADDR+1),&MeterParameter.FirstReportMinute,1);
+  WriteRom(FIRST_REPORT_ADDR,&MeterParameter.DRStartTimeHour,1);
+  WriteRom((FIRST_REPORT_ADDR+1),&MeterParameter.DRStartTimeMinute,1);
+  WriteRom((FIRST_REPORT_ADDR+2),&MeterParameter.DRDuration,2);
 }
 /*********************************************************************************
  Function:      //
@@ -280,7 +288,10 @@ void Save_History_Data(void)
   addr = HISTORY_DATA_START_ADDR + HistoryData.Rear*HistoryDataSize;
   WriteRom(addr,buff,9);
 
-  HistoryData.Total++;
+  if(HistoryData.Total < HistoryDataMaxNum)
+  {
+    HistoryData.Total++;
+  }
   HistoryData.Rear = (HistoryData.Rear+1)%HistoryDataMaxNum;
   if(HistoryData.Rear == HistoryData.Front)
   {
@@ -292,11 +303,48 @@ void Save_History_Data(void)
 }
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //清除历史数据信息
  Input:         //
                 //
  Output:        //
- Return:		    //
+ Return:	//
  Others:        //
 *********************************************************************************/
+void Clear_History_Data_Info(void)
+{
+  unsigned char temp[3] = {0};
+  
+  HistoryData.Front = 0;
+  HistoryData.Rear = 0;
+  HistoryData.Total = 0;
+  WriteRom(HISTORY_DATA_FRONT_ADDR,temp,3);
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //读取BC95故障记录
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Read_BC95_Error_Record(void)
+{
+  BC95.ErrorStep = *((const unsigned char *)(BC95_ERROR_RECORD_ADD));
+  BC95.ErrorCode = *((const unsigned short *)(BC95_ERROR_RECORD_ADD+1));
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //保存BC95故障记录
+ Input:         //
+                //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Save_BC95_Error_Record(void)
+{
+  WriteRom(BC95_ERROR_RECORD_ADD,&BC95.ErrorStep,1);
+  WriteRom(BC95_ERROR_RECORD_ADD+1,&BC95.ErrorCode,2);
+}
 /******************************************END********************************************************/

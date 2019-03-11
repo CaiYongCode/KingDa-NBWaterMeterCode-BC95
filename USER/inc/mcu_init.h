@@ -25,7 +25,6 @@
 º¯ÊýÉùÃ÷Çø
 *********************************************************************************************************/
 void MCU_Config(void);
-void MCU_DeInit(void);
 void RCC_Configuration(void);
 void GPIO_Configuration(void);
 void USART2_Configuration ( void );

@@ -9,9 +9,6 @@
 *********************************************************************************/
 #define HistoryDataMaxNum       200
 #define HistoryDataSize         9
-//#define ADC1_DR_ADDRESS                         ((uint16_t)0x5344)
-//#define ADC1_SAMPLE_BUFFER_SIZE                 ((uint8_t) 0x02)
-//#define ADC1_SAMPLE_BUFFER_ADDRESS              ((uint16_t)(&ADC1SampleBuffer))
 /*********************************************************************************
 数据类型定义
 *********************************************************************************/
@@ -27,13 +24,15 @@ struct Meter_Parameter_EN
   u8 SettleDate;                        //结算日期
   u16 ReportFrequency;                  //上报频率，分
   u16 SampleFrequency;                  //采样频率, 分
-  u8 FirstReportHour;                   //首次上报时位
-  u8 FirstReportMinute;                 //首次上报分位
-  u8 ReportRandTiming;                  //上报随机计时，秒
+  u8 DRStartTimeHour;                   //离散上报起始时间时位 Discrete report
+  u8 DRStartTimeMinute;                 //离散上报起始时间分位 Discrete report
+  u16 DRDuration;                       //离散上报时长 Discrete report
+  bool DRValid;                        //离散上报有效
+  u32 ReportRandTime;                   //上报随机时间，秒
+  u32 ReportRandTiming;                 //上报随机计时，秒
   u32 ReportTiming;                     //上报计时，秒
   u32 SampleTiming;                     //采样计时，秒
   u32 SaveFlowTiming;                   //保存水量计时，秒
-  u32 DeviceRunTiming;                  //设备运行计时, 秒
   enum Device_Status_EN DeviceStatus;  //设备状态  
   signed char Temp;                   //温度
   u16 Voltage;                          //电压 
