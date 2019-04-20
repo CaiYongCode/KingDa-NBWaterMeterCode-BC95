@@ -129,7 +129,7 @@ ErrorStatus Uart2_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
   #ifdef Uart2_Half_Duplex                                      //如果是半双工则关闭接收
     Uart2_RX_DISABLE;
   #endif
-    USART_ITConfig(USART2,USART_IT_TC,ENABLE);                  //打开发送中断
+    USART_ITConfig(USART2,USART_IT_TC,DISABLE);                  //关闭发送中断
     if(Send_Lenght > UART2_SBUF_NUM)//如果超过缓冲区则只能按照最大缓冲发送
       Uart2.Send_Length = UART2_SBUF_NUM;
     else
@@ -138,6 +138,7 @@ ErrorStatus Uart2_Send(unsigned char *Send_Data,unsigned short Send_Lenght)
       Uart2.S_Buffer[i] = Send_Data[i];
     Uart2.Sent_Length = 0;          //已发送的长度清零
     Uart2.Send_Busy = TRUE;      //标志忙
+    USART_ITConfig(USART2,USART_IT_TC,ENABLE);                  //打开发送中断
     USART_SendData8 (USART2,Uart2.S_Buffer[0]);
     Uart2.Sent_Length++;
   }

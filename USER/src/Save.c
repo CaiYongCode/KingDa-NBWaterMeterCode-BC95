@@ -292,14 +292,13 @@ void Save_History_Data(void)
   {
     HistoryData.Total++;
   }
-  HistoryData.Rear = (HistoryData.Rear+1)%HistoryDataMaxNum;
-  if(HistoryData.Rear == HistoryData.Front)
+  else
   {
-    HistoryData.Front = (HistoryData.Front+1)%HistoryDataMaxNum;
+    HistoryData.Front = (HistoryData.Rear+1)%HistoryDataMaxNum;
   }
-  WriteRom(HISTORY_DATA_FRONT_ADDR,&HistoryData.Front,1);
-  WriteRom(HISTORY_DATA_REAR_ADDR,&HistoryData.Rear,1);
-  WriteRom(HISTORY_DATA_TOTAL_ADDR,&HistoryData.Total,1);
+  HistoryData.Rear = (HistoryData.Rear+1)%HistoryDataMaxNum;
+  
+  WriteRom(HISTORY_DATA_FRONT_ADDR,&HistoryData.Front,3);
 }
 /*********************************************************************************
  Function:      //

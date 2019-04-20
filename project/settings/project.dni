@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-1886952497
+Checksum=-1816421121
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -51,19 +51,17 @@ Fmt3=RTC_TimeTypeDef-RTC_Minutes	4	0
 Fmt4=RTC_TimeTypeDef-RTC_Seconds	4	0
 Fmt5=struct BC95_Str-ErrorCode	3	0
 Fmt6=struct BC95_Str-ErrorStep	3	0
-Fmt7=struct BC95_Str-FailTimes	3	0
-Fmt8=struct BC95_Str-IPOpt	3	0
-Fmt9=struct BC95_Str-ReconnectTimes	3	0
-Fmt10=struct BC95_Str-ReportBit	3	0
-Fmt11=struct BC95_Str-Rssi	3	0
-Fmt12=struct BC95_Str-TimeoutNum	3	0
-Fmt13=struct Get_Cal_Str-ErrorTimes	3	0
-Fmt14=struct Meter_Parameter_EN-DRStartTimeHour	3	0
-Fmt15=struct Meter_Parameter_EN-DRStartTimeMinute	3	0
-Fmt16=struct Meter_Parameter_EN-ReportRandTiming	3	0
-Fmt17=struct Meter_Parameter_EN-SettleDate	3	0
-Fmt18=struct Meter_Parameter_EN-Temp	3	0
-Fmt19=union flow_union-flow32	3	0
+Fmt7=struct BC95_Str-ReconnectTimes	3	0
+Fmt8=struct BC95_Str-ReportBit	3	0
+Fmt9=struct BC95_Str-Rssi	3	0
+Fmt10=struct BC95_Str-TimeoutNum	3	0
+Fmt11=struct Get_Cal_Str-ErrorTimes	3	0
+Fmt12=struct Meter_Parameter_EN-DRStartTimeHour	3	0
+Fmt13=struct Meter_Parameter_EN-DRStartTimeMinute	3	0
+Fmt14=struct Meter_Parameter_EN-ReportRandTiming	3	0
+Fmt15=struct Meter_Parameter_EN-SettleDate	3	0
+Fmt16=struct Meter_Parameter_EN-Temp	3	0
+Fmt17=union flow_union-flow32	3	0
 [array_types]
 Fmt0=u8[7]	4	0
 Fmt1=unsigned char[28]	4	0
@@ -83,8 +81,6 @@ Fmt7={W}42:run_state	4	0
 LogEnabled=0
 GraphEnabled=0
 ShowTimeLog=1
-[Breakpoints]
-Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -92,6 +88,8 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Breakpoints]
+Count=0
 [Aliases]
 A0=_ "F:\NB-IOT水表\软体\NB-IOT程序V1.0\USER\main.c" ""
 A1=_ "F:\中科君达\NB水表\软件\NB-IOT程序V1.1\BSP\mcu_init.c" ""

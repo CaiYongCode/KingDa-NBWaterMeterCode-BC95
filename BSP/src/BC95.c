@@ -64,6 +64,7 @@ void BC95_Power_Off(void)        //BC95断电
   BC95.ReportBit = 0;
   BC95.StartProcess = IDLE;
   BC95.IncidentPend = FALSE; //清除事件挂起
+  BC95.TimeoutNum = 0;
   
   Free_Uart2();
   USART_DeInit(USART2);
@@ -87,6 +88,7 @@ void BC95_Reset(void)
   GPIO_ResetBits(GPIOE,GPIO_Pin_1);     //复位脚拉高
    
   BC95.StartProcess = NRB; //指向下一个流程
+  BC95.IncidentPend = TRUE;
   BC95.TimeoutNum = 0;   
 }
 /*********************************************************************************
@@ -112,7 +114,7 @@ void BC95_Process(void)
     case NRB:                   //重启
       {
         BC95_Data_Send("AT+NRB\r\n",8);
-        Create_Timer(ONCE,BC95_TIMEROUT_TIME,
+        Create_Timer(ONCE,10,
                      BC95_Timeout_CallBack,0,PROCESS); 
       }
       break;
@@ -593,10 +595,9 @@ void BC95_Process(void)
             if(HistoryData.Total > 0)
             {
               HistoryData.Total--;
+              HistoryData.Front = (HistoryData.Front+1)%HistoryDataMaxNum;
+              WriteRom(HISTORY_DATA_FRONT_ADDR,&HistoryData.Front,3);
             }
-            HistoryData.Front = (HistoryData.Front+1)%HistoryDataMaxNum;
-            WriteRom(HISTORY_DATA_FRONT_ADDR,&HistoryData.Front,1);
-            WriteRom(HISTORY_DATA_TOTAL_ADDR,&HistoryData.Total,1);
           }
           else
           {
@@ -656,23 +657,35 @@ void BC95_Data_Send(unsigned char *Data,unsigned short Len)
 *********************************************************************************/
 void BC95_Timeout_CallBack(void)//启动超时重发
 {
-  unsigned char TimeoutNum = 0;
+  unsigned char timeoutMax = 0;
   
   BC95.TimeoutNum++;
   
-  if( BC95.StartProcess == NMGS )
+  switch(BC95.StartProcess)
   {
-    TimeoutNum = 3;
+  case NRB:                   //重启
+    {
+      timeoutMax = 3;
+    }
+    break;
+  case CGATT:                 //查询网络附着 
+    {
+      timeoutMax = 15;
+    }
+    break;
+  case NMGS:                 //发送消息     
+    {     
+     timeoutMax = 3;
+    }
+    break;
+  default:
+    {
+      timeoutMax = 10;
+    }
+    break;
   }
-  else if( BC95.StartProcess == CGATT )
-  {
-    TimeoutNum = 15;
-  }
-  else
-  {
-    TimeoutNum = 10;
-  }
-  if(BC95.TimeoutNum < TimeoutNum)//判断超时是否超次数
+  
+  if(BC95.TimeoutNum < timeoutMax)//判断超时是否超次数
   {
     BC95.IncidentPend = TRUE;  
   }
@@ -887,7 +900,6 @@ void Send_Data_Process(void)
         }
         else
         {
-          Clear_History_Data_Info();
           BC95.ReportBit++;
           BC95.IncidentPend = TRUE;
         }
@@ -896,7 +908,6 @@ void Send_Data_Process(void)
     default:
       {
         BC95.ReportBit = 0;
-        BC95.FailTimes = 0;
         BC95.StartProcess = BC95_POWER_DOWN;
         Create_Timer(ONCE,5,                            //等待5s关机
                      BC95_Delay_CallBack,0,PROCESS);
@@ -1344,7 +1355,7 @@ void Report_HC_Flow(void)
  Return:        //
  Others:        //
 *********************************************************************************/
-unsigned char Report_History_Data(void)
+void Report_History_Data(void)
 {
   uint8_t data[40] = "AT+NMGS=12,080000000000000000000000\r\n";
   unsigned char buff[9] = {0};
@@ -1382,7 +1393,5 @@ unsigned char Report_History_Data(void)
   data[34] = 0x30;
   
   BC95_Data_Send(data,37);
-  
-  return 1;
 }
 /******************************************END********************************************************/

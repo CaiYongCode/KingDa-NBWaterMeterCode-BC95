@@ -52,9 +52,7 @@ struct BC95_Str//BC95 总结构体
   unsigned char TimeoutNum;         //超时计数
   unsigned char Rssi;                 //信号强度
   bool IncidentPend;                  //事件挂起标志
-  unsigned char IPOpt;                //IP选项
   unsigned char ReconnectTimes;      //重连次数
-  unsigned char FailTimes;            //失败次数
   unsigned char ICCID[20];
   unsigned char IMEI[15];
   unsigned char ErrorStep;        //故障步骤
@@ -82,8 +80,7 @@ void Send_Data_Process(void);
 void ACK(u8 messageId,u8 errcode,u8 mid[4]);
 void Report_All_Parameters(void);
 void Report_HC_Flow(void);
-
-unsigned char Report_History_Data(void);
+void Report_History_Data(void);
 
 /********************************************************************************/
 #endif

@@ -51,8 +51,6 @@ void main(void)
 /////////////////////////////////////////////////////////    
   Read_ACUM_Flow(ADD_FLOW_ADD,&Cal.Water_Data);         //读取当前累积流量
   Read_Meter_Parameter();                               //读取水表参数
-
-//  BC95_Power_On();
   
   MeterParameter.DeviceStatus = SLEEP;
   

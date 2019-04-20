@@ -302,8 +302,6 @@ INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_USART2_TX_IRQHandler,19)
   * @param  None
   * @retval None
   */
-//u8 Uart2_RX_CNT = 0;
-//u8 Uart2_buff[256] = {0};
 INTERRUPT_HANDLER(TIM2_CC_USART2_RX_IRQHandler,20)
 {
  
