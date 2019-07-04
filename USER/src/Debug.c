@@ -26,6 +26,43 @@ struct Debug_EN Debug;
 *********************************************************************************/
 /*********************************************************************************
  Function:      //
+ Description:   //初始化
+ Input:         //
+ Output:        //
+ Return:      	//
+ Others:        //
+*********************************************************************************/
+void Debug_Init(void)
+{
+  MeterParameter.Peripheral.debug = RUN;
+  USART3_Configuration();  
+  Create_Timer(ONCE,60,
+               Debug_DeInit,0,PROCESS); 
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //取消初始化为默认状态
+ Input:         //
+ Output:        //
+ Return:      	//
+ Others:        //
+*********************************************************************************/
+void Debug_DeInit(void)
+{
+  Free_Uart3();
+  USART_DeInit(USART3);
+  CLK_PeripheralClockConfig(CLK_Peripheral_USART3,DISABLE);
+  GPIO_Init(GPIOE, GPIO_Pin_6 , GPIO_Mode_Out_PP_Low_Slow);
+  GPIO_Init(GPIOE, GPIO_Pin_7 , GPIO_Mode_In_FL_IT);
+  
+  EXTI_SetPinSensitivity(EXTI_Pin_7, EXTI_Trigger_Falling);
+  EXTI_ClearITPendingBit (EXTI_IT_Pin7);                    
+  ITC_SetSoftwarePriority(EXTI7_IRQn , ITC_PriorityLevel_2);
+  
+  MeterParameter.Peripheral.debug = SLEEP;
+}
+/*********************************************************************************
+ Function:      //
  Description:   //
  Input:         //
                 //
@@ -35,17 +72,19 @@ struct Debug_EN Debug;
 *********************************************************************************/
 void Debug_Process(void)
 {
-  unsigned char MsgID = 0;
-  unsigned char MsgLen = 0;
+  uint8_t buff[64] = {0};
+  uint8_t msgID = 0;
+  uint8_t msgLen = 0;
+  uint8_t dataLen = 0;
   
-  if(Uart3.Receive_Pend == TRUE)//判断有数据
-  { 
-    Uart3_Receive(Uart3.R_Buffer);
-    
-    if( (Uart3.R_Buffer[0] == 0xFE)&&(Uart3.R_Buffer[1] == 0xFE)&&(Uart3.R_Buffer[2] == 0xA5) )
-    {
-      MsgLen = Uart3.R_Buffer[3]*0x100+Uart3.R_Buffer[4];
-      if(  Uart3.R_Buffer[5+MsgLen] == Check_Sum8(&Uart3.R_Buffer[5],MsgLen) )
+  if(MeterParameter.Peripheral.debug != SLEEP)
+  {
+    if(Uart3.Receive_Pend == TRUE)//判断有数据
+    { 
+      MsgLen = Uart3_Receive(buff);
+      
+      dataLen = Uart3.R_Buffer[3];
+      if( buff[MsgLen-1] == Check_Sum8(&Uart3.R_Buffer[4],MsgLen) )
       {
         Debug.Status = TRUE;
         MsgID = Uart3.R_Buffer[5];
@@ -75,7 +114,6 @@ void Debug_Process(void)
             break;
         }
       }
-      
     }
   }
 }

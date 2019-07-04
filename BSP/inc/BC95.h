@@ -69,6 +69,7 @@ extern struct BC95_Str BC95;//BC95 ÓÃµÄ¼Ä´æÆ÷
 void BC95_Power_On(void); 
 void BC95_Power_Off(void);
 void BC95_Reset(void);
+void BC95_NetLightRun(void);
 void BC95_Process(void);
 void BC95_Data_Send(unsigned char *Data,unsigned short Len);
 

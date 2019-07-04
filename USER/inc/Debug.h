@@ -42,6 +42,8 @@ extern struct Debug_EN Debug;
 /*********************************************************************************
 功能代码定义区
 *********************************************************************************/
+void Debug_Init(void);
+void Debug_DeInit(void);
 void Debug_Process(void);
 void Debug_ACK_Busy(unsigned char cmd);
 void Debug_ACK_OK(unsigned char cmd);

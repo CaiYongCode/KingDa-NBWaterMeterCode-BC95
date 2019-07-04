@@ -44,6 +44,9 @@ void BC95_Power_On(void)
   
   BC95.ReportBit = 1;
   
+  Create_Timer(CONTINUOUSS,1,
+               BC95_NetLightRun,0,PROCESS); 
+  
   Create_Timer(ONCE,1,
                BC95_Reset,0,PROCESS); 
 }
@@ -59,7 +62,7 @@ void BC95_Power_On(void)
 void BC95_Power_Off(void)        //BC95断电
 {
   GPIO_ResetBits(GPIOE,GPIO_Pin_2); 
-  
+  GPIO_ResetBits(GPIOD,GPIO_Pin_6);  
   BC95.ReconnectTimes = 0; 
   BC95.ReportBit = 0;
   BC95.StartProcess = IDLE;
@@ -90,6 +93,19 @@ void BC95_Reset(void)
   BC95.StartProcess = NRB; //指向下一个流程
   BC95.IncidentPend = TRUE;
   BC95.TimeoutNum = 0;   
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //网络指示灯
+ Input:         //
+                //
+ Output:        //
+ Return:      	//
+ Others:        //
+*********************************************************************************/
+void BC95_NetLightRun(void)
+{
+  GPIO_ToggleBits(GPIOD,GPIO_Pin_6);     
 }
 /*********************************************************************************
  Function:      //
@@ -417,7 +433,7 @@ void BC95_Process(void)
           Delete_Timer(BC95_Timeout_CallBack);//删除超时回调
         }
       }
-      break;  
+      break;
     case NCONFIG:               //设置手动入网
       {
         if(strstr((const char *)BC95.RxBuffer,"OK") != NULL)
@@ -678,6 +694,11 @@ void BC95_Timeout_CallBack(void)//启动超时重发
      timeoutMax = 3;
     }
     break;
+  case BC95_POWER_DOWN:       //断电
+    {  
+      BC95_Power_Off();
+      return;
+    }
   default:
     {
       timeoutMax = 10;
