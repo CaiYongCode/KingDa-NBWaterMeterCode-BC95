@@ -73,68 +73,6 @@ void Rtc_Config(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-//void Set_RTC(void)
-//{
-//  RTC_TimeTypeDef  RTC_Time;
-//  RTC_DateTypeDef  RTC_Date;
-//  
-//  RTC_Date.RTC_Year = BC95.R_Buffer[22]*10+BC95.R_Buffer[24];
-//  RTC_Date.RTC_Month = BC95.R_Buffer[26]*10+BC95.R_Buffer[28];
-//  RTC_Date.RTC_Date = BC95.R_Buffer[30]*10+BC95.R_Buffer[32];
-//  RTC_Date.RTC_WeekDay = RTC_Weekday_Monday;
-//  
-//  RTC_Time.RTC_Hours   = BC95.R_Buffer[34]*10+BC95.R_Buffer[36];
-//  RTC_Time.RTC_Minutes = BC95.R_Buffer[38]*10+BC95.R_Buffer[40];
-//  RTC_Time.RTC_Seconds = BC95.R_Buffer[42]*10+BC95.R_Buffer[44];
-//  
-//  RTC_SetDate(RTC_Format_BIN, &RTC_Date);
-//  RTC_SetTime(RTC_Format_BIN, &RTC_Time);
-//}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-//void Set_Time(RTC_TimeTypeDef  *RTC_Time) //设置时间
-//{
-//  RTC_TimeStructInit(RTC_Time);   //校时 时间
-//  RTC_TimeStr.RTC_Hours   = RTC_Time->RTC_Hours;
-//  RTC_TimeStr.RTC_Minutes = RTC_Time->RTC_Minutes;
-//  RTC_TimeStr.RTC_Seconds = RTC_Time->RTC_Seconds;
-//  RTC_SetTime(RTC_Format_BIN, RTC_Time);
-//}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-//void Set_Date(RTC_DateTypeDef  *RTC_Date) //设置日期
-//{
-//  RTC_DateStructInit(RTC_Date);  //校时 日历
-//  RTC_DateStr.RTC_WeekDay = RTC_Date->RTC_WeekDay;
-//  RTC_DateStr.RTC_Date = RTC_Date->RTC_Date;
-//  RTC_DateStr.RTC_Month = RTC_Date->RTC_Month;
-//  RTC_DateStr.RTC_Year = RTC_Date->RTC_Year;
-//  
-//  RTC_SetDate(RTC_Format_BIN, RTC_Date);
-//}
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
 void Set_Alarm(void) //设置闹钟
 {
   RTC_AlarmTypeDef  RTC_AlarmStr;       //闹钟结构体
@@ -154,20 +92,6 @@ void Set_Alarm(void) //设置闹钟
   RTC_AlarmCmd(ENABLE);                                                         //启动闹钟
   ITC_SetSoftwarePriority(RTC_CSSLSE_IRQn, ITC_PriorityLevel_2);                //优先级
 }
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-//void Close_Alarm(void)
-//{
-//  RTC_ITConfig(RTC_IT_ALRA, DISABLE);  //关闭闹钟中断
-//  RTC_AlarmCmd(DISABLE);    //关闭闹钟
-//}
 /*********************************************************************************
  Function:      //
  Description:   //闹钟中断
@@ -204,20 +128,16 @@ void Wake_Interrupt (void)
   uint16_t randnum = 0;
   
   if(RESET != RTC_GetITStatus(RTC_IT_WUT))
-  { 
-    if(MeterParameter.DeviceStatus != SLEEP)
-    {
-      SysTick_Handler();
-    }
-    
+  {    
     /*周期采样数据*/
     if(MeterParameter.SampleFrequency > 0)
     {
       MeterParameter.SampleTiming++;
       if( (MeterParameter.SampleTiming/60) >= MeterParameter.SampleFrequency )
       {
-        Save_History_Data();    //保存本次数据
         MeterParameter.SampleTiming = 0;
+        MeterParameter.Mode.eeprom = WAKE;
+        MeterParameter.Event.eeprom = PEND;
       }
     }
     /*离散上报时间无效，则按出厂时间上报，否则按照设定离散上报*/
@@ -229,8 +149,8 @@ void Wake_Interrupt (void)
         if( (MeterParameter.ReportTiming/60) >= MeterParameter.ReportFrequency )
         {               
           MeterParameter.ReportTiming = 0;
-          Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
-          BC95_Power_On();
+          MeterParameter.Mode.bc95 = WAKE;
+          MeterParameter.Event.bc95 = PEND;
         }  
       }
     }
@@ -254,8 +174,8 @@ void Wake_Interrupt (void)
           MeterParameter.ReportRandTime = 0;
           MeterParameter.ReportRandTiming = 0;
           MeterParameter.ReportTiming = 0;
-          Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
-          BC95_Power_On();
+          MeterParameter.Mode.bc95 = WAKE;
+          MeterParameter.Event.bc95 = PEND;
         }
       }
     }
@@ -279,6 +199,10 @@ void GMT_to_BT(unsigned char *str)
   unsigned char LeapYear = 0;
   
   year   = ASCLL_to_Int(str[6])*10 + ASCLL_to_Int(str[7]);
+  if(year < 19)
+  {
+    return;
+  }
   month  = ASCLL_to_Int(str[9])*10 + ASCLL_to_Int(str[10]);
   day    = ASCLL_to_Int(str[12])*10 + ASCLL_to_Int(str[13]);
   hour   = ASCLL_to_Int(str[15])*10 + ASCLL_to_Int(str[16]);

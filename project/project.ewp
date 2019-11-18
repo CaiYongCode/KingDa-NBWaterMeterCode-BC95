@@ -1641,6 +1641,9 @@
       <name>$PROJ_DIR$\..\LIB\src\stm8l15x_syscfg.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\LIB\src\stm8l15x_tim4.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\LIB\src\stm8l15x_usart.c</name>
     </file>
     <file>
@@ -1649,6 +1652,9 @@
   </group>
   <group>
     <name>USER</name>
+    <file>
+      <name>$PROJ_DIR$\..\USER\src\Debug.c</name>
+    </file>
     <file>
       <name>$PROJ_DIR$\..\USER\src\Globaldata.c</name>
     </file>

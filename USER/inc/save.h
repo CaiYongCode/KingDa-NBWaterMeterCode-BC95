@@ -34,9 +34,15 @@ void Save_Add_Flow(u16 addr,union flow_union *Flow);       //´æ´¢ÀÛ»ýË®Á¿
 void Save_SDCF_Flow(union flow_union *Flow);  
 void Read_History_Data(unsigned char* buff);
 void Save_History_Data(void);
-void Clear_History_Data_Info(void);
 void Read_BC95_Error_Record(void);
 void Save_BC95_Error_Record(void);
+
+void Save_DebugResetRecord(void);
+void Read_DebugResetRecord(uint8_t *buff);
+void Save_DebugReportStatistics(uint8_t flag);
+void Read_DebugReportStatistics(uint8_t *buff);
+void Save_DebugReportRecord(uint8_t flag);
+void Read_DebugReportRecord(uint8_t *buff);
 /********************************************************************************************************/
 #endif
 

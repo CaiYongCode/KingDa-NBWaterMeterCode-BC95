@@ -42,6 +42,9 @@
 #define  SDCF12_ADDR                            (EEPROM_ADDR+69)     //上12月结算日流量地址
 #define  SDCF13_ADDR                            (EEPROM_ADDR+73)     //上13月结算日流量地址
 
+#define  DEBUG_RESET_RECORD_ADDR                (EEPROM_ADDR+80)     //复位记录地址
+#define  DEBUG_REPORT_STATISTICS_ADDR           (EEPROM_ADDR+88)     //上传统计地址
+#define  DEBUG_REPORT_RECORD_ADDR               (EEPROM_ADDR+94)     //上传记录地址
 
 #define  HISTORY_DATA_FRONT_ADDR                (EEPROM_ADDR+128)      //历史数据头
 #define  HISTORY_DATA_REAR_ADDR                 (EEPROM_ADDR+129)      //历史数据尾
@@ -64,8 +67,7 @@
 /*********************************************************************************************************
 函数声明区
 *********************************************************************************************************/
-void Sleep(void);
-void IWDG_INIT(void);
+void Event_Process(void);
 /********************************************************************************************************/
 #endif
 

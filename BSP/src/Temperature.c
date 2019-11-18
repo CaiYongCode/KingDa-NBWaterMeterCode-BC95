@@ -91,14 +91,8 @@ void Read_Temp(void)
   }
 
   temp = (signed char)i - 40-1;
-  if(temp < 0)
-  {
-    MeterParameter.Temp = ~(abs(temp)-1);
-  }
-  else
-  {
-    MeterParameter.Temp = temp;
-  }
+
+  MeterParameter.Temp = temp;
 }
 /*********************************************************************************
  Function:      //

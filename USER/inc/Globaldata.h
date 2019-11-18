@@ -14,11 +14,31 @@
 *********************************************************************************/
 enum Device_Status_EN
 {
- RUN,   //运行
- SLEEP  //睡眠
+ SLEEP,  //睡眠
+ WAKE    //唤醒
 };
+enum Device_Event_EN
+{
+  FREE,  //释放
+  PEND   //挂起
+};
+/*设备单元联合体定义*/
+typedef union 
+{ 
+  uint8_t All;
+  struct
+  {
+    uint8_t bc95:1;   
+    uint8_t eeprom:1;
+    uint8_t debug:1;
+    uint8_t reverse:5;
+  };
+}Device_UnitUnion;
+
 struct Meter_Parameter_EN
 { 
+  Device_UnitUnion Mode;                //模式
+  Device_UnitUnion Event;               //事件
   u8 MeterNumber[7];                    //表号
   u16 AlarmVoltage;                     //电池告警电压
   u8 SettleDate;                        //结算日期
@@ -33,7 +53,6 @@ struct Meter_Parameter_EN
   u32 ReportTiming;                     //上报计时，秒
   u32 SampleTiming;                     //采样计时，秒
   u32 SaveFlowTiming;                   //保存水量计时，秒
-  enum Device_Status_EN DeviceStatus;  //设备状态  
   signed char Temp;                   //温度
   u16 Voltage;                          //电压 
 };

@@ -41,27 +41,24 @@
 void main(void)
 { 
   disableInterrupts();                                      //关总中断
-  RCC_Configuration();
-  GPIO_Configuration();
+  MCU_Config();
   Rtc_Config();
   Set_Alarm();
   Pulse_Acquire_Config();
-  IWDG_INIT();  
+  Debug_Config();
   enableInterrupts();                                       //开总中断
-/////////////////////////////////////////////////////////    
-  Read_ACUM_Flow(ADD_FLOW_ADD,&Cal.Water_Data);         //读取当前累积流量
+///////////////////////////////////////////////////////// 
   Read_Meter_Parameter();                               //读取水表参数
-  
-  MeterParameter.DeviceStatus = SLEEP;
-  
-  while (1)
+  Save_DebugResetRecord();
+/////////////////////////////////////////////////////////   
+  while(1)
   {
    
     IWDG_ReloadCounter();//重载看门狗计数器
 
     Magnetic_Interference_Detection();  //磁干扰检测
     
-    if(MeterParameter.DeviceStatus == SLEEP)     //设备进入睡眠状态
+    if(MeterParameter.Mode.All == SLEEP)     //设备进入睡眠状态
     {
       Sleep();
     }  
@@ -69,56 +66,46 @@ void main(void)
     {
       Sys_Timer_Process();
       BC95_Process(); 
+      Debug_Process();
+      Event_Process();
     }
   }
 }
-
 /*********************************************************************************
  Function:      //
- Description:   //
+ Description:   //事件进程
  Input:         //
-                //
  Output:        //
  Return:      	//
  Others:        //
 *********************************************************************************/
-void Sleep(void)
-{  
-  PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
-  PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          
-  CLK_HSICmd(DISABLE);                          //关闭内部高速时钟
-
-  halt();
+void Event_Process(void)
+{
+  //上传数据
+  if(MeterParameter.Event.bc95 != FREE)
+  {
+    MeterParameter.Event.bc95 = FREE;
+    Save_DebugReportStatistics(0);      //启动次数+1
+    Save_DebugReportRecord(0);           //保存启动时间
+    Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量
+    BC95_Power_On();
+  }
+  
+  //采样数据
+  if(MeterParameter.Event.eeprom != FREE)
+  {
+    MeterParameter.Event.eeprom = FREE;
+    Save_History_Data();    //保存本次数据
+    MeterParameter.Mode.eeprom = SLEEP;
+  }
+  
+  //调试数据
+  if(MeterParameter.Event.debug != FREE)
+  {
+    MeterParameter.Event.debug = FREE;
+    Debug_Init();
+  }
 }
-/**
-*******************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-void IWDG_INIT(void)  //看门狗初始化
-{ 
-  IWDG_Enable();//启动看门狗
-  IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable);//允许写预分频器和重载寄存器
-  IWDG_SetPrescaler(IWDG_Prescaler_256);//设置IWDG预分频值
-  IWDG_SetReload(0xFF);//设置重载值1.7s：(255+1)*256/38K = 1.72s
-  IWDG_ReloadCounter();//重载计数器
-}
-
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-
 /*********************************************************************************
  Function:      //
  Description:   //

@@ -86,9 +86,6 @@ INTERRUPT_HANDLER(DMA1_CHANNEL0_1_IRQHandler,2)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-//  MeterParameter.Voltage =  (u32)1224*4096/(ADC1SampleBuffer[0]+ADC1SampleBuffer[1]);
-//  /* Clear IT Pending Bit */
-//  DMA_ClearITPendingBit(DMA1_IT_TC0);
 }
 /**
   * @brief DMA1 channel2 and channel3 Interrupt routine.
@@ -248,6 +245,13 @@ INTERRUPT_HANDLER(EXTI7_IRQHandler,15)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
+  if(RESET == GPIO_ReadInputDataBit(GPIOE,GPIO_Pin_7) )
+  {
+    MeterParameter.Mode.debug = WAKE;
+    MeterParameter.Event.debug = PEND;
+  }
+  
+  EXTI_ClearITPendingBit(EXTI_IT_Pin7);            //清中断标志位
 }
 /**
   * @brief LCD /AES Interrupt routine.
@@ -323,7 +327,7 @@ INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_USART3_TX_IRQHandler,21)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
-//  USART3_TX_IRQHandler();
+  USART3_TX_IRQHandler();
 }
 /**
   * @brief Timer3 Capture/Compare /USART3 RX Interrupt routine.
@@ -335,7 +339,7 @@ INTERRUPT_HANDLER(TIM3_CC_USART3_RX_IRQHandler,22)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
- // USART3_IRQHandler();
+  USART3_IRQHandler();
 }
 /**
   * @brief TIM1 Update/Overflow/Trigger/Commutation Interrupt routine.
@@ -344,7 +348,6 @@ INTERRUPT_HANDLER(TIM3_CC_USART3_RX_IRQHandler,22)
   */
 INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_COM_IRQHandler,23)
 {
-//  tim1_updata();
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
@@ -372,8 +375,8 @@ INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler,25)
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
- // SysTick_Handler();
- // TIM4_ClearITPendingBit(TIM4_IT_Update);                                       //清空中断标志位
+  SysTick_Handler();
+  TIM4_ClearITPendingBit(TIM4_IT_Update);                                       //清空中断标志位
 }
 /**
   * @brief SPI1 Interrupt routine.

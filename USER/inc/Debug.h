@@ -10,16 +10,7 @@
 /*********************************************************************************
 数据类型定义
 *********************************************************************************/
-struct Debug_EN
-{
-  bool Status;
-  u8 SendData;
-};
-enum MessageID{
-  MessageID0,
-  MessageID1,
-  MessageID2
-};
+
 /*********************************************************************************
 常量定义区
 *********************************************************************************/
@@ -32,7 +23,7 @@ enum MessageID{
 /*********************************************************************************
 私有变量定义区
 *********************************************************************************/ 
-extern struct Debug_EN Debug;
+//extern struct Debug_EN Debug;
 /*********************************************************************************
 测试变量定义区
 *********************************************************************************/
@@ -42,11 +33,22 @@ extern struct Debug_EN Debug;
 /*********************************************************************************
 功能代码定义区
 *********************************************************************************/
+void Debug_Config(void);
 void Debug_Init(void);
 void Debug_DeInit(void);
 void Debug_Process(void);
-void Debug_ACK_Busy(unsigned char cmd);
-void Debug_ACK_OK(unsigned char cmd);
-void Send_Meter_Info(void);
+void Debug_EepromStatus(void);
+void Debug_VolTemp(void);
+void Debug_Time(void);
+void Debug_IMEIandIMSI(void);
+void Debug_SignalParas(void);
+void Debug_SampleParas(void);
+void Debug_ReportParas(void);
+void Debug_ResetRecord(void);
+void Debug_SampleRecord(void);
+void Debug_ReportStatistics(void);
+void Debug_ReportRecord(void);
+void Debug_ClearResetRecord(void);
+void Debug_ClearReportStatistics(void);
 #endif
 /******************************************END********************************************************/

@@ -38,7 +38,7 @@
 #define UART2_SBUF_NUM            256//发送缓冲区大小宏定义
 #define UART2_RBUF_NUM            256//接收缓冲区大小宏定义
 
-#define UART3_SBUF_NUM            64//发送缓冲区大小宏定义
+#define UART3_SBUF_NUM            128//发送缓冲区大小宏定义
 #define UART3_RBUF_NUM            64//接收缓冲区大小宏定义
 /*********************************************************************************************************
 数据类型定义
@@ -85,6 +85,7 @@ ErrorStatus Uart3_Send(unsigned char *Send_Data,unsigned short Send_Lenght);
 unsigned short Uart3_Receive(unsigned char *R_buff);
 void USART3_IRQHandler(void);
 void USART3_TX_IRQHandler(void);
+void Free_Uart3(void);
 /********************************************************************************************************/
 #endif
 

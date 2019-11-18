@@ -67,6 +67,7 @@ void WriteRom (unsigned short addr, void *pbuff, unsigned char length)
     if(++cnt > 50)
     {
      FLASH_Lock(FLASH_MemType_Data);
+     break;
     }
     continue ; 
    }
@@ -86,6 +87,7 @@ void WriteRom (unsigned short addr, void *pbuff, unsigned char length)
 *********************************************************************************/
 void Read_Meter_Parameter(void)
 {
+  Read_ACUM_Flow(ADD_FLOW_ADD,&Cal.Water_Data);         //读取当前累积流量
   //读取表号
   MeterParameter.MeterNumber[0] = *((const unsigned char *)(CJT_188_ADD));
   MeterParameter.MeterNumber[1] = *((const unsigned char *)(CJT_188_ADD+1));
@@ -97,9 +99,9 @@ void Read_Meter_Parameter(void)
   //读取告警电压
 //  MeterParameter.AlarmVoltage = *((const unsigned short *)(BAT_ALARM_ADD));
 //  if(MeterParameter.AlarmVoltage == 0)
-//  {
-//    MeterParameter.AlarmVoltage = 320;
-//  }
+  {
+    MeterParameter.AlarmVoltage = 330;
+  }
 
   //读取结算日
   MeterParameter.SettleDate = *((const unsigned char *)(SETTLE_DATE_ADD));
@@ -302,24 +304,6 @@ void Save_History_Data(void)
 }
 /*********************************************************************************
  Function:      //
- Description:   //清除历史数据信息
- Input:         //
-                //
- Output:        //
- Return:	//
- Others:        //
-*********************************************************************************/
-void Clear_History_Data_Info(void)
-{
-  unsigned char temp[3] = {0};
-  
-  HistoryData.Front = 0;
-  HistoryData.Rear = 0;
-  HistoryData.Total = 0;
-  WriteRom(HISTORY_DATA_FRONT_ADDR,temp,3);
-}
-/*********************************************************************************
- Function:      //
  Description:   //读取BC95故障记录
  Input:         //
                 //
@@ -345,5 +329,156 @@ void Save_BC95_Error_Record(void)
 {
   WriteRom(BC95_ERROR_RECORD_ADD,&BC95.ErrorStep,1);
   WriteRom(BC95_ERROR_RECORD_ADD+1,&BC95.ErrorCode,2);
+}
+
+/*****************************************************************************************************/
+/******************************************DEBUG相关读写**********************************************/
+/*****************************************************************************************************/
+/*********************************************************************************
+ Function:      //
+ Description:   //保存调试复位记录
+ Input:         //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Save_DebugResetRecord(void)
+{
+  uint8_t buff[10] = {0};
+  uint16_t num = 0;
+  RTC_DateTypeDef date;    
+  RTC_TimeTypeDef time;
+
+  //获取时间   
+  RTC_GetDate(RTC_Format_BIN, &date);
+  RTC_GetTime(RTC_Format_BIN, &time);
+  
+  num = *((const unsigned short *)(DEBUG_RESET_RECORD_ADDR));
+  num++;
+  
+  buff[0] = num/0x100;
+  buff[1] = num%0x100; 
+  buff[2] = date.RTC_Year;
+  buff[3] = date.RTC_Month;
+  buff[4] = date.RTC_Date;
+  buff[5] = time.RTC_Hours;
+  buff[6] = time.RTC_Minutes; 
+  buff[7] = time.RTC_Seconds; 
+  
+  WriteRom(DEBUG_RESET_RECORD_ADDR,buff,8);
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //读取调试复位记录
+ Input:         //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Read_DebugResetRecord(uint8_t *buff)
+{
+  uint8_t i = 0;
+
+  for(i = 0;i < 8;i++)
+  {
+    buff[i] = *((const unsigned char *)(DEBUG_RESET_RECORD_ADDR+i));
+  }
+}  
+/*********************************************************************************
+ Function:      //
+ Description:   //保存上传统计
+ Input:         //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Save_DebugReportStatistics(uint8_t flag)
+{
+  uint16_t num = 0;
+  uint16_t addr = 0;
+  
+  addr = DEBUG_REPORT_STATISTICS_ADDR + flag*2;
+  
+  num = *((const unsigned short *)(addr));
+  num++;
+  WriteRom(addr,&num,2);
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //读取上传统计
+ Input:         //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Read_DebugReportStatistics(uint8_t *buff)
+{
+  uint8_t i = 0;
+
+  for(i = 0;i < 6;i++)
+  {
+    buff[i] = *((const unsigned char *)(DEBUG_REPORT_STATISTICS_ADDR+i));
+  }
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //保存上传记录
+ Input:         //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Save_DebugReportRecord(uint8_t flag)
+{
+  uint8_t buff[10] = {0};
+  uint16_t addr = 0;
+  RTC_DateTypeDef date;    
+  RTC_TimeTypeDef time;
+ 
+  if(flag == 0)         //保存启动时间
+  { 
+    addr = DEBUG_REPORT_RECORD_ADDR;
+    RTC_GetDate(RTC_Format_BIN, &date);
+    RTC_GetTime(RTC_Format_BIN, &time);
+    buff[0] = date.RTC_Year;
+    buff[1] = date.RTC_Month;
+    buff[2] = date.RTC_Date;
+    buff[3] = time.RTC_Hours;
+    buff[4] = time.RTC_Minutes; 
+    buff[5] = time.RTC_Seconds; 
+    WriteRom(addr,buff,10); 
+  }
+  else if(flag == 1)    //保存结果成功
+  {
+    addr = DEBUG_REPORT_RECORD_ADDR+6;
+    buff[0] = 1;
+    WriteRom(addr,buff,1); 
+  }
+  else if(flag == 2)    //保存结果失败
+  {
+    addr = DEBUG_REPORT_RECORD_ADDR+6;
+    buff[0] = 2;
+    buff[1] = BC95.ErrorStep;
+    buff[2] = BC95.ErrorCode/0x100;
+    buff[3] = BC95.ErrorCode%0x100;
+    WriteRom(addr,buff,4); 
+  }
+}
+/*********************************************************************************
+ Function:      //
+ Description:   //读取上传记录
+ Input:         //
+ Output:        //
+ Return:	//
+ Others:        //
+*********************************************************************************/
+void Read_DebugReportRecord(uint8_t *buff)
+{
+  uint8_t i = 0;
+
+  for(i = 0;i < 10;i++)
+  {
+    buff[i] = *((const unsigned char *)(DEBUG_REPORT_RECORD_ADDR+i));
+  }
 }
 /******************************************END********************************************************/

@@ -94,7 +94,8 @@ void ExtiD_Interrupt (void)                        //外中断D
         if(Cal.Error != HALL2) 
         {
           Cal.Error = HALL2;     
-          BC95_Power_On();
+          MeterParameter.Mode.bc95 = WAKE;
+          MeterParameter.Event.bc95 = PEND;
         }
       }
     }
@@ -106,7 +107,8 @@ void ExtiD_Interrupt (void)                        //外中断D
         if(Cal.Error != HALL1) 
         {
           Cal.Error = HALL1; 
-          BC95_Power_On();
+          MeterParameter.Mode.bc95 = WAKE;
+          MeterParameter.Event.bc95 = PEND;
         }
       }
     }
@@ -129,8 +131,9 @@ void Exti0_Interrupt (void)                        //外中断F
   {
     if(BC95.StartProcess == IDLE)
     {
-      Save_Add_Flow(ADD_FLOW_ADD,&Cal.Water_Data);       //保存当前水量 
-      BC95_Power_On(); 
+      MeterParameter.Mode.bc95 = WAKE;
+      MeterParameter.Event.bc95 = PEND;
+      BC95.Manual = TRUE;
     }
   }
   EXTI_ClearITPendingBit(EXTI_IT_Pin0);            //清中断标志位
@@ -152,7 +155,8 @@ void Magnetic_Interference_Detection(void)
     {
       Cal.Error = INTERFERE;
       Cal.ErrorTimes = 0;            
-      BC95_Power_On();
+      MeterParameter.Mode.bc95 = WAKE;
+      MeterParameter.Event.bc95 = PEND;
     }
   } 
 }

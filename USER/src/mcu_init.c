@@ -39,16 +39,13 @@
  Return:      	//
  Others:        //
 *********************************************************************************/
-//void MCU_Config(void)
-//{
-//  RCC_Configuration();
-//  GPIO_Configuration();
-//  TIM4_Config();
-//  USART2_Configuration();
-//  USART3_Configuration();
-//  ITC_Config();
-//  Pulse_Acquire_Config();
-//}
+void MCU_Config(void)
+{
+  RCC_Configuration();
+  GPIO_Configuration();
+  TIM4_Config();
+  IWDG_Config();
+}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -60,12 +57,9 @@
 *********************************************************************************/
 void RCC_Configuration(void)                                                   //时钟初始化
 {
-//  CLK_DeInit(); 
-//  CLK_HSICmd(ENABLE);
+  CLK_HSICmd(ENABLE);
   CLK_SYSCLKSourceConfig(CLK_SYSCLKSource_HSI);
   CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);                                         //16M速度
-
-//  CLK_ClockSecuritySystemEnable();//
 }
 /*********************************************************************************
  Function:      //
@@ -75,8 +69,6 @@ void RCC_Configuration(void)                                                   /
  Output:        //
  Return:      	//
  Others:        //
-
-
 *********************************************************************************/
 void GPIO_Configuration(void)
 {
@@ -85,8 +77,7 @@ void GPIO_Configuration(void)
   GPIO_Init(GPIOC, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow);
   GPIO_Init(GPIOD, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow);
   GPIO_Init(GPIOE, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow);
-  GPIO_Init(GPIOF, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow);
-  
+  GPIO_Init(GPIOF, GPIO_Pin_All,GPIO_Mode_Out_PP_Low_Slow); 
 }
 /*********************************************************************************
  Function:      //
@@ -97,14 +88,48 @@ void GPIO_Configuration(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-//void TIM4_Config(void)
-//{ 
-//  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4 , ENABLE);              //使能定时器4时钟
-//  TIM4_TimeBaseInit(TIM4_Prescaler_128 , 125);    //设置定时器4为128分频，向上计数，计数值为125即为1毫秒的计数值
-//  TIM4_ITConfig(TIM4_IT_Update , ENABLE);         //使能向上计数溢出中断
-//  TIM4_ARRPreloadConfig(ENABLE);                  //使能定时器4自动重载功能    
-//  TIM4_Cmd(ENABLE);                               //启动定时器4开始计数
-//}
+void TIM4_Config(void)
+{ 
+  TIM4_DeInit();
+  CLK_PeripheralClockConfig(CLK_Peripheral_TIM4 , ENABLE);              //使能定时器4时钟
+  TIM4_TimeBaseInit(TIM4_Prescaler_128 , 125);    //设置定时器4为128分频，向上计数，计数值为125即为1毫秒的计数值
+  TIM4_ITConfig(TIM4_IT_Update , ENABLE);         //使能向上计数溢出中断
+  TIM4_ARRPreloadConfig(ENABLE);                  //使能定时器4自动重载功能    
+  TIM4_Cmd(ENABLE);                               //启动定时器4开始计数
+  ITC_SetSoftwarePriority(TIM4_UPD_OVF_TRG_IRQn, ITC_PriorityLevel_2);  //定时器4中断优先级
+}
+/*******************************************************************************
+ Function:      //
+ Description:   //看门狗配置
+ Input:         //
+ Output:        //
+ Return:      	//
+ Others:        //
+*******************************************************************************/
+void IWDG_Config(void)  
+{ 
+  IWDG_Enable();                                //启动看门狗
+  IWDG_WriteAccessCmd(IWDG_WriteAccess_Enable); //允许写预分频器和重载寄存器
+  IWDG_SetPrescaler(IWDG_Prescaler_256);        //设置IWDG预分频值
+  IWDG_SetReload(0xFF);                         //设置重载值1.7s：(255+1)*256/38K = 1.72s
+  IWDG_ReloadCounter();                         //重载计数器
+}
+/*******************************************************************************
+ Function:      //
+ Description:   //休眠
+ Input:         //
+ Output:        //
+ Return:      	//
+ Others:        //
+*******************************************************************************/
+void Sleep(void)
+{  
+  PWR_FastWakeUpCmd(ENABLE);                    //开启电源管理里的快速唤醒  
+  PWR_UltraLowPowerCmd(ENABLE);                 //使能电源的低功耗模式          
+  CLK_HSICmd(DISABLE);                          //关闭内部高速时钟
+
+  halt();
+}
 /*********************************************************************************
  Function:      //
  Description:   //
@@ -232,58 +257,7 @@ void Read_Voltage(void)
  Return:      	//
  Others:        //
 *********************************************************************************/
-/*********************************************************************************
- Function:      //
- Description:   //
- Input:         //
-                //
- Output:        //
- Return:      	//
- Others:        //
-*********************************************************************************/
-//void ADC_Config(void)
-//{
-//  /* Enable ADC1 clock */
-//  CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);
-///* Initialize and configure ADC1 */
-//  ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_1);
-//  ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_24Cycles);
-//  ADC_SamplingTimeConfig(ADC1, ADC_Group_FastChannels, ADC_SamplingTime_24Cycles);
-//
-//  /* Enable ADC1 */
-//  ADC_Cmd(ADC1, ENABLE);
-//  ADC_VrefintCmd(ENABLE);
-//
-//  /* Enable ADC1 Channels 3 */
-//  ADC_ChannelCmd(ADC1, ADC_Channel_3, ENABLE); /* connected to Potentiometer RV */
-//  /* Enable ADC1 Channels 24 */
-//  ADC_ChannelCmd(ADC1, ADC_Channel_Vrefint, ENABLE); /* connected to ADC_Channel_Vrefint */
-//
-//}
-//void DMA_Config(void)
-//{
-//   /* Enable DMA1 clock */
-//  CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
-//  /* Connect ADC to DMA channel 0 */
-// SYSCFG_REMAPDMAChannelConfig(REMAP_DMA1Channel_ADC1ToChannel0);//ADC通道要remap
-////BUFFER_SIZE
-//  DMA_Init(DMA1_Channel0, 
-//           ADC1_SAMPLE_BUFFER_ADDRESS,
-//           ADC1_DR_ADDRESS,
-//           ADC1_SAMPLE_BUFFER_SIZE,
-//           DMA_DIR_PeripheralToMemory,
-//           DMA_Mode_Circular,
-//           DMA_MemoryIncMode_Inc,
-//           DMA_Priority_High,
-//           DMA_MemoryDataSize_HalfWord);
-//  /* DMA Channel0 enable */
-//  DMA_Cmd(DMA1_Channel0, ENABLE);
-//  /* Enable DMA1 channel0 Transfer complete interrupt */
-//  DMA_ITConfig(DMA1_Channel0, DMA_ITx_TC, ENABLE);   
-//  /* DMA enable */
-//  DMA_GlobalCmd(ENABLE);
-//  ADC_DMACmd(ADC1, ENABLE); 
-//}
+
 /*********************************************************************************
  Function:      //
  Description:   //
