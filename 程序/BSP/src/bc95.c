@@ -862,10 +862,13 @@ void BC95_Timeout(void)
   else
   {
     BC95.TimeoutNum = 0; 
-    if(BC95.Process == CSQ)
+    /*CSQ、NUESTATS、CCLK失败跳入下一步*/
+    if( (BC95.Process == CSQ)
+       ||(BC95.Process == NUESTATS)
+         ||(BC95.Process == CCLK) )
     {
-      BC95.Process = NUESTATS;
-      BC95.IncidentPend = TRUE;  
+      BC95.Process++;
+      BC95.IncidentPend = TRUE; 
     }
     else
     {
