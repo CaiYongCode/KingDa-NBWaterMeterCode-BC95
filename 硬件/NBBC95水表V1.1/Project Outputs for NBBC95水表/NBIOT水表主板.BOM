@@ -1,0 +1,45 @@
+Bill of Material for NBIOT水表主板.PcbDoc
+On 2019-09-04 at 11:19:59
+
+ Comment             Pattern     Quantity  Components
+------------------------------------------------------------------------------
+ 0Ω (0R0) ±1%      0603_R           1    R7                           贴片电阻             
+ 0Ω (0R0) ±1%      0805_R           1    R19                          贴片电阻             
+ 100nF (104) 10% 50V 0603_C           5    C2, C9, C10, C13, C16        贴片电容             
+ 100pF (101) 5% 50V  0603_C           1    C3                           贴片电容             
+ 100uF (107) ±10% 6.3V CASE-B_3528      2    C1, C14                      钽电容               
+ 10KΩ (1002) ±1%   0603_R           2    R10, R23                     贴片电阻             
+ 1KΩ (1001) ±1%    0603_R           7    R17, R20, R21, R25, R26, R27 贴片电阻             
+                                           R28
+ 1N4148WS T4         SOD-323          1    D2                           二极管               
+ 1nF (102) 10% 50V   0603_C           1    C8                           贴片电容             
+ 2.2KΩ (2201) ±1%  0603_R           3    R2, R22, R24                 贴片电阻             
+ 22pF (220) 5% 50V   0603_C           2    C4, C17                      贴片电容             
+ 22Ω (22R0) ±1%    0603_R           3    R12, R13, R14                贴片电阻             
+ 3.6V                电池连接焊线     1    BT1                          功率型锂电池         
+ 32.768KHz ±20ppm 12.5pF SMD-3215_2P FC - 135    1    Y1                           贴片晶振             
+ 330Ω (3300) ±1%   0603_R           1    R3                           贴片电阻             
+ 4.7KΩ (4701) ±1%  0603_R           5    R4, R5, R8, R11, R15         贴片电阻             
+ 4.7uF (475) 10% 16V 0603_C           1    C7                           贴片电容             
+ 470KΩ (4703) ±1%  0603_R           1    R1                           贴片电阻             
+ 470uF / 10V         CASE-E_7343      1    C15                          钽电容               
+ 47KΩ (4702) ±1%   0603_R           4    R6, R9, R16, R18             贴片电阻             
+ 6.8pF (6R8) 0.25pF 50V 0603_C           2    C11, C12                     贴片电容             
+ Antenna             PIN1             1    E1                           Generic Antenna      
+ BC95-B5             BC95-B           1    M1                           NB-IOT模块 电信      
+ Hall                霍尔转接板       2    S1, S2                       霍尔开关转接板       
+ Header 4            HDR1X4           2    P2, SW                       Header, 4-Pin        
+ MicroSIM            SIM-01A          1    SIM1                         MicroSIM卡座         
+ NCP18XH103F03RB     0603_R           1    RT1                          热敏电阻             
+ P6SMB6.8CA          SMB(DO-214AA)_S1    1    D3                           TVS                  
+ Reserved            0603_C           2    C5, C6                       贴片电容             
+ S5712BCDL1-M3T1-U   SOT-23           1    S3                                                
+ SI2301CDS-T1-GE3    SOT-23(SOT-23-3)    1    Q1                           MOS(场效应管)        
+ SMDSIM              VQFN48           1    SIM2                         SMDSIM芯片           
+ SMF05CT1G           SC-70-6(SOT-363)    1    U1                           TVS                  
+ SS54                SMA(DO-214AC)_S1    1    D4                           二极管               
+ SS8050 Y1           SOT-23(SOT-23-3)    5    Q2, Q3, Q4, Q5, Q6           三极管               
+ STM8L151C8T6        LQFP48_M         1    U2                           STM8L ARM-based EnergyLite 8-bit MCU, 64 kB Flash, 4 kB Internal RAM, -40 to +85癈 Temperature, 48-pin LQFP, Tray 
+ 红灯 0603           0603_LED_S1      1    D1                           发光二极管           
+ 黄灯 0603           0603_LED_S1      1    D5                           发光二极管           
+ 绿灯 0603           0603_LED_S1      1    D6                           发光二极管           

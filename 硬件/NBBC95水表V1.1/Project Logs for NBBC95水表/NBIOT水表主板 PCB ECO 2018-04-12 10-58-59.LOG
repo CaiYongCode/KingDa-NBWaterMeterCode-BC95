@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=VCC Pin=R23-1
+Added Component: Designator=C17(0603_C)
+Added Pin To Net: NetName=GND Pin=C17-1
+Change Net Name : Old Net Name=NRST New Net Name=SWIM
+Change Net Name : Old Net Name=SWIM New Net Name=NRST
+Added Pin To Net: NetName=NetC17_2 Pin=C17-2
+Added Pin To Net: NetName=NetC17_2 Pin=R23-1
+Added Pin To Net: NetName=NetC17_2 Pin=U2-5
+Added Net: Name=NetC17_2
+Added Member To Class: ClassName=NBBC95水表 Member=Component C17 22pF (220) 5% 50V
+Added Room: Name=MCU
+Added Room: Name=NB-IOT
+Added Room: Name=NBBC95水表

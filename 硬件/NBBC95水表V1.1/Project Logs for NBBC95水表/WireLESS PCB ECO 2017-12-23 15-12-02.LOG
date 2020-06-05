@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=NetR26_2 Pin=U2-41
+Removed Pin From Net: NetName=NetR25_2 Pin=U2-42
+Added Pin To Net: NetName=NetR25_2 Pin=U2-47
+Added Pin To Net: NetName=NetR26_2 Pin=U2-48
+Added Pin To Net: NetName=NetU2_41 Pin=U2-41
+Added Net: Name=NetU2_41
+Added Pin To Net: NetName=NetU2_42 Pin=U2-42
+Added Net: Name=NetU2_42
+Added Room: Name=MCU
+Added Room: Name=NB-IOT
+Added Room: Name=NBBC95Ë®±í

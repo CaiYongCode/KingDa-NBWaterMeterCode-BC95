@@ -1,0 +1,10 @@
+Added Component: Designator=S1(霍尔转接板)
+Added Component: Designator=S2(霍尔转接板)
+Added Pin To Net: NetName=VCC Pin=S1-1
+Added Pin To Net: NetName=NetR20_2 Pin=S1-2
+Added Pin To Net: NetName=GND Pin=S1-3
+Added Pin To Net: NetName=VCC Pin=S2-1
+Added Pin To Net: NetName=NetR21_2 Pin=S2-2
+Added Pin To Net: NetName=GND Pin=S2-3
+Added Member To Class: ClassName=NBBC95水表 Member=Component S1 Hall
+Added Member To Class: ClassName=NBBC95水表 Member=Component S2 Hall

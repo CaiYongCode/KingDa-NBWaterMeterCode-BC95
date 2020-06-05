@@ -1,0 +1,11 @@
+Output: Simple BOM
+Type  : SimpleBOM
+From  : Project [NBBC95水表.PrjPCB]
+   Generated File[NBIOT水表主板.BOM]
+   Generated File[NBIOT水表主板.CSV]
+
+
+Files Generated   : 2
+Documents Printed : 0
+
+Finished Output Generation At 11:19:59 On 2019-09-04

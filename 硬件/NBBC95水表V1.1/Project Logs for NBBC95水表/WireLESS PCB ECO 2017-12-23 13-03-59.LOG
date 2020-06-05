@@ -1,0 +1,4 @@
+Added Component: Designator=C15(法拉电容卧式)
+Added Pin To Net: NetName=VCC Pin=C15-1
+Added Pin To Net: NetName=NetBT1_2 Pin=C15-2
+Added Member To Class: ClassName=NBBC95水表 Member=Component C15 0.5F / 5.5V

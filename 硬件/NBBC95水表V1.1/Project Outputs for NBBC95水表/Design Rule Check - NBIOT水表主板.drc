@@ -1,0 +1,661 @@
+Protel Design System Design Rule Check
+PCB File : F:\0中科君达\0项目\NB水表\硬件\NBBC95水表V1.1\NBIOT水表主板.PcbDoc
+Date     : 2018-10-10
+Time     : 11:29:37
+
+ERROR : More than 500 violations detected, DRC was stopped
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
+   Violation between Arc (0mm,16mm)  Keep-Out Layer and 
+                     Polygon Arc (0.6364mm,15.3636mm)  Top Layer
+   Violation between Arc (0mm,16mm)  Keep-Out Layer and 
+                     Polygon Arc (0.61145mm,15.3396mm)  Top Layer
+   Violation between Arc (30mm,16mm)  Keep-Out Layer and 
+                     Polygon Arc (30.61108mm,15.33926mm)  Top Layer
+   Violation between Arc (30mm,16mm)  Keep-Out Layer and 
+                     Polygon Arc (30.58943mm,15.31988mm)  Top Layer
+Rule Violations :4
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.254mm) (Max=2.54mm) (Preferred=0.254mm) (All)
+   Violation between Width Constraint: Polygon Arc (0.9632mm,-22.9986mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-0.0368mm,-22.9986mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.9632mm,-23.9986mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (2.098mm,-18.669mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (2.098mm,-18.669mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.4798mm,-19.4564mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-19.5948mm,-2.6786mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-18.5948mm,-2.6786mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.021mm,-4.6716mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-0.979mm,-3.6716mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-0.979mm,-4.6716mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.4798mm,-19.4564mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.4798mm,-19.4564mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.1308mm,-19.431mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.1308mm,-19.431mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.0358mm,-19.5326mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.0358mm,-19.5326mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.1506mm,-13.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.1506mm,-13.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.1506mm,-11.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.1506mm,-12.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.1308mm,-3.7338mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.1506mm,-11.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (4.745mm,-9.4234mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (4.745mm,-9.4234mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.1054mm,-5.5372mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.1506mm,-10.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.1506mm,-12.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (6.477mm,-17.5006mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.4816mm,-8.6868mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.4816mm,-8.6868mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.3098mm,-7.1182mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.3098mm,-7.1182mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-17.3482mm,-0.7366mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-17.3482mm,-0.7366mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0mm,0mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (2.278mm,1.1256mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (2.278mm,1.1256mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.3462mm,2.0574mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.3462mm,2.0574mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.255mm,-19.304mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.255mm,-19.304mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.0424mm,-19.304mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.0424mm,-19.304mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.4006mm,-18.9458mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.4006mm,-18.9458mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-16.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-15.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-15.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-15.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-14.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-15.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-13.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-13.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-13.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-14.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-14.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-13.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.4006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.9006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-14.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-11.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-11.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-11.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-12.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-11.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-12.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-12.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-10.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.9506mm,-12.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.4006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.9006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.9006mm,-18.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.4006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.9006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (10.4006mm,-18.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (10.4006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.906mm,-11.5316mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.4006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.906mm,-11.5316mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (10.4006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (12.4006mm,-20.9756mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (12.4006mm,-20.9756mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.8148mm,-20.5994mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.8148mm,-20.5994mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (11.4006mm,-18.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (10.9006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (10.9006mm,-18.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (12.4006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (11.4006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (11.9006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.4006mm,-18.9632mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (12.9006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.4006mm,-18.9632mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.4006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (10.9006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (11.4006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (11.9006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (12.3952mm,-11.2014mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (12.3952mm,-11.2014mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.9006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (12.9006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.4006mm,-10.4144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.97mm,-19.5072mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.97mm,-19.5072mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.9006mm,-18.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.8496mm,-19.0754mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.9006mm,-16.8144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-13.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-15.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-15.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-14.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-14.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-11.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-11.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-16.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.1506mm,-15.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-13.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-12.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-10.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (14.3506mm,-12.3644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.1506mm,-14.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.4006mm,-8.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.9006mm,-8.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.9006mm,-8.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (9.4006mm,-8.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (10.3886mm,-7.8994mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.7832mm,-4.6182mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.7832mm,-4.6182mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (11.5824mm,-2.6162mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (11.5824mm,-2.6162mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.9408mm,1.905mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (8.9408mm,1.905mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (13.9006mm,-8.6144mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.6464mm,-9.8298mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.5862mm,-7.3152mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.5862mm,-3.3528mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.5862mm,-3.3528mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.0622mm,-2.3876mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.0622mm,-2.3876mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.0622mm,-2.3876mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-9.9822mm,5.8928mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-9.9822mm,5.8928mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-9.0922mm,9.6012mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-9.0922mm,9.6012mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-5.3582mm,3.3022mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-5.715mm,3.3528mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-5.3582mm,3.3022mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-2.794mm,5.1308mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-2.794mm,5.1308mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-1.6844mm,3.8288mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-1.6844mm,3.8288mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-3.0734mm,5.4102mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-2.43628mm,8.636mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-2.43628mm,8.636mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-0.1444mm,7.1882mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-12.1666mm,13.1572mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-12.1666mm,13.1572mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-8.6306mm,13.9754mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-8.6306mm,13.9754mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-8.0518mm,14.5542mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-8.0518mm,14.5542mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-4.9784mm,11.4754mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-4.9784mm,11.4754mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-4.0894mm,16.0274mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-4.0894mm,16.0274mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-2.3172mm,25.22423mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-2.9205mm,24.42672mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-2.81192mm,26.09328mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-1.5494mm,18.5674mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-1.5494mm,18.5674mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-1.5494mm,23.0886mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (-1.5494mm,23.0886mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.8128mm,7.1882mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.8128mm,7.1882mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.07761mm,9.858mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.07761mm,9.858mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.6364mm,15.3636mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.61145mm,15.3396mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0mm,16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (4.56921mm,9.858mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (4.56921mm,9.858mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.8798mm,14.902mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.8798mm,14.902mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.969mm,4.8768mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.969mm,4.8768mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.969mm,8.45822mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.969mm,8.45822mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0mm,16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0mm,16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.508mm,20.8534mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (0.508mm,20.8534mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.302mm,21.59mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.302mm,21.59mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.524mm,26.8478mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.14088mm,25.5016mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.14088mm,25.5016mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (2.4384mm,26.79912mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (2.4384mm,26.79912mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.524mm,29.06388mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (1.524mm,29.06388mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.44793mm,30.61101mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.96887mm,27.65659mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.1374mm,21.59mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.5438mm,21.1836mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.5438mm,21.1836mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (7.1374mm,21.59mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (3.96887mm,27.65659mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.1308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (5.6308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.1308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.1308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.1308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.6276mm,-21.4122mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.6276mm,-21.4122mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (18.034mm,-18.8722mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (18.034mm,-18.8722mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (18.923mm,-16.4846mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.728mm,-15.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (16.728mm,-15.8644mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.6276mm,-16.764mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.6276mm,-16.764mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.399mm,-13.5382mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.399mm,-13.5382mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.4752mm,-14.3764mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.4752mm,-14.3764mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.399mm,-12.5476mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.4752mm,-14.3764mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.399mm,-12.5476mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (18.923mm,-16.4846mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (18.923mm,-16.4846mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (21.4376mm,-21.4122mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (21.4376mm,-21.4122mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (22.6822mm,-20.1676mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (22.6822mm,-20.1676mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.2514mm,-19.3548mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.2514mm,-19.3548mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (22.6822mm,-17.6276mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (22.6822mm,-17.6276mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (22.6822mm,-15.0876mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.0764mm,-14.4018mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.226mm,-14.5288mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.226mm,-14.5288mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.3624mm,-13.1826mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.3624mm,-13.1826mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (18.915mm,-11.295mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (18.915mm,-11.295mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (20.0406mm,-10.4648mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (20.0406mm,-10.4648mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.4117mm,-9.7917mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.4117mm,-9.7917mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.653mm,-8.0772mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (17.653mm,-8.0772mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (23.8379mm,-7.6073mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (23.8379mm,-7.6073mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (23.8252mm,-7.0358mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (23.8252mm,-7.0358mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (23.8252mm,-7.0358mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.0002mm,-8.9408mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.0002mm,-8.9408mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (25.89953mm,-6.95113mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (25.89953mm,-6.95113mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.8732mm,-7.9248mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.8732mm,-7.9248mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.9146mm,-7.1628mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.3624mm,-11.303mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.3624mm,-11.303mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.861mm,-10.16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.5214mm,-10.922mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.2446mm,-7.9248mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.2446mm,-7.9248mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.9146mm,-7.1628mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (35.3314mm,-20.7518mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (35.3314mm,-20.7518mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (34.0614mm,-17.6022mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (37.5158mm,-17.6022mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (37.5158mm,-17.6022mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (36.703mm,-11.684mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (32.258mm,-11.684mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (36.703mm,-11.684mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.0166mm,-23.989mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.0166mm,-22.989mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (41.0166mm,-22.989mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (41mm,-16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (42mm,-16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.8178mm,-14.3002mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.8178mm,-14.3002mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.9392mm,-13.3858mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (48.6272mm,-15.0228mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (48.6272mm,-14.0228mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.9392mm,-13.3858mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (49.6272mm,-14.0228mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (47.752mm,-12.573mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (47.752mm,-12.573mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (35.941mm,-8.1788mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (34.8742mm,-7.4422mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.2082mm,-8.1788mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.2082mm,-8.1788mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (33.147mm,-2.7686mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (33.147mm,-2.7686mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (38.1mm,-4.318mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (38.1mm,-4.318mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (41.7322mm,-5.4356mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (44.022mm,-4.2964mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (44.022mm,-4.2964mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (43.8404mm,-4.1148mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (43.8404mm,-4.1148mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (44.022mm,-4.2964mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (44.022mm,-4.2964mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.9138mm,-0.4826mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (47.3456mm,-1.4224mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (47.3456mm,-1.4224mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (47.752mm,-1.8288mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (47.752mm,-1.8288mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (21.7932mm,1.905mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (21.7932mm,1.905mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (23.9141mm,4.0259mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (23.9141mm,4.0259mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.3958mm,5.8166mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.3958mm,5.8166mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.33733mm,14.53739mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.18809mm,13.11273mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.1308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (25.6032mm,22.2758mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (15.1308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (24.6308mm,31.0134mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.8085mm,23.4811mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.8085mm,23.4811mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (28.96889mm,14.12873mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.68915mm,13.48514mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.33733mm,14.53739mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30mm,16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.68915mm,13.48514mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.464mm,21.0566mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.464mm,21.0566mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.61108mm,15.33926mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30.58943mm,15.31988mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.21mm,20.828mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.8085mm,26.20343mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.8085mm,26.20343mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.20633mm,27.65659mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.3402mm,26.73514mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (27.3402mm,26.73514mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (26.72727mm,30.61101mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.464mm,28.25108mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (29.464mm,28.25108mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.71701mm,0.1096mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.71701mm,0.1096mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (34.4478mm,2.2058mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (34.4478mm,2.2058mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (41.3862mm,3.10116mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (41.3862mm,3.10116mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.9138mm,-0.4826mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.4876mm,6.477mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.4876mm,6.477mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.5328mm,5.588mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.5328mm,5.588mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (37.338mm,8.46462mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (32.69989mm,8.48423mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (32.69989mm,8.48423mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30mm,16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.5214mm,18.4912mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.5214mm,18.4912mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (30mm,16mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.5214mm,22.9616mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (31.5214mm,22.9616mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (34.0106mm,16.002mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (34.0106mm,16.002mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (32.83472mm,26.09328mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (32.9433mm,24.42672mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (32.34mm,25.22423mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (32.34mm,25.22423mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (41.43248mm,7.42188mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (41.43248mm,7.42188mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (37.34756mm,8.5096mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.7924mm,8.8392mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (44.69892mm,7.42188mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (44.69892mm,7.42188mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.5328mm,8.128mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (45.8089mm,8.8519mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (45.8089mm,8.8519mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.5328mm,8.128mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (40.4622mm,10.8204mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.5328mm,10.668mm)  Top Layer
+   Violation between Width Constraint: Polygon Arc (46.5328mm,10.668mm)  Top Layer
+Rule Violations :385
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.0254mm) (Max=2.54mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)
+   Violation between Pad SIM1-5(34.0614mm,-22.7584mm)  Top Layer and 
+                     Pad SIM1-6(35.3314mm,-22.7584mm)  Top Layer
+   Violation between Pad SIM1-4(32.7914mm,-22.7584mm)  Top Layer and 
+                     Pad SIM1-5(34.0614mm,-22.7584mm)  Top Layer
+   Violation between Pad SIM1-3(31.5214mm,-22.7584mm)  Top Layer and 
+                     Pad SIM1-4(32.7914mm,-22.7584mm)  Top Layer
+   Violation between Pad SIM1-2(30.2514mm,-22.7584mm)  Top Layer and 
+                     Pad SIM1-3(31.5214mm,-22.7584mm)  Top Layer
+   Violation between Pad SIM1-1(28.9814mm,-22.7584mm)  Top Layer and 
+                     Pad SIM1-2(30.2514mm,-22.7584mm)  Top Layer
+Rule Violations :5
+
+Processing Rule : Silkscreen Over Component Pads (Clearance=0.254mm) (IsPad),(All)
+   Violation between Text "S3" (0.5842mm,-19.7358mm)  Top Overlay and 
+                     Pad S3-2(1.0312mm,-20.5178mm)  Top Layer
+   Violation between Track (5.7278mm,-23.2424mm)(5.9208mm,-23.0424mm)  Top Overlay and 
+                     Pad D6-K(5.1308mm,-22.5124mm)  Top Layer
+   Violation between Track (4.3408mm,-23.0424mm)(4.3408mm,-22.1424mm)  Top Overlay and 
+                     Pad D6-K(5.1308mm,-22.5124mm)  Top Layer
+   Violation between Track (5.9208mm,-23.0424mm)(5.9208mm,-22.1424mm)  Top Overlay and 
+                     Pad D6-K(5.1308mm,-22.5124mm)  Top Layer
+   Violation between Track (4.5338mm,-23.2424mm)(5.7278mm,-23.2424mm)  Top Overlay and 
+                     Pad D6-K(5.1308mm,-22.5124mm)  Top Layer
+   Violation between Track (4.3408mm,-23.0424mm)(4.5338mm,-23.2424mm)  Top Overlay and 
+                     Pad D6-K(5.1308mm,-22.5124mm)  Top Layer
+   Violation between Track (4.3408mm,-21.3424mm)(4.3408mm,-20.2074mm)  Top Overlay and 
+                     Pad D6-A(5.1308mm,-20.9724mm)  Top Layer
+   Violation between Track (5.9208mm,-21.3424mm)(5.9208mm,-20.2074mm)  Top Overlay and 
+                     Pad D6-A(5.1308mm,-20.9724mm)  Top Layer
+   Violation between Track (4.3408mm,-20.2074mm)(5.9208mm,-20.2074mm)  Top Overlay and 
+                     Pad D6-A(5.1308mm,-20.9724mm)  Top Layer
+   Violation between Track (6.2458mm,-23.0424mm)(6.4388mm,-23.2424mm)  Top Overlay and 
+                     Pad D5-K(7.0358mm,-22.5124mm)  Top Layer
+   Violation between Track (7.6328mm,-23.2424mm)(7.8258mm,-23.0424mm)  Top Overlay and 
+                     Pad D5-K(7.0358mm,-22.5124mm)  Top Layer
+   Violation between Track (6.2458mm,-23.0424mm)(6.2458mm,-22.1424mm)  Top Overlay and 
+                     Pad D5-K(7.0358mm,-22.5124mm)  Top Layer
+   Violation between Track (7.8258mm,-23.0424mm)(7.8258mm,-22.1424mm)  Top Overlay and 
+                     Pad D5-K(7.0358mm,-22.5124mm)  Top Layer
+   Violation between Track (6.4388mm,-23.2424mm)(7.6328mm,-23.2424mm)  Top Overlay and 
+                     Pad D5-K(7.0358mm,-22.5124mm)  Top Layer
+   Violation between Track (6.2458mm,-21.3424mm)(6.2458mm,-20.2074mm)  Top Overlay and 
+                     Pad D5-A(7.0358mm,-20.9724mm)  Top Layer
+   Violation between Track (7.8258mm,-21.3424mm)(7.8258mm,-20.2074mm)  Top Overlay and 
+                     Pad D5-A(7.0358mm,-20.9724mm)  Top Layer
+   Violation between Track (6.2458mm,-20.2074mm)(7.8258mm,-20.2074mm)  Top Overlay and 
+                     Pad D5-A(7.0358mm,-20.9724mm)  Top Layer
+   Violation between Arc (15.503mm,-22.8774mm)  Top Overlay and 
+                     Pad C12-2(15.113mm,-22.5124mm)  Top Layer
+   Violation between Track (14.323mm,-22.8774mm)(14.323mm,-22.1424mm)  Top Overlay and 
+                     Pad C12-2(15.113mm,-22.5124mm)  Top Layer
+   Violation between Track (15.903mm,-22.8774mm)(15.903mm,-22.1424mm)  Top Overlay and 
+                     Pad C12-2(15.113mm,-22.5124mm)  Top Layer
+   Violation between Arc (14.723mm,-22.8774mm)  Top Overlay and 
+                     Pad C12-2(15.113mm,-22.5124mm)  Top Layer
+   Violation between Track (14.723mm,-23.2774mm)(15.503mm,-23.2774mm)  Top Overlay and 
+                     Pad C12-2(15.113mm,-22.5124mm)  Top Layer
+   Violation between Track (14.323mm,-21.3424mm)(14.323mm,-20.6074mm)  Top Overlay and 
+                     Pad C12-1(15.113mm,-20.9724mm)  Top Layer
+   Violation between Track (15.903mm,-21.3424mm)(15.903mm,-20.6074mm)  Top Overlay and 
+                     Pad C12-1(15.113mm,-20.9724mm)  Top Layer
+   Violation between Arc (15.503mm,-20.6074mm)  Top Overlay and 
+                     Pad C12-1(15.113mm,-20.9724mm)  Top Layer
+   Violation between Arc (14.723mm,-20.6074mm)  Top Overlay and 
+                     Pad C12-1(15.113mm,-20.9724mm)  Top Layer
+   Violation between Track (14.723mm,-20.2074mm)(15.503mm,-20.2074mm)  Top Overlay and 
+                     Pad C12-1(15.113mm,-20.9724mm)  Top Layer
+   Violation between Arc (8.5mm,-22.8774mm)  Top Overlay and 
+                     Pad C11-2(8.89mm,-22.5124mm)  Top Layer
+   Violation between Arc (9.28mm,-22.8774mm)  Top Overlay and 
+                     Pad C11-2(8.89mm,-22.5124mm)  Top Layer
+   Violation between Track (8.1mm,-22.8774mm)(8.1mm,-22.1424mm)  Top Overlay and 
+                     Pad C11-2(8.89mm,-22.5124mm)  Top Layer
+   Violation between Track (9.68mm,-22.8774mm)(9.68mm,-22.1424mm)  Top Overlay and 
+                     Pad C11-2(8.89mm,-22.5124mm)  Top Layer
+   Violation between Track (8.5mm,-23.2774mm)(9.28mm,-23.2774mm)  Top Overlay and 
+                     Pad C11-2(8.89mm,-22.5124mm)  Top Layer
+   Violation between Track (8.1mm,-21.3424mm)(8.1mm,-20.6074mm)  Top Overlay and 
+                     Pad C11-1(8.89mm,-20.9724mm)  Top Layer
+   Violation between Track (9.68mm,-21.3424mm)(9.68mm,-20.6074mm)  Top Overlay and 
+                     Pad C11-1(8.89mm,-20.9724mm)  Top Layer
+   Violation between Arc (8.5mm,-20.6074mm)  Top Overlay and 
+                     Pad C11-1(8.89mm,-20.9724mm)  Top Layer
+   Violation between Arc (9.28mm,-20.6074mm)  Top Overlay and 
+                     Pad C11-1(8.89mm,-20.9724mm)  Top Layer
+   Violation between Track (8.5mm,-20.2074mm)(9.28mm,-20.2074mm)  Top Overlay and 
+                     Pad C11-1(8.89mm,-20.9724mm)  Top Layer
+   Violation between Track (14.0388mm,-22.9884mm)(14.0388mm,-20.5884mm)  Top Overlay and 
+                     Pad Y1-1(13.2388mm,-21.7884mm)  Top Layer
+   Violation between Track (12.6838mm,-22.9884mm)(14.0388mm,-22.9884mm)  Top Overlay and 
+                     Pad Y1-1(13.2388mm,-21.7884mm)  Top Layer
+   Violation between Track (12.6838mm,-20.5884mm)(14.0388mm,-20.5884mm)  Top Overlay and 
+                     Pad Y1-1(13.2388mm,-21.7884mm)  Top Layer
+   Violation between Track (9.9388mm,-22.9884mm)(9.9388mm,-20.5884mm)  Top Overlay and 
+                     Pad Y1-2(10.7388mm,-21.7884mm)  Top Layer
+   Violation between Track (9.9388mm,-22.9884mm)(11.2938mm,-22.9884mm)  Top Overlay and 
+                     Pad Y1-2(10.7388mm,-21.7884mm)  Top Layer
+   Violation between Track (9.9388mm,-20.5884mm)(11.2938mm,-20.5884mm)  Top Overlay and 
+                     Pad Y1-2(10.7388mm,-21.7884mm)  Top Layer
+   Violation between Track (24.8314mm,-10.7884mm)(24.8314mm,-7.1484mm)  Top Overlay and 
+                     Pad SIM1-0(25.2314mm,-11.9084mm)  Top Layer
+   Violation between Track (24.8314mm,-22.9584mm)(24.8314mm,-13.0384mm)  Top Overlay and 
+                     Pad SIM1-0(25.2314mm,-11.9084mm)  Top Layer
+   Violation between Track (36.0914mm,-22.9584mm)(40.0714mm,-22.9584mm)  Top Overlay and 
+                     Pad SIM1-6(35.3314mm,-22.7584mm)  Top Layer
+   Violation between Track (24.8314mm,-22.9584mm)(28.1314mm,-22.9584mm)  Top Overlay and 
+                     Pad SIM1-1(28.9814mm,-22.7584mm)  Top Layer
+   Violation between Track (40.0714mm,-10.8084mm)(40.0714mm,-7.1484mm)  Top Overlay and 
+                     Pad SIM1-0(39.6314mm,-11.9084mm)  Top Layer
+   Violation between Track (40.0714mm,-22.9584mm)(40.0714mm,-13.0584mm)  Top Overlay and 
+                     Pad SIM1-0(39.6314mm,-11.9084mm)  Top Layer
+   Violation between Track (-10.7806mm,11.892mm)(-10.7806mm,12.492mm)  Top Overlay and 
+                     Pad Q6-2(-11.1306mm,11.242mm)  Top Layer
+   Violation between Track (-10.7806mm,11.892mm)(-10.7806mm,12.492mm)  Top Overlay and 
+                     Pad Q6-1(-11.1306mm,13.142mm)  Top Layer
+   Violation between Text "R5" (-4.1402mm,11.8618mm)  Top Overlay and 
+                     Pad Q3-3(-4.2618mm,12.192mm)  Top Layer
+   Violation between Track (-6.4118mm,11.892mm)(-6.4118mm,12.492mm)  Top Overlay and 
+                     Pad Q3-2(-6.7618mm,11.242mm)  Top Layer
+   Violation between Track (-6.4118mm,11.892mm)(-6.4118mm,12.492mm)  Top Overlay and 
+                     Pad Q3-1(-6.7618mm,13.142mm)  Top Layer
+   Violation between Track (28.674mm,22.9506mm)(28.674mm,24.0856mm)  Top Overlay and 
+                     Pad R21-1(29.464mm,23.7156mm)  Top Layer
+   Violation between Track (30.254mm,22.9506mm)(30.254mm,24.0856mm)  Top Overlay and 
+                     Pad R21-1(29.464mm,23.7156mm)  Top Layer
+   Violation between Track (28.674mm,22.9506mm)(30.254mm,22.9506mm)  Top Overlay and 
+                     Pad R21-1(29.464mm,23.7156mm)  Top Layer
+   Violation between Track (28.674mm,24.8856mm)(28.674mm,26.0206mm)  Top Overlay and 
+                     Pad R21-2(29.464mm,25.2556mm)  Top Layer
+   Violation between Track (30.254mm,24.8856mm)(30.254mm,26.0206mm)  Top Overlay and 
+                     Pad R21-2(29.464mm,25.2556mm)  Top Layer
+   Violation between Track (28.674mm,26.0206mm)(30.254mm,26.0206mm)  Top Overlay and 
+                     Pad R21-2(29.464mm,25.2556mm)  Top Layer
+   Violation between Track (-0.282mm,22.9506mm)(-0.282mm,24.0856mm)  Top Overlay and 
+                     Pad R20-1(0.508mm,23.7156mm)  Top Layer
+   Violation between Track (1.298mm,22.9506mm)(1.298mm,24.0856mm)  Top Overlay and 
+                     Pad R20-1(0.508mm,23.7156mm)  Top Layer
+   Violation between Track (-0.282mm,22.9506mm)(1.298mm,22.9506mm)  Top Overlay and 
+                     Pad R20-1(0.508mm,23.7156mm)  Top Layer
+   Violation between Track (-0.282mm,24.8856mm)(-0.282mm,26.0206mm)  Top Overlay and 
+                     Pad R20-2(0.508mm,25.2556mm)  Top Layer
+   Violation between Track (1.298mm,24.8856mm)(1.298mm,26.0206mm)  Top Overlay and 
+                     Pad R20-2(0.508mm,25.2556mm)  Top Layer
+   Violation between Track (-0.282mm,26.0206mm)(1.298mm,26.0206mm)  Top Overlay and 
+                     Pad R20-2(0.508mm,25.2556mm)  Top Layer
+   Violation between Track (-18.8482mm,-2.5532mm)(-18.6482mm,-2.5532mm)  Top Overlay and 
+                     Pad D4-2(-17.3482mm,-2.3032mm)  Top Layer
+   Violation between Track (-16.0482mm,-2.5532mm)(-15.8482mm,-2.5532mm)  Top Overlay and 
+                     Pad D4-2(-17.3482mm,-2.3032mm)  Top Layer
+   Violation between Track (-18.8482mm,-0.9532mm)(-15.8482mm,-0.9532mm)  Top Overlay and 
+                     Pad D4-2(-17.3482mm,-2.3032mm)  Top Layer
+   Violation between Track (-18.8482mm,2.1468mm)(-18.6482mm,2.1468mm)  Top Overlay and 
+                     Pad D4-1(-17.3482mm,1.8968mm)  Top Layer
+   Violation between Track (-16.0482mm,2.1468mm)(-15.8482mm,2.1468mm)  Top Overlay and 
+                     Pad D4-1(-17.3482mm,1.8968mm)  Top Layer
+   Violation between Track (-15.47941mm,7.4156mm)(-10.4794mm,7.4156mm)  Top Overlay and 
+                     Pad C15-1(-12.9794mm,5.8886mm)  Top Layer
+   Violation between Track (-15.47941mm,-1.8784mm)(-10.4794mm,-1.8784mm)  Top Overlay and 
+                     Pad C15-2(-12.9794mm,-0.3514mm)  Top Layer
+   Violation between Track (-14.0996mm,10.6344mm)(-14.0996mm,11.7694mm)  Top Overlay and 
+                     Pad R16-1(-13.3096mm,11.3994mm)  Top Layer
+   Violation between Track (-12.5196mm,10.6344mm)(-12.5196mm,11.7694mm)  Top Overlay and 
+                     Pad R16-1(-13.3096mm,11.3994mm)  Top Layer
+   Violation between Track (-14.0996mm,10.6344mm)(-12.5196mm,10.6344mm)  Top Overlay and 
+                     Pad R16-1(-13.3096mm,11.3994mm)  Top Layer
+   Violation between Track (-14.0996mm,12.5694mm)(-14.0996mm,13.7044mm)  Top Overlay and 
+                     Pad R16-2(-13.3096mm,12.9394mm)  Top Layer
+   Violation between Track (-12.5196mm,12.5694mm)(-12.5196mm,13.7044mm)  Top Overlay and 
+                     Pad R16-2(-13.3096mm,12.9394mm)  Top Layer
+   Violation between Track (-14.0996mm,13.7044mm)(-12.5196mm,13.7044mm)  Top Overlay and 
+                     Pad R16-2(-13.3096mm,12.9394mm)  Top Layer
+   Violation between Track (-9.1884mm,6.0024mm)(-9.1884mm,7.3224mm)  Top Overlay and 
+                     Pad R19-2(-8.1534mm,6.8824mm)  Top Layer
+   Violation between Track (-7.1184mm,6.0024mm)(-7.1184mm,7.3224mm)  Top Overlay and 
+                     Pad R19-2(-8.1534mm,6.8824mm)  Top Layer
+   Violation between Track (-9.1884mm,6.0024mm)(-7.1184mm,6.0024mm)  Top Overlay and 
+                     Pad R19-2(-8.1534mm,6.8824mm)  Top Layer
+   Violation between Track (-9.1884mm,8.2224mm)(-9.1884mm,9.5424mm)  Top Overlay and 
+                     Pad R19-1(-8.1534mm,8.6624mm)  Top Layer
+   Violation between Track (-7.1184mm,8.2224mm)(-7.1184mm,9.5424mm)  Top Overlay and 
+                     Pad R19-1(-8.1534mm,8.6624mm)  Top Layer
+   Violation between Track (-9.1884mm,9.5424mm)(-7.1184mm,9.5424mm)  Top Overlay and 
+                     Pad R19-1(-8.1534mm,8.6624mm)  Top Layer
+   Violation between Track (-5.4346mm,-2.4984mm)(-5.4346mm,-0.5714mm)  Top Overlay and 
+                     Pad C14-2(-3.7846mm,-1.2714mm)  Top Layer
+   Violation between Track (-2.1346mm,-2.4984mm)(-2.1346mm,-0.5714mm)  Top Overlay and 
+                     Pad C14-2(-3.7846mm,-1.2714mm)  Top Layer
+   Violation between Track (-5.4346mm,-2.4984mm)(-2.1346mm,-2.4984mm)  Top Overlay and 
+                     Pad C14-2(-3.7846mm,-1.2714mm)  Top Layer
+   Violation between Track (-5.4346mm,1.0286mm)(-5.4346mm,2.9556mm)  Top Overlay and 
+                     Pad C14-1(-3.7846mm,1.7286mm)  Top Layer
+   Violation between Track (-2.1346mm,1.0286mm)(-2.1346mm,2.9556mm)  Top Overlay and 
+                     Pad C14-1(-3.7846mm,1.7286mm)  Top Layer
+   Violation between Track (-5.4346mm,2.9556mm)(-2.1346mm,2.9556mm)  Top Overlay and 
+                     Pad C14-1(-3.7846mm,1.7286mm)  Top Layer
+   Violation between Arc (-2.0494mm,5.3176mm)  Top Overlay and 
+                     Pad C16-1(-1.6844mm,4.9276mm)  Top Layer
+   Violation between Track (-2.4494mm,4.5376mm)(-2.4494mm,5.3176mm)  Top Overlay and 
+                     Pad C16-1(-1.6844mm,4.9276mm)  Top Layer
+   Violation between Arc (-2.0494mm,4.5376mm)  Top Overlay and 
+                     Pad C16-1(-1.6844mm,4.9276mm)  Top Layer
+   Violation between Track (-2.0494mm,5.7176mm)(-1.3144mm,5.7176mm)  Top Overlay and 
+                     Pad C16-1(-1.6844mm,4.9276mm)  Top Layer
+   Violation between Track (-2.0494mm,4.1376mm)(-1.3144mm,4.1376mm)  Top Overlay and 
+                     Pad C16-1(-1.6844mm,4.9276mm)  Top Layer
+   Violation between Track (-0.5144mm,5.7176mm)(0.2206mm,5.7176mm)  Top Overlay and 
+                     Pad C16-2(-0.1444mm,4.9276mm)  Top Layer
+   Violation between Track (0.6206mm,4.5376mm)(0.6206mm,5.3176mm)  Top Overlay and 
+                     Pad C16-2(-0.1444mm,4.9276mm)  Top Layer
+   Violation between Track (-0.5144mm,4.1376mm)(0.2206mm,4.1376mm)  Top Overlay and 
+                     Pad C16-2(-0.1444mm,4.9276mm)  Top Layer
+   Violation between Arc (0.2206mm,5.3176mm)  Top Overlay and 
+                     Pad C16-2(-0.1444mm,4.9276mm)  Top Layer
+   Violation between Arc (0.2206mm,4.5376mm)  Top Overlay and 
+                     Pad C16-2(-0.1444mm,4.9276mm)  Top Layer
+   Violation between Track (-5.7684mm,5.7802mm)(-5.7684mm,6.9152mm)  Top Overlay and 
+                     Pad D1-A(-4.9784mm,6.5452mm)  Top Layer
+   Violation between Track (-4.1884mm,5.7802mm)(-4.1884mm,6.9152mm)  Top Overlay and 
+                     Pad D1-A(-4.9784mm,6.5452mm)  Top Layer
+   Violation between Track (-5.7684mm,5.7802mm)(-4.1884mm,5.7802mm)  Top Overlay and 
+                     Pad D1-A(-4.9784mm,6.5452mm)  Top Layer
+   Violation between Track (-4.3814mm,8.8152mm)(-4.1884mm,8.6152mm)  Top Overlay and 
+                     Pad D1-K(-4.9784mm,8.0852mm)  Top Layer
+   Violation between Track (-5.7684mm,7.7152mm)(-5.7684mm,8.6152mm)  Top Overlay and 
+                     Pad D1-K(-4.9784mm,8.0852mm)  Top Layer
+Rule Violations :106
+
+Processing Rule : Silk to Silk (Clearance=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+
+Violations Detected : 500
+Time Elapsed        : 00:00:00

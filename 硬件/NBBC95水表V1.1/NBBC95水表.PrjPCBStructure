@@ -1,0 +1,3 @@
+Record=SheetSymbol|SourceDocument=NBBC95水表.SchDoc|Designator=MCU|SchDesignator=MCU|FileName=MCU.SchDoc|SymbolType=Normal|RawFileName=MCU.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol
+Record=SheetSymbol|SourceDocument=NBBC95水表.SchDoc|Designator=NB-IOT|SchDesignator=NB-IOT|FileName=BC95.SchDoc|SymbolType=Normal|RawFileName=BC95.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol
+Record=TopLevelDocument|FileName=NBBC95水表.SchDoc

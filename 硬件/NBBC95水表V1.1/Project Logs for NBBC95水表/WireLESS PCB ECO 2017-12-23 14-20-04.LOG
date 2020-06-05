@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=GND Pin=P1-2
+Removed Pin From Net: NetName=SWIM Pin=P1-3
+Removed Pin From Net: NetName=NRST Pin=P1-4
+Removed Member From Class: ClassName=MCU Member=P1
+Added Component: Designator=SW(HDR1X4)
+Added Pin To Net: NetName=GND Pin=SW-2
+Added Pin To Net: NetName=SWIM Pin=SW-3
+Added Pin To Net: NetName=NRST Pin=SW-4
+Added Pin To Net: NetName=NetR17_1 Pin=R17-1
+Added Pin To Net: NetName=NetR17_1 Pin=SW-1
+Added Net: Name=NetR17_1
+Added Member To Class: ClassName=MCU Member=Component SW Header 4
+Added Room: Name=MCU
+Added Room: Name=NB-IOT
+Added Room: Name=NBBC95Ë®±í

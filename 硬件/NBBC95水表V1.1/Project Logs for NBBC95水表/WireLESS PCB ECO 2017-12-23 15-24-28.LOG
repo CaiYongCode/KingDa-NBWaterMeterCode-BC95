@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=C15 Old Footprint=法拉电容卧式 New Footprint=CASE-E_7343
+Change Component Comment : Designator=C15 Old Comment=0.5F / 5.5V New Comment=470uF / 10V
+Added Room: Name=MCU
+Added Room: Name=NB-IOT
+Added Room: Name=NBBC95水表

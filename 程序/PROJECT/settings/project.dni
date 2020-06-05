@@ -1,0 +1,76 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[InterruptLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+SumSortOrder=0
+[DataLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+[Breakpoints2]
+Count=0
+[Interrupts]
+Enabled=1
+[MemoryMap]
+Enabled=0
+Base=0
+UseAuto=0
+TypeViolation=1
+UnspecRange=1
+ActionState=1
+[Trace1]
+Enabled=0
+ShowSource=1
+[Simulator]
+Freq=16000000
+[DebugChecksum]
+Checksum=357482689
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[struct_types]
+Fmt0=DevicePara_TypeDef-Temp	3	0
+Fmt1=Pulse_Struct-ForwardStatus	3	0
+Fmt2=Pulse_Struct-Sensor1LostTimes	3	0
+Fmt3=Pulse_Struct-Sensor2LostTimes	3	0
+Fmt4=Pulse_Struct-Sensor3LostTimes	3	0
+Fmt5=ReportParas_TypeDef-StartTimeHour	3	0
+Fmt6=ReportParas_TypeDef-StartTimeMinute	3	0
+Fmt7=struct BC95_Str-CSQ	3	0
+Fmt8=struct BC95_Str-ECL	3	0
+Fmt9=struct BC95_Str-ErrorStep	3	0
+Fmt10=struct BC95_Str-ReconnectTimes	3	0
+Fmt11=struct BC95_Str-TimeoutNum	3	0
+[DataSample]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Breakpoints]
+Count=0
+[Aliases]
+Count=0
+SuppressDialog=0
+[DebuggerSettings]
+DisableInterruptsWhenStepping=0

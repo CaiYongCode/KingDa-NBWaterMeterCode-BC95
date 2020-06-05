@@ -1,0 +1,16 @@
+Added Component: Designator=SIM1(SIM-01A)
+Added Component: Designator=SIM2(VQFN48)
+Added Pin To Net: NetName=NetC9_1 Pin=SIM1-1
+Added Pin To Net: NetName=NetC9_2 Pin=SIM1-2
+Added Pin To Net: NetName=NetR12_2 Pin=SIM1-4
+Added Pin To Net: NetName=NetR14_2 Pin=SIM1-5
+Added Pin To Net: NetName=NetR13_2 Pin=SIM1-6
+Added Pin To Net: NetName=NetC9_1 Pin=SIM2-1
+Added Pin To Net: NetName=NetC9_1 Pin=SIM2-1
+Added Pin To Net: NetName=NetC9_1 Pin=SIM2-1
+Added Pin To Net: NetName=NetR14_2 Pin=SIM2-3
+Added Pin To Net: NetName=NetR13_2 Pin=SIM2-6
+Added Pin To Net: NetName=NetR12_2 Pin=SIM2-7
+Added Pin To Net: NetName=NetC9_2 Pin=SIM2-8
+Added Member To Class: ClassName=NB-IOT Member=Component SIM1 MicroSIM
+Added Member To Class: ClassName=NB-IOT Member=Component SIM2 SMDSIM
